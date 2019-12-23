@@ -1,0 +1,3 @@
+To install and configure  mariadb, wordpress in nginx, run scripts one by one
+sudo ./00inastall.sh
+sudo ./01via-setup-lamp.sh

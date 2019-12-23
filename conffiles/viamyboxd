@@ -1,0 +1,324 @@
+#!/bin/bash
+	## Copyright (C) 2017-2019 ViaMyBox viatc.msk@gmail.com
+	## This file is a part of ViaMyBox free software: you can redistribute it and/or modify
+    ## it under the terms of the GNU General Public License as published by
+    ## the Free Software Foundation, either version 3 of the License, or
+    ## any later version.
+	##
+	## You should have received a copy of the GNU General Public License
+    ## along with ViaMyBox in /home/pi/COPIYNG file.
+	## If not, see <https://www.gnu.org/licenses/>.
+	##  
+# /etc/init.d/viamyboxd
+### BEGIN INIT INFO
+# Provides:          viamyboxd
+# Required-Start:    $all
+# Required-Stop:     $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: viamybox script start stop services
+# Description:       m
+### END INIT INFO
+
+# Каталог в котором будем искать файл
+DAEMON_DIR="/var/run/viamybox"
+
+# Файл где будем хранить номер работающего процесса Родителя
+PID_FILE="${DAEMON_DIR}/monitor_file.pid"
+
+# Имя файла по которому будем определять запущен ли Потомок
+JOB_LOCK_FILE="${DAEMON_DIR}/job_monitor_file.pid"
+
+# В этот файл будем писать ход выполнения скрипта
+LOG="${DAEMON_DIR}/monitor_file_work.log"
+
+# В этот файл будут попадать ошибки при работе скрипта
+ERR_LOG="${DAEMON_DIR}/monitor_file_error.log"
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+
+a1='/usr/bin/via-mybox-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
+echo "$0 нет библиотеки функций $a1" 1>&2 ; exit 1 ; fi
+
+a2='/home/pi/viamybox/scripts/rec-mjpg-func.sh' ; source "$a2" ; if [ $? -ne 0 ] ; then
+echo "$0 нет библиотеки функций $a2" 1>&2 ; exit 1 ; fi
+
+
+. /lib/lsb/init-functions
+
+
+function RecSnapshotAutoload
+{
+(
+trap "{ rm -f "${DAEMON_DIR}/RecSnapshotAutoload.pid"; exit 255; }" TERM INT EXIT
+		# Дополнительная проверка что бы убедиться что Потомок один
+		if [ ! -e "${DAEMON_DIR}/snapshotmjpg.pid" ]
+		then
+			echo ${BASHPID} > "${DAEMON_DIR}/RecSnapshotAutoload.pid"
+			
+			FILE="/home/pi/viamybox/conffiles/via.conf"
+			VAR="snapshotmjpg.sh"
+			PARAM=" autoload"
+			CheckParamInFile "$VAR" "$FILE" "$PARAM" result 
+			if [ $result = 'Y' ] ;then 
+				/home/pi/viamybox/scripts/start_mjpgstrm.sh
+				/home/pi/viamybox/scripts/startMovSensorRec.sh -a
+				/home/pi/viamybox/scripts/snapshotmjpg.sh &
+				echo $! > "${DAEMON_DIR}/snapshotmjpg.pid"
+			fi
+			do_log  "child RecSnapshotAutoload" "Job with pid  ${BASHPID}"
+		else
+			do_log  "child" "PID file RecSnapshotAutoload is exists"
+			exit 0
+		fi
+)&
+}
+
+function RecFfmpegMjpgStreamerAutoload
+{
+(
+trap "{ rm -f "${DAEMON_DIR}/RecFfmpegMjpgStreamerAutoload.pid"; exit 255; }" TERM INT EXIT
+		# Дополнительная проверка что бы убедиться что Потомок один
+		if [ ! -e "${DAEMON_DIR}/mjpg-streamer-rec-video.pid" ];then
+			echo ${BASHPID} > "${DAEMON_DIR}/RecFfmpegMjpgStreamerAutoload.pid"
+			do_log  "child RecFfmpegMjpgStreamerAutoload" "Job with pid  ${BASHPID}"
+			FILE="/home/pi/viamybox/conffiles/via.conf"
+			VAR="mjpg-streamer-rec-video.sh"
+			PARAM=" autoload"
+			CheckParamInFile "$VAR" "$FILE" "$PARAM" result 
+			if [ $result = 'Y' ] ;then 
+			/home/pi/viamybox/scripts/mjpg-streamer-rec-video.sh &
+			echo $! > "${DAEMON_DIR}/mjpg-streamer-rec-video.pid"
+			fi
+		else
+			do_log  "child" "PID file mjpg-streamer-rec-video.pid is exists"
+			exit 0
+		fi
+
+)&
+}
+
+kill_child_processes() {
+    isTopmost=$1
+    curPid=$2
+    childPids=`ps -o pid --no-headers --ppid ${curPid}`
+    for childPid in $childPids
+    do
+        kill_child_processes 0 $childPid
+    done
+    if [ $isTopmost -eq 0 ]; then
+        kill -9 $curPid 2> /dev/null
+    fi
+}
+
+function do_log () {
+#exec 1> >(logger -s -t $(basename $0)) 2>&1
+	process=$1
+	shift
+	echo "${process}[${BASHPID}]: $*"
+}
+
+function do_stop () {
+
+	# exec >> $LOG
+	# exec 2>> $ERR_LOG
+	# exec < /dev/null
+
+	#exec 1> >(logger -s -t $(basename $0)) 2>&1
+
+# if [ -e ${PID_FILE} ]
+# then
+	# _pid=$(cat ${PID_FILE})
+	# kill $_pid
+	# rt=$?
+	# if [ "$rt" == "0" ]
+    # then
+       # echo "viamybox daemon stop"
+    # else
+       # echo "Error viamybox stop daemon"
+	# fi
+# else
+    # echo "viamybox daemon is't running"
+# fi
+
+	if [ -e ${JOB_LOCK_FILE} ]
+		then
+		_pid=$(cat ${JOB_LOCK_FILE})
+		kill $_pid
+		rt=$?
+		if [ "$rt" == "0" ]
+		then
+			echo "viamybox child process stop"
+		else
+			echo "Error viamybox stop child process"
+		fi
+	else
+		echo "viamybox child process is't running"
+	fi
+	
+	if [ -e "${DAEMON_DIR}/snapshotmjpg.pid" ]
+	then
+		pid=$(cat "${DAEMON_DIR}/snapshotmjpg.pid")
+		rm -f "${DAEMON_DIR}/snapshotmjpg.pid"
+		kill $_pid
+		rt=$?
+		if [ "$rt" == "0" ]
+		then
+			echo "Snapshotmjpg process stop"
+		else
+			echo "Error snapshotmjpg process stop"
+		fi
+			else
+	echo "Snapshotmjpg process is't running"
+	fi
+	
+	if [ -e "${DAEMON_DIR}/mjpg-streamer-rec-video.pid" ]
+		then
+		_pid=$(cat "${DAEMON_DIR}/mjpg-streamer-rec-video.pid")
+		
+		rm -f "${DAEMON_DIR}/mjpg-streamer-rec-video.pid"
+		kill_child_processes 1 $_pid
+		kill $_pid
+		rt=$?
+		if [ "$rt" == "0" ]
+			then
+			do_log "mjpg-streamer-rec-video process" "killed"
+			else
+			echo "Error mjpg-streamer-rec-video stop process rt:$rt"
+		fi
+   else
+    echo "mjpg-streamer-rec-video daemon is't running"
+	fi
+ 
+#service kodi stop
+	exec 1> >(logger -s -t $(basename $0)) 2>&1
+	echo "viamybox daemon stop"
+
+}
+
+function do_start () {
+	# Если существует файл с pid процесса не запускаем еще одну копию демона
+	if [ -e $PID_FILE ]
+	then
+		_pid=$(cat ${PID_FILE})
+		if [ -e /proc/${_pid} ]
+		then
+			echo "Daemon already running with pid = $_pid"
+			exit 0
+		fi
+	fi
+
+	exec 1> >(logger -s -t $(basename $0)) 2>&1
+	echo "viamybox daemon start"
+	# Создаем файлы логов
+	touch ${LOG}
+	touch ${ERR_LOG}
+
+	# переходим в корень, что бы не блокировать фс
+	cd /
+
+# Перенаправляем стандартный вывод, вывод ошибок и стандартный ввод
+	exec > $LOG
+	exec 2> $ERR_LOG
+	exec < /dev/null
+	do_log  "parent" "Running job with pid $!"
+	echo $! > ${PID_FILE}
+	
+		# Запускаем подготовленную копию процесса, вообщем форкаемся. Здесь происходит вся работа скрипта
+	 (
+		# Не забываем удалять файл с номером процесса и файл очереди при выходе 
+		trap  "{ rm -f ${PID_FILE}; exit 255; }" TERM INT EXIT 
+			if [ ! -e ${JOB_LOCK_FILE} ]
+				then
+					run_job
+			fi
+		exit 0
+	 )&
+	
+	
+	
+}
+
+function run_job () {
+
+( 
+
+trap "{ rm -f ${JOB_LOCK_FILE}; exit 255; }" TERM INT EXIT
+		# Дополнительная проверка что бы убедиться что Потомок один
+		if [ ! -e ${JOB_LOCK_FILE} ]
+		then
+			# Пишем номер pid процесса в файл, на всякий случай
+
+			echo ${BASHPID} > ${JOB_LOCK_FILE}
+			do_log  "child" "Job with pid  ${BASHPID}"
+		else
+			do_log  "child" "Lock file is exists"
+			exit 0
+		fi
+
+RecSnapshotAutoload
+RecFfmpegMjpgStreamerAutoload
+SubstParamInFile '/home/pi/viamybox/www/style.css' 'background-image:' 'rec-red-a.gif' 'rec-a.png'
+SubstParamInFile '/home/pi/viamybox/www/style.css' 'background-image:' 'rec-red-av.gif' 'rec-av.png'
+chown www-data:www-data /home/pi/viamybox/www/style.css
+
+
+while true
+  do
+	#if pushed in kodi menu - LXDE 
+	if [[ -e "/home/pi/LXDEstart.txt" ]]
+	then
+	rm  /home/pi/LXDEstart.txt
+#	echo "kodi exit start lxde $(date)"
+	sudo service kodi stop
+	sudo -u pi -H bash -c "nohup /usr/bin/startx"
+	fi
+	#if pushed in kodi menu - reboot 
+	if [[ -e "/home/pi/reboot-kodi.txt" ]]
+	then
+	rm  /home/pi/reboot-kodi.txt
+#	echo "kodi reboot $(date)"
+	sudo service kodi stop
+	sudo reboot now
+	fi
+	#if pushed in kodi menu - shutdown 
+	if [[ -e "/home/pi/shutdown-kodi.txt" ]]
+	then
+	rm  /home/pi/shutdown-kodi.txt
+#	echo "kodi shutdown $(date)"
+	sudo service kodi stop
+	sudo shutdown now
+	fi	#if pushed in kodi menu - exit 
+	if [[ -e "/home/pi/exit-kodi.txt" ]]
+	then
+	rm  /home/pi/exit-kodi.txt
+#	echo "kodi exit $(date)"
+	sudo service kodi stop
+	fi
+   sleep 1
+  done
+ exit 0
+ ) &
+}
+
+
+
+umask 077
+mkdir -p /var/run/viamybox
+
+case "$1" in
+  start)
+    do_start
+    ;;
+  restart|reload|force-reload)
+    echo "Error: argument '$1' not supported" >&2
+    exit 3
+    ;;
+  stop)
+    do_stop
+    ;;
+  *)
+    echo "Usage: $0 status|start|stop" >&2
+    exit 3
+    ;;
+esac

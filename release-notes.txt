@@ -1,0 +1,28 @@
+---------------v 0.07-------------
+assembled image based on 2019-09-26-raspbian-buster
+kodi distribution Leia 18
+mjpg-streamer v0.1 (Okt 22, 2007)
+gstreamer 1-14
+ffmpeg version 4.1.4
+nginx/1.14.2
+Home Assistant 0.103.0
+
+added:
+record ffmpeg video via mjpg_streamer (via-setup.sh, home assistant)
+switching the language of translation (via-setup.sh)
+automatic start mjpg-streamer at system startup (via-setup.sh)
+automatic start of ffmpeg recording at system startup (via-setup.sh)
+automatic start of making photo images at system startup in two modes with the creation of video from images every hour and without it. (via-setup.sh)
+make photo images with creation video from images every hour and without it. (home assistant)
+mjpg-streamer controls on Home Assistant
+cpu temperature on Home Assistant
+disk usage on Home Assistant
+rpi power status on Home Assistant
+
+---------------v 0.06-------------
+Added docker image home assisatnt.
+Added docker image motioneye.
+Added hc-sr501 and dht11 sensor controls.
+Added the ability to record timelapse video on the motion sensor hc-sr501.
+In the menu via-setup.sh added control docker images of home assisatnt and motioneye.
+----------------------------------

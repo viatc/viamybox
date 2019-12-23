@@ -1,0 +1,6 @@
+AddType x-httpd-php .html .htm
+AddHandler application/x-httpd-php .php .html .htm
+php_value log_errors "On"
+php_value error_log /var/log/php_errors.log
+php_flag display_errors On
+php_value error_reporting "E_ALL & ~E_NOTICE"

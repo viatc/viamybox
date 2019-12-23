@@ -1,0 +1,363 @@
+-EOF-
+/home/pi/viamybox/scripts/via-setup.sh
+"Работа с файлом test_file"
+"Work with file test_file"
+"Использование: $ME options..."
+"Use: $ME options..."
+"Параметры:"
+"Parameters:"
+" -c Создание файла test_file."
+" -c Creation file test_file."
+" -w text Запись в файл строки text."
+" -w text Record to file line text."
+" -r Удаление файла test_file."
+" -r Deleting of file test_file."
+" -h Справка."
+" -h Reference."
+"Для записи фото и видео на yandex диск требуется авторизация.."
+"For recording photo and video to yandex disc authorization is required.."
+"Введите имя пользователя yandex (user@yandex.ru):"
+"Put in yandex user name (user@yandex.ru):"
+"Введите пароль пользователя :"
+"Put in password :"
+"Сохранить данные?"
+"Save data?"
+Куда записывать данные с камеры фото и сжатого видео? :
+Where to record data from camera? :
+1) Локально.
+1) Locally.
+2) На yandex диск. "
+2) To yandex disc. "
+"Вы ввели неправильное значение."
+"You put in wrong value."
+"Введите сколько дне хранить записи видеорегистрации : "
+"Enter how many days to store the DVR records : "
+Стартовать автоматически веб службу mjpg_streamer при запуске системы?
+Start automatically web service mjpg_streamer at system launch?
+Стартовать автоматически агента inadyn при запуске системы?
+Start automatically web service mjpg_streamer at system launch?
+Введите зарегистрированного пользователя (например: usr15062) на сайте 
+Put in registered user (example: usr15062) at web-site
+"Введите пароль зарегистрированного пользователя на сайте freedns.afraid.org: "
+"Put in password of registered user at web-site freedns.afraid.org: "
+"Введите выбранное доменное имя (например: viabox15062.mooo.com)на сайте freedns.afraid.org: "
+"Put in a chosen domain name (example: viabox15062.mooo.com) at web-site freedns.afraid.org: "
+"Запуск сервиса mjpg-streamer..."
+"mjpg-streamer starting..."
+"Останов сервиса mjpg-streamer..."
+"mjpg-streamer stopping..."
+"Выберите пункт меню настроек сжатого видео"
+"Choose paragraph of timelapsed settings menu"
+"Включить запись сжатого видео"
+"Enable timelapsed video recording"
+"Отключить запись сжатого видео"
+"Disable timelapsed video recording"
+"Место записи данных с камеры фото и сжатого видео"
+"The place of recording data from the camera photo and timelapsed video"
+"Инициализация для yandex диска"
+"Initialization for yandex disk"
+"Количество дней хранения фото и видео записываемых на диск"
+"Number of days of storage photos and videos recorded on the disc"
+"Автоматичекский запуск службы mjpg-streamer"
+"Automatic launch of the mjpg-streamer service"
+"Выход"
+"Quit"
+"Выберите пункт меню настроек сжатого видео"
+"Choose paragraph of timelapsed settings menu"
+"Включить запись сжатого видео"
+"Enable timelapsed video recording"
+"Отключить запись сжатого видео"
+"Disable timelapsed video recording"
+"Место записи данных с камеры фото и сжатого видео"
+"The place of recording data from the camera photo and timelapsed video"
+"Инициализация для yandex диска"
+"Initialization for yandex disk"
+"Kоличество дней воспроизведения фото и видео записываемых на диск"
+"Number of days to play photos and videos recorded on the disc"
+"Автоматичекский запуск службы mjpg-streamer"
+"Automatic launch of the mjpg-streamer service"
+"Для вызова справки запустите $ME -h"
+"For help, run $ ME -h"
+Выберите камеру
+Choose a camera
+"Введите время ротации файла записи в секундах (3600 default) : "
+"Enter the file rotation time in seconds (3600 default):"
+Введите вариант разрешения экрана записи :
+Enter the resolution resolution of the recording screen:
+"Выберите пункт меню настроек записи видео и аудио: "
+"Select the menu option for recording video and audio:"
+"Выбор камеры" 
+"Camera selection"
+"Время ротации файла записи в секундах"
+"Record file rotation time in seconds"
+"Разрешение экрана записи"
+"Recording Screen Resolution"
+"Выбор камеры" 
+"Camera selection"
+"Время ротации файла записи в секундах"
+"Record file rotation time in seconds"
+"Разрешение экрана записи"
+"Recording Screen Resolution"
+"Неправильный параметр";
+"Invalid parameter";
+"Для вызова справки запустите $ME -h"
+"For help, run $ ME -h"
+"Выберите пункт меню настроек ViaMyBox: "
+"Choose paragraph of settings menu ViaMyBox: "
+"Настройки записи сжатого (time elapsed) видео mjpgstreamer"
+"Settings for recording compressed (time elapsed) video mjpgstreamer"
+"Настройки записи видео и аудио gstreamer"
+"Settings for recording video and audio gstreamer"
+Инициализация на сайте
+Initialization at web-site
+для подключения агента inadyn
+for connecting service agent inadyn
+"Автоматичекский запуск службы inadyn (динамическое обновление ip для dyndns freedns.afraid.org)"
+"Automatic launch of service inadyn (dynamic renewal ip for dyndns freedns.afraid.org)"
+"Сменить пароль веб доступа"
+"Change password of web access"
+"Сменить пароль пользователя pi"
+"Change user password pi"
+Умный Дом Home Assistant и интернет вещей (IoT)
+Internet of things (IoT)
+"Switch to English language"
+"Switch to Russian language"
+"Changed the language menu. Restart please via-setup.sh"
+"Изменен язык меню. Перезапустите пожалуйста via-setup.sh"
+-EOF-
+/home/pi/viamybox/www/cameraframe.php
+Запись по срабатыванию датчика движения
+Record video stream when motion is detected
+Идет запись!
+Recording!
+Остановите запись видео перед включением или отключением режима просмотра!
+Stop video recording before turning viewing mode on-off!
+"перевернуть картинку"
+"flip the picture"
+"зеркало слева-направо"
+"mirror left-right"
+"зеркало сверху-вниз"
+"mirror top-down"
+"запись звука с веб камеры"
+"webcam audio recording"
+"запись видео с веб камеры"
+"Record video from webcam"
+"запуск-останов веб-сервера mjpg-streamer "
+"start-stop web server mjpg-streamer "
+-EOF-
+/home/pi/viamybox/scripts/iot-func.sh
+"Установить docker образы и контейнеры Home Assistant?"
+"Would you like to install any docker images and containers Home Assistant?"
+ОСТОРОЖНО!!!...Если конфигурация Home Assistant не была удалена ползователь это
+ATENTION!!!...If the configuration has not been deleted user for Home Assistant is
+Пароль
+Password is
+ДОЛЖЕН БЫТЬ ИЗМЕНЕН
+MUST BE CHANGED
+Строка подключения из браузера
+In browser connect with this line
+"Требуется перезагрузка...Перезагрузить?"
+"Need to reboot.. reboot now?"
+"Хотите удалить Home Assistant docker экземпляр?"
+"Would you like to remove any docker images and containers Home Assistant?"
+"Подождите...будут удалены docker контейнеры и образы"
+"Waiting... will be removed hassio docker images and containers!"
+"Удалены docker котейнеры:"
+"Removed docker containers:"
+Удалить Home assistant конфигурационные файлы из директории
+Would you like to delete Home assistant config files in directory"
+"Выберите раздел IoI меню : "
+"Choose paragraph of IoT settings menu : "
+"Неправильный параметр"
+"Invalid parameter"
+"Выберите раздел в меню настроек Home Assistant : "
+"Choose paragraph of Home Assistant settings menu : "
+Подождите
+Waiting
+Удалить Home Assistant docker экземпляр
+Uninstall Home Assistant docker instance
+Остановить службу Home Assistant
+Stop Home Assistant
+"Запустить Home Assistant"
+"Start Home Assistant"
+"Запускать Home Assistant при старте системы"
+"Add Home Assistant to startup automatically"
+Не запускать Home Assistant при старте системы
+Remove Home Assistant to startup automatically
+"Установить Home Assistant docker экземпляр"
+"Install Home assistant docker instance"
+Выход
+Quit
+-EOF-
+/home/pi/viamybox/scripts/via-mybox-func.sh
+#Замена одного параметра на другой в файле
+#Substitution of one parameter for another one in file
+#Замена первого параметра в файле
+#Substitution of first parameter in file
+#добавить параметр PARAM в FILE если VARIABLE стоит в начале строки и разделиттель пробел!
+#add parameter PARAM in FILE if VARIABLE stands in the beginning of line and separator space!
+#или добавить к строке VARIABLE строку PARAM с разделителем между ними пробел (если переменные заключены 
+#or add a PARAM line to the VARIABLE line with a space between them (if the variables are enclosed
+#в двойные кавычки)
+# in double quotes)
+с начала строки;
+from the beginning of the line;
+сколько угодно символов табуляции или пробелов;
+any number of tabs or spaces;
+#отсекает  .* сколько угодно любых символов
+# cuts .* any number of characters
+#Добавление в файле FILE = $1 строки '$AddString' = $3 перед строкой содержащей $String = $2
+# Adding the string '$AddString' = $3 in the file FILE = $1 before the line containing $String = $2
+"Добавление в файле $1 строки '$AddString' перед строкой содержащей '$String'"
+"Adding '$AddString' in the file $1 in front of the line containing '$String'"
+"Добавление в файле $1 строки '$AddString'"
+"Addition in file $1 line '$AddString'"
+#проверка наличия строки $1 в файле $2 , результат передается в переменную $3
+#check of existence of line $1 in file $2 , result will be passed to variable $3
+#Замена строки string global в файле $1  на строку(строки) addString global
+#Substitution line string global in file $1 to line (lines) addString global
+# при n-ом совпадении строки string в файле в параметре $2
+# with n-th number of times of coincidences of line string in file in parameter $2
+#создание копии файла с добавлением .backup расширения.
+# create a copy of the file with the addition of the .backup extension.
+-EOF-
+/home/pi/viamybox/scripts/rec-mjpg-func.sh
+"Выключить запись фото снимков при старте системы"
+"Deactivating snapshots recording when system start"
+"Включить запись фото снимков при старте системы"
+"Activating snapshots recording when system start"
+"Выключить формирование mp4 видео файла,каждый час, на оснеове сделанных снимков"
+"Deactivating creation from snapshots video mp4 file using ffmpeg every hour"
+"Включить формирование mp4 видео файла,каждый час, на оснеове сделанных снимков"
+"Activating creation from snapshots video mp4 file using ffmpeg every hour"
+"Выключить запуск mjpg-streamer службы при старте системы"
+"Dectivating automatic launch of the mjpg-streamer service"
+"Включить запуск mjpg-streamer службы при старте системы"
+"Activating automatic launch of the mjpg-streamer service"
+Выключить автоматический запуск записи ffmpeg видео при старте системы
+Dectivating automatic launch of ffmpeg video recording
+Включить автоматический запуск записи ffmpeg видео при старте системы
+Activating automatic launch of ffmpeg video recording
+"Внимание!!!  Включение записи фото снимков когда система стартует (п.6) будет отключена. Взаимоисключающие режимы. Нажмите на клавишу"
+"Attention!!!  Starting snapshots recording when system start (p.6) wil be deactivating. Mutually exclusive modes. Press any key"
+"Внимание!!!  Включение видео ffmpeg записи когда система стартует (п.9) будет отключена. Взаимоисключающие режимы. Нажмите на клавишу"
+"Attention!!!  Starting video ffmpeg recording when system start (p.9) wil be deactivating. Mutually exclusive modes. Press any key"
+"Остановить запись фото снимков"
+"Stop recording snapshots from mjpg-streamer"
+"Включить запись фото снимков"
+"Start recording snapshots from mjpg-streamer"
+"Остановить запись видео ffmpeg с mjpg-streamer"
+"Stop recording video from mjpg-streamer"
+"Начать запись видео ffmpeg с mjpg-streamer"
+"Start recording video from mjpg-streamer"
+-EOF-
+/home/pi/viamybox/scripts/motioneye-func.sh
+Осторожно!!!...пользователь motionEye
+ATENTION!!!... user for motionEye is
+Пароль пустой!
+Password is empty!
+В браузере строка соединения
+In browser connect with this line
+"Хотите удалить motionEye docker контейнеры и образы"
+"Would you like to remove any docker images and containers motionEye?"
+Подождите...будут установлены
+Waiting... will be installed
+Подождите...будут удалены 
+Waiting... will be removed 
+docker контейнеры и образы!
+docker  images and containers!
+"Удалены образы motionEye..."
+"Removed image motionEye..."
+Удалить motionEye и конфигурационные файлы в директории
+Would you like to delete Motion all config and motion files in directories
+"Выберите раздел в меню настроек motionEye : "
+"Choose paragraph of motionEye settings menu : "
+"Неправильный параметр"
+"Invalid parameter"
+Удалить ccrisan
+Uninstall ccrisan
+motionEye docker экземпляр
+motionEye docker instance
+"Остановить motionEye"
+"Stop motionEye"
+"Запустить motionEye"
+"Start motionEye"
+"Запускать motionEye при старте системы"
+"Add motionEye to startup automatically"
+"Не запускать motionEye при старте системы"
+"Remove motionEye to startup automatically"
+Установить ccrisan
+Install ccrisan
+motionEye (docker контейнер)
+motionEye (docker container)
+-EOF-
+/home/pi/.kodi/addons/skin.aeon.nox.5/21x9/script-skinshortcuts-includes.xml
+Запись timelapse видео
+Record timelapse video
+Запись звука
+Record sound
+Запись видео
+Record video
+-EOF-
+/home/pi/.kodi/addons/skin.aeon.nox.5/1080i/script-skinshortcuts-includes.xml
+Запись timelapse видео
+Record timelapse video
+Запись звука
+Record sound
+Запись видео
+Record video
+-EOF-
+/home/pi/.kodi/userdata/addon_data/script.skinshortcuts/x202.DATA.xml
+Запись timelapse видео
+Record timelapse video
+Запись звука
+Record sound
+Запись видео
+Record video
+-EOF-
+/home/pi/viamybox/scripts/lnmp/01via-setup-lamp.sh
+Скрипт добавляет в файл 
+The script adds ip correspondence to the site in the 
+соответствие ip сайту
+file
+и формирует файл
+and forms a file
+Введите внутренний статический ip адрес
+Enter the internal static ip address
+по умолчанию
+default
+ведите имя вашего сайта 
+enter the name of your site
+пример
+example
+Добавление в файле 
+Add in file
+строки
+string
+Сформирован файл
+File generated
+Подождите... перезапускаем службы mysql и nginx 
+Wait... restartnig mysql and nginx services
+Подключитесь к wordpress сайту для дальнейшей инициализации
+Connect to the wordpress site to further initialize
+"Порт подключения по умолчанию 80. Смените его на нужный если потребуется. "
+"The default connection port is 80. Change it to the one you need if necessary."
+в файле
+in file
+-EOF-
+/home/pi/viamybox/scripts/lnmp/00install.sh
+"Установка WordPress Nginx и MySQL LNMP сервера"
+"Installation wordpress nginx and mysql for LNMP server"
+ВНИМАНИЕ !!! WordPress будет установлен в каталог 
+ATTENTION!!! Wordpress installation will be installed in
+Пожалуйста убедитесь, что этот каталог не используется
+directory! Please ensure this directory not USED
+"Нажмите Да, чтобы продолжить"
+"Click Yes to Continue"
+"ВНИМАНИЕ !!! После того, как мы войдем в MySQL, нам нужно создать базу данных строкой:"
+"ATTENTION!!! After we login in to mysql,we need to create database with string:"
+"Установка прошла успешно !!"
+"Installation successfull!!"
+
+
+
