@@ -49,7 +49,7 @@ Use the viamybox recording features ONLY on secure networks!**
 
 ### Before Installation
 
-The project uses and install nginx, mjpg-streamer, gstreamer, dockeк, kodi and related packages through
+The project uses and install nginx, mjpg-streamer, gstreamer, docker, kodi and related packages through
 script ~/viamybox/scripts/prepostinstall/00install.sh The packages in this script are divided into sections.
 Browse and exclude sections of packages that are not required by you functionality.
 
@@ -96,23 +96,28 @@ and run 2 scripts in turn:
 sudo ./00install.sh
 sudo ./01via-setup-lamp.sh
 
-## After installation ---------------
+## After installation
 
 Deployment removal and management of docker containers of Home Assistant is carried out through 1 menu item:
+```bash
 sudo via-setup.sh
-Next, connect to the Home Assistant http://<ip>:8123 and install the database:
+```
+Next, connect to the Home Assistant http://<your-ip>:8123 and install the database:
 Hass.io Tab -> Snapshots
 The following project is used as a source:
 https://github.com/home-assistant/hassio-installer
 For web access and access to the Home Assistant
-default user pi
-default password raspberry
+default user: pi
+default password: raspberry
 
 Deployment removal and management docker containers of MotionEye is done through 2 menu items:
+```bash
 sudo via-setup.sh
-Next, connect to the MotionEye console http://<ip>:8133
+```
+Next, connect to the MotionEye console http://<your-ip>:8133
 To access the MotionEye container:
-user admin without password
+user: admin
+without password
 
 Record video audio content in the folder:
 /home/pi/camera
