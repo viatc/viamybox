@@ -1,0 +1,6 @@
+./00_create_model_symlink
+./00_remove_model_symlink
+./usbmount
+./usbmount.conf
+./90-usbmount.rules
+./usbmount@.service

@@ -1,0 +1,7 @@
+07e96ae08273fe1170599bd5b418a8f8  lib/systemd/system/usbmount@.service
+69b235daf313b68fd01eb78a4b8cb043  lib/udev/rules.d/90-usbmount.rules
+b25364bb747a7d0353f8241b3295b71a  usr/share/doc/usbmount/NEWS.Debian.gz
+d384c25eea6cee1bab0d280dd5dd9749  usr/share/doc/usbmount/README.md.gz
+99e3edfb3cce97d90b16382ba347b988  usr/share/doc/usbmount/changelog.gz
+f8edd7ee5ca3e71470e9f73c285d79b8  usr/share/doc/usbmount/copyright
+a0bd895f649d1dab5a2eece10378ded3  usr/share/usbmount/usbmount
