@@ -67,20 +67,29 @@ before installation.
 cd /home/pi
 ```
 the project should be in the folder /home/pi:
+```bash
 unzip viamybox.zip -d /home/pi
 cd viamybox/scripts/prepostinstall/
+```
 make the scripts executable:
+```bash
 chmod +x ./*.sh
+```
 installation of the necessary packages:
+```bash
 sudo ./00install.sh
+```
 setting up the ViaMyBox project:
+```bash
 sudo ./01aftercopy.sh
+```
 
 ### Installing the LNMP server (optionally)
 
 LNMP server, server for Wordpress site. Includes MySQL, Nginx, PHP + Wordpress shell.
 Running installation scripts will allow you to start initializing the Wordpress site on raspberry pi in a few minutes.
 If you want to install only the LNMP server. You can do this by installing scripts in the lnmp folder
+cd /home/pi/viamybox/scripts/lnmp/
 cd /home/pi/viamybox/scripts/lnmp/
 cd viamybox/scripts/lnmp/
 and run 2 scripts in turn:
