@@ -9,7 +9,8 @@ The LNMP server is optionally installed separately (see /home/pi/viamybox/script
 
 ViaMyBox distribution is assembled and tested based on 2019-09-26-raspbian-buster.The functionality provided by ViaMyBox is:
 The functionality provided by ViaMyBox is:
-Video Recording:
+
+**Video Recording**:
 - video recording with synchronization of sound from a usb camera using gstreamer technology
 - audio recording from usb camera via gstreamer technology
 - timelapse video recording from usb or csi camera using ffmpeg
@@ -18,31 +19,31 @@ Video Recording:
 - creation of a video file after photo registration
 - the ability to record audio and video on yandex disk
 
-Smart house - Home Assistant based on docker image https://github.com/home-assistant/hassio-installer:
+**Smart house** - Home Assistant based on docker image https://github.com/home-assistant/hassio-installer:
 - management via the console utility via-setup.sh docker containers of Home Assistant
   installation and removal of the image. Stop and start the Home Assiatnt containers
 - control via the web console Home Assistant of the above video registration functions
 - some raspberry pi control functions. CPU temperature control, micro sd volume,
   power supply status
 
-Kodi Home Theater
+**Kodi Home Theater**
 
-MotionEye web management based on the docker image https://hub.docker.com/r/ccrisan/motioneye:
+**MotionEye** web management based on the docker image https://hub.docker.com/r/ccrisan/motioneye:
 - web-based interface MotionEye
 - management through the console utility via-setup.sh docker container
   installation and removal of the docker image and containers. Stop and start docker container.
 
-Web interface
+**Web interface**:
 - management of video recording functions
 
-Console utility via-setup.sh
+**Console utility via-setup.sh**:
 - management of video recording functions
 - managing docker images Home Assistant and MotionEye
 - inadyn service management
 - management of connection to a remote yandex disk based on webdav
 
-Change your password!
-Use the viamybox recording features ONLY on secure networks!
+**Change your password!
+Use the viamybox recording features ONLY on secure networks!**
 
 ## INSTALLATION
 
@@ -80,9 +81,7 @@ sudo ./01aftercopy.sh
 LNMP server, server for Wordpress site. Includes MySQL, Nginx, PHP + Wordpress shell.
 Running installation scripts will allow you to start initializing the Wordpress site on raspberry pi in a few minutes.
 If you want to install only the LNMP server. You can do this by installing scripts in the lnmp folder
-cd /home/pi
-The project should be in the folder /home/pi:
-unzip viamybox.zip -d /home/pi
+cd /home/pi/viamybox/scripts/lnmp/
 cd viamybox/scripts/lnmp/
 and run 2 scripts in turn:
 sudo ./00install.sh
