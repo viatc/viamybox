@@ -46,7 +46,7 @@ Use the viamybox recording features ONLY on secure networks!
 
 ## INSTALLATION
 
----------- Before Installation
+### Before Installation
 
 The project uses and install nginx, mjpg-streamer, gstreamer, dockeк, kodi and related packages through
 script ~/viamybox/scripts/prepostinstall/00install.sh The packages in this script are divided into sections.
@@ -61,7 +61,7 @@ ViaMyBox uses a web server at the address /home/pi/viamybox/www on port 80
 If the port 80 for the web server is allocated, change the port in the file /home/pi/viamybox/conffiles/viamybox.local
 before installation.
 
--------Installation project ViaMyBox
+### Installation project ViaMyBox
 
 cd /home/pi
 the project should be in the folder /home/pi:
@@ -74,7 +74,7 @@ sudo ./00install.sh
 setting up the ViaMyBox project:
 sudo ./01aftercopy.sh
 
-------- Installing the LNMP server (optionally)-----------
+### Installing the LNMP server (optionally)
 
 LNMP server, server for Wordpress site. Includes MySQL, Nginx, PHP + Wordpress shell.
 Running installation scripts will allow you to start initializing the Wordpress site on raspberry pi in a few minutes.
@@ -87,7 +87,7 @@ and run 2 scripts in turn:
 sudo ./00install.sh
 sudo ./01via-setup-lamp.sh
 
------------ After installation ---------------
+## After installation ---------------
 
 Deployment removal and management of docker containers of Home Assistant is carried out through 1 menu item:
 sudo via-setup.sh
