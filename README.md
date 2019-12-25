@@ -88,13 +88,15 @@ sudo ./01aftercopy.sh
 LNMP server, server for Wordpress site. Includes MySQL, Nginx, PHP + Wordpress shell.
 Running installation scripts will allow you to start initializing the Wordpress site on raspberry pi in a few minutes.
 If you want to install only the LNMP server. You can do this by installing scripts in the lnmp folder
+```bash
 cd /home/pi/viamybox/scripts/lnmp/
-cd /home/pi/viamybox/scripts/lnmp/
-cd viamybox/scripts/lnmp/
+chmod +x ./*.sh
+```
 and run 2 scripts in turn:
+```bash
 sudo ./00install.sh
 sudo ./01via-setup-lamp.sh
-
+```
 ## After installation
 
 Deployment removal and management of docker containers of Home Assistant is carried out through 1 menu item:
