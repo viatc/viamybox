@@ -130,4 +130,15 @@ Video and audio recording takes place content in the folder:
 If yandex disk is connected:
 /home/pi/camera/yandex.disk
 
+## Many thanks!
+MotionEye docker Image:
+https://hub.docker.com/r/ccrisan/motioneye
+Home Assistant based on docker image:
+https://github.com/home-assistant/hassio-installer:
+Raspberry Pi Power Supply Checker:
+https://github.com/custom-components/sensor.rpi_power
+Mjpg-streamer:
+https://github.com/jacksonliam/mjpg-streamer
+
+
 © 2019 GitHub, Inc.
