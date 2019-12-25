@@ -120,8 +120,10 @@ To access the MotionEye container:
 user: admin
 without password
 
-Record video audio content in the folder:
+Video and audio recording takes place content in the folder:
 /home/pi/camera
+
 if yandex disk is connected
 /home/pi/camera/yandex.disk
+
 © 2019 GitHub, Inc.
