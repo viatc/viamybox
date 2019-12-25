@@ -74,7 +74,8 @@ git clone https://github.com/viatc/viamybox.git
 or
 ```bash
 cd /home/pi
-unzip viamybox-master.zip -d /home/pi/viamybox
+unzip viamybox-master.zip -d /home/pi/
+mv viamybox-master viamybox
 cd viamybox/scripts/prepostinstall/
 ```
 
