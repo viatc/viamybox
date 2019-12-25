@@ -76,11 +76,11 @@ or
 cd /home/pi
 unzip viamybox-master.zip -d /home/pi/
 mv viamybox-master viamybox
-cd viamybox/scripts/prepostinstall/
 ```
 
 make the scripts executable:
 ```bash
+cd viamybox/scripts/prepostinstall/
 chmod +x ./*.sh
 ```
 installation of the necessary packages:
