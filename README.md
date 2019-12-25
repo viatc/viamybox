@@ -10,8 +10,8 @@ The LNMP server is optionally installed separately (see /home/pi/viamybox/script
 ViaMyBox distribution is assembled and tested based on 2019-09-26-raspbian-buster.The functionality provided by ViaMyBox is:
 
 **Video Recording**:
-- video recording with synchronization of sound from a usb camera using gstreamer technology
-- audio recording from usb camera via gstreamer technology
+- video recording with synchronization of sound from a usb camera using [gstreamer](https://gstreamer.freedesktop.org/) technology
+- audio recording from usb camera via [gstreamer](https://gstreamer.freedesktop.org/) technology
 - timelapse video recording from usb or csi camera using ffmpeg
 - photo registration via mjpg-streamer
 - photo recording by hc-sr501 motion sensor
