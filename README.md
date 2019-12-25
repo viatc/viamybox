@@ -1,7 +1,7 @@
 # ViaMyBox
 
 ViaMyBox is a raspberry pi project. It combines several functional ideas and the possibility of simplified management of this functionality. Functional management is carried out through the console script via-setup.sh, through the Home Assistant console as well as a mini-web interface.
-In the ViMyBox project, I combined some ideas found on the Internet that seem interesting to me and the opportunity
+In the ViaMyBox project, I combined some ideas found on the Internet that seem interesting to me and the opportunity
 Quick setup and management. The main functionality at the moment is video recording, a smart home based on the Home Assistant,
 Kodi Home Theater, Wordpress LNMP Server.
 Modules Home Assistant, MotionEye are optional; install via via-setup.sh utility.
