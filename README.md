@@ -56,7 +56,7 @@ Mjpg-streamer will be installed with the script ~/viamybox/scripts/prepostinstal
 The ViaMyBox project uses the mjpg-streamer of the jacksonliam project https://github.com/jacksonliam/mjpg-streamer
 If you use another mjpg-streamer, exclude the section # mjpg-streamer from the 01aftercopy.sh file
 
-If you are using apache web server or nginx, look in the #nginx section in the file
+If you are using apache web server or nginx, look in the #nginx section in the file.
 ViaMyBox uses a web server at the address /home/pi/viamybox/www on port 80
 If the port 80 for the web server is allocated, change the port in the file /home/pi/viamybox/conffiles/viamybox.local
 before installation.
