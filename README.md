@@ -131,7 +131,7 @@ If yandex disk is connected:
 /home/pi/camera/yandex.disk
 
 ## Many thanks!
-MotionEye docker Image
+MotionEye docker image:
 https://hub.docker.com/r/ccrisan/motioneye
 
 Home Assistant based on docker image:
