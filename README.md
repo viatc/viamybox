@@ -44,8 +44,9 @@ ViaMyBox distribution is assembled and tested based on 2019-09-26-raspbian-buste
 **Change your password!
 Use the viamybox recording features ONLY on secure networks!**
 
-**ViaMyBox site: https://viamybox.com
-ViaMyBox youtube: https://www.youtube.com/channel/UC5-s-Z5MGAbLUy7ESyk7cyg**
+**ViaMyBox site: https://viamybox.com**
+
+**ViaMyBox youtube: https://www.youtube.com/channel/UC5-s-Z5MGAbLUy7ESyk7cyg**
 
 ## INSTALLATION
 
