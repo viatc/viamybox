@@ -8,7 +8,6 @@ Modules Home Assistant, MotionEye are optional; install via via-setup.sh utility
 The LNMP server is optionally installed separately (see /home/pi/viamybox/scripts/lnmp/README).
 
 ViaMyBox distribution is assembled and tested based on 2019-09-26-raspbian-buster.The functionality provided by ViaMyBox is:
-The functionality provided by ViaMyBox is:
 
 **Video Recording**:
 - video recording with synchronization of sound from a usb camera using gstreamer technology
