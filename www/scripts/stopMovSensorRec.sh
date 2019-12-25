@@ -26,14 +26,8 @@ function stopMovSensorRec ()
 for KILLPID in `ps ax | grep '/home/pi/viamybox/www/scripts/mov.py' | awk ' { print $1;}'`; do 
   kill -15 $KILLPID;
 done
-#remove crontab job
+#remove crontab job and start mkvid-mov.sh
 /home/pi/viamybox/www/scripts/startMovSensorRec.sh -r
-
-ret=$(ps aux | grep mkvid-mov.sh | wc -l)
-if [ "$ret" -eq 1 ] 
-	then
-	/home/pi/viamybox/scripts/mkvid-mov.sh
-fi
 } 
 
 stopMovSensorRec
