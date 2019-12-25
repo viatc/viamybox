@@ -122,6 +122,7 @@ without password
 
 Video and audio recording takes place content in the folder:
 /home/pi/camera
+
 If yandex disk is connected:
 /home/pi/camera/yandex.disk
 
