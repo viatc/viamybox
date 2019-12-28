@@ -135,6 +135,8 @@ Video and audio recording takes place content in the folder:
 If yandex disk is connected:
 /home/pi/camera/yandex.disk
 
+You can use WinSCP to dowload your media in Windows.
+
 ## Many thanks!
 MotionEye docker image:
 https://hub.docker.com/r/ccrisan/motioneye
