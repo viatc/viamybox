@@ -51,6 +51,17 @@ sed "s/^[[:space:]]*$VARIABLE.*/$VARIABLE\ $PARAM/" $FILE > $FILE.new
 mv -f $FILE.new $FILE
 }
 
+FirstSubstInFile3 ()
+{
+#find first substring $FIND in string and replace $PARAM1 in that string to $PARAM2
+FILE=$1
+FIND=$2
+PARAM1=$3
+PARAM2=$4
+sed "0,/$FIND/s/$PARAM1/$PARAM2/" $FILE > $FILE.new
+mv -f $FILE.new $FILE
+}
+
 # Adding the string '$AddString' = $3 in the file FILE = $1 before the line containing $String = $2
 AddStrBeforeInFile ()
 {

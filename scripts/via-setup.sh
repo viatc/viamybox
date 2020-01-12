@@ -10,7 +10,7 @@
 	## If not, see <https://www.gnu.org/licenses/>.
 	##  
 
-a1='/usr/bin/via-mybox-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
+a1='/home/pi/viamybox/scripts/via-mybox-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
 echo "no function library $a1" 1>&2 ; exit 1 ; fi
 
 set -e
@@ -199,7 +199,36 @@ if [ $result = 'Y' ] ;then FirstSubstInFile2 $FILE $MYVAR $myalias;fi
 sudo chmod 0600 /etc/inadyn.conf
 }
 
-
+function music ()
+{
+i=1
+while [ $i = 1 ]
+do
+clear
+PS3="Choose paragraph of music settings menu : "
+select musicMenu in "Bellerofonte-radiobox" \
+"Quit"
+ do
+ case $musicMenu in
+	"Bellerofonte-radiobox") 
+		{
+			a1='/home/pi/viamybox/scripts/bellerofonte-radiobox.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
+			echo "О$ нет библиотеки функций $a1" 1>&2 ; exit 1 ; fi
+			bellfunc
+			clear
+			break
+		}
+	;;
+	"Quit") clear;i=0;break;
+	;;
+    *) echo "Invalid parameter";
+#            echo "For help, run $ ME -h";
+    exit 1
+    ;;
+ esac
+ done
+ done
+}
 
 function timeElapsed ()
 {
@@ -454,6 +483,7 @@ clear
 PS3="Choose paragraph of settings menu ViaMyBox: "
 select firstMenu in "Internet of things (IoT)" \
 "MotionEye" \
+"Music" \
 "Settings for recording compressed (time elapsed) video mjpgstreamer" \
 "Settings for recording video and audio gstreamer" \
 "Initialization at web-site http://freedns.afraid.org for connecting service agent inadyn" \
@@ -479,6 +509,8 @@ select firstMenu in "Internet of things (IoT)" \
 		clear
 		break
 		}
+	;;
+	"Music")  music;clear;break
 	;;
 	"Settings for recording compressed (time elapsed) video mjpgstreamer") timeElapsed;clear;break
 	;;
