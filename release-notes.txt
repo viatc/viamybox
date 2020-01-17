@@ -1,4 +1,11 @@
----------------v 0.07-------------
+
+---------------v 0.7.1-----------
+added bellerofonte radio in via-setup.sh
+added bellerofonte radio in HA
+
+fixed: exclusion of a few clicks in php files 
+fixed: gstreamer pad has no probe with id 
+---------------v 0.7-------------
 assembled image based on 2019-09-26-raspbian-buster
 kodi distribution Leia 18
 mjpg-streamer v0.1 (Okt 22, 2007)
@@ -19,7 +26,7 @@ cpu temperature on Home Assistant
 disk usage on Home Assistant
 rpi power status on Home Assistant
 
----------------v 0.06-------------
+---------------v 0.6-------------
 Added docker image home assisatnt.
 Added docker image motioneye.
 Added hc-sr501 and dht11 sensor controls.
