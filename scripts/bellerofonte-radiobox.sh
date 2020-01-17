@@ -18,7 +18,7 @@ echo "This stuff turns your Raspberry Pi into internet-radio box. It wraps MPD a
 echo "Waiting... will be installed bellerofonte/radiobox!"
 
 #curl -sL https://deb.nodesource.com/setup_11.x | bash -
-apt-get install mpd mpc nodejs -y
+apt-get install npm mpd mpc nodejs
 usermod -a -G pi mpd
 cd /home/pi/
 git clone https://github.com/bellerofonte/radiobox.git
