@@ -29,8 +29,7 @@
 #define FILE_DURATION 3600
 #define FRAMERATE "5/1"
 
-//без чистки
-//запись с переключением файлов происходит
+//запись с переключением файлов
 
 
 static GstElement *pipeline;
@@ -41,7 +40,7 @@ static int i=0;
 GstElement * bin;
 GstPad *muxerSinkPadV,*muxerSinkPadA;
 gulong probeId,probeId2;
-char file_location[42];
+char file_location[100];
 
 typedef struct _StreamInfo{
   GMainLoop *loop;
@@ -272,8 +271,6 @@ main (int argc, char **argv)
 	q2v = gst_element_factory_make("queue", NULL);
 	q2a = gst_element_factory_make("queue", NULL);
 	q1 = gst_element_factory_make ("queue", NULL);
-	
-	//g_object_set (src, "is-live", TRUE, NULL);
 
 	//Create a caps filter between videosource videoconvert
 /* 	char capsString[] = "video/x-raw,format=YV12,width=320,height=240,framerate=5/1";
@@ -314,10 +311,6 @@ main (int argc, char **argv)
 
 	gst_bin_add_many(GST_BIN(pipeline), src, q1, capsfilter, videoconvert, videorate, clockoverlay, encoder, capsfilteromx, parse, q2v,
 										alsasrc, audioconvert, vorbisenc, q2a, 0);
-//0);
-//	gst_bin_add_many(GST_BIN(pipeline), alsasrc, audioconvert, vorbisenc, q2v, 0);
-
-	
 
 	if (!gst_element_link_many(src, q1, capsfilter, videoconvert, videorate, clockoverlay, encoder, capsfilteromx, parse, q2v, NULL)){
 		g_error("Failed to link elements");
@@ -374,13 +367,6 @@ void DestroyBin()
 {
 	gst_element_set_state(bin, GST_STATE_NULL);
 	gst_bin_remove(GST_BIN(pipeline), bin);
-/* 	if (si.restartPipelineAfterNtimes >= 2) {
-	gst_element_set_state(pipeline, GST_STATE_NULL);
-	si.restartPipelineAfterNtimes = 0;
-	}
-	else {
-	si.restartPipelineAfterNtimes++;	
-	} */
 	gst_element_set_state(pipeline, GST_STATE_READY);
 	gst_element_set_state(pipeline, GST_STATE_PLAYING);
 	}
@@ -392,14 +378,6 @@ void CreateNewBin(StreamInfo *si)
 	char buffer[12];
 	memset(buffer, 0, sizeof(buffer));
 	sprintf(buffer, fileLocPattern, i++);
-
-/*      if (!gst_element_seek(pipeline, 1.0, GST_FORMAT_TIME,
-            (GstSeekFlags) (GST_SEEK_FLAG_SEGMENT | GST_SEEK_FLAG_FLUSH),
-            GST_SEEK_TYPE_SET, 0, GST_SEEK_TYPE_NONE, GST_CLOCK_TIME_NONE)) {
-        g_printerr("Seek failed!\n");
-    }; */
-	
-	
 
 	muxer = gst_element_factory_make("matroskamux", "MatroskaMuxer");
 	sink = gst_element_factory_make("filesink", fileLocation());

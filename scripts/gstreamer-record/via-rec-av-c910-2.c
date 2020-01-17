@@ -27,14 +27,14 @@
 #define RECORD_DIR "/home/pi/camera/video/"
 #define FILE_DURATION 3600
 //#define FRAMERATE "5/1"
-#define WIDTH 960
-#define HEIGHT 720
+//#define WIDTH 960
+//#define HEIGHT 720
 #define FPS 5
 #define TARGET_BITRATE 400000
 
 //для logitech c910 video/x-h264 5fps
 //чистый звук и картинка
-//запись с переключением файлов происходит
+//запись с переключением файлов
 
 
 static GstElement *pipeline;
@@ -45,16 +45,14 @@ static int i=0;
 GstElement * bin;
 GstPad *muxerSinkPadV,*muxerSinkPadA;
 gulong probeId,probeId2;
-char file_location[42];
+char file_location[100];
 
 typedef struct _StreamInfo{
   GMainLoop *loop;
   gboolean pipelineEOS;
   int restartPipelineAfterNtimes;
-// GstClockTime buff;
   } StreamInfo;
 StreamInfo si;
-//static GQueue effects = G_QUEUE_INIT;
 
 void CreateNewBin(StreamInfo *si);
 void DestroyBin();
@@ -69,9 +67,7 @@ static gboolean handle_keyboard (GIOChannel *source, GIOCondition cond, StreamIn
   }
   switch (g_ascii_tolower (str[0])) {
     case 'p':
- //   data->playing = !data->playing;
- //   gst_element_set_state (data->pipeline, data->playing ? GST_STATE_PLAYING : GST_STATE_PAUSED);
- 
+
     g_print ("P button pressed\n");
     break;
 	default:
@@ -312,8 +308,6 @@ main (int argc, char **argv)
 
 //	gst_bin_add_many(GST_BIN(pipeline), alsasrc, audioconvert, vorbisenc, q2v, 0);
 
-	
-
 	if (!gst_element_link_many(src, q1, capsfilter, videoconvert, videorate, clockoverlay, encoder, parse, q2v, NULL)){
 		g_error("Failed to link elements");
 		return -2;
@@ -369,13 +363,6 @@ void DestroyBin()
 {
 	gst_element_set_state(bin, GST_STATE_NULL);
 	gst_bin_remove(GST_BIN(pipeline), bin);
-/* 	if (si.restartPipelineAfterNtimes >= 2) {
-	gst_element_set_state(pipeline, GST_STATE_NULL);
-	si.restartPipelineAfterNtimes = 0;
-	}
-	else {
-	si.restartPipelineAfterNtimes++;	
-	} */
 	gst_element_set_state(pipeline, GST_STATE_READY);
 	gst_element_set_state(pipeline, GST_STATE_PLAYING);
 	}
@@ -387,14 +374,6 @@ void CreateNewBin(StreamInfo *si)
 	char buffer[12];
 	memset(buffer, 0, sizeof(buffer));
 	sprintf(buffer, fileLocPattern, i++);
-
-/*      if (!gst_element_seek(pipeline, 1.0, GST_FORMAT_TIME,
-            (GstSeekFlags) (GST_SEEK_FLAG_SEGMENT | GST_SEEK_FLAG_FLUSH),
-            GST_SEEK_TYPE_SET, 0, GST_SEEK_TYPE_NONE, GST_CLOCK_TIME_NONE)) {
-        g_printerr("Seek failed!\n");
-    }; */
-	
-	
 
 	muxer = gst_element_factory_make("matroskamux", "MatroskaMuxer");
 	sink = gst_element_factory_make("filesink", fileLocation());
@@ -421,10 +400,6 @@ void CreateNewBin(StreamInfo *si)
 		{
 			g_print ("Unable to get source pad template from muxing element" );
 		}
-/* 		if( !(muxerSinkPadTemplateA = gst_element_class_get_pad_template(GST_ELEMENT_GET_CLASS(muxer), "audio_%u")) )
-		{
-			g_print ("Unable to get source pad template from muxing element" );
-		}	 */
 
 		muxerSinkPadV = gst_element_request_pad(muxer, muxerSinkPadTemplateV, 0, 0);
 		muxerSinkPadA = gst_element_get_request_pad(muxer, "audio_%u");
