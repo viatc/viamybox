@@ -1,4 +1,4 @@
-# ViaMyBox
+# ViaMyBox 
 
 [ViaMyBox](https://viamybox.com) is a raspberry pi project. It combines several functional ideas and the possibility of simplified management of this functionality. Functional management is carried out through the console script via-setup.sh, through the Home Assistant console as well as a mini-web interface.
 In the ViaMyBox project, I combined some ideas found on the Internet that seem interesting to me and the opportunity
