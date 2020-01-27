@@ -25,7 +25,8 @@ cd $VIADIR/conffiles/mjpg-streamer/mjpg-streamer-experimental
 make
 make install
 cp $VIADIR/scripts/mjpg-streamerd.sh /etc/init.d/
-update-rc.d -f mjpg-streamerd.sh disable
+#update-rc.d -f mjpg-streamerd.sh defaults
+update-rc.d -f mjpg-streamerd.sh remove
 
 #gstreamer
 cd $VIADIR/scripts/gstreamer-record
