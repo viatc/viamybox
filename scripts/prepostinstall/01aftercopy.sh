@@ -1,14 +1,15 @@
 #!/bin/bash
-	## Copyright (C) 2017-2019 ViaMyBox viatc.msk@gmail.com
-	## This file is a part of ViaMyBox free software: you can redistribute it and/or modify
-    ## it under the terms of the GNU General Public License as published by
-    ## the Free Software Foundation, either version 3 of the License, or
-    ## any later version.
-	##
-	## You should have received a copy of the GNU General Public License
-    ## along with ViaMyBox in /home/pi/COPIYNG file.
-	## If not, see <https://www.gnu.org/licenses/>.
-	##  
+## Copyright (C) 2017-2019 ViaMyBox viatc.msk@gmail.com
+## This file is a part of ViaMyBox free software: you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation, either version 3 of the License, or
+## any later version.
+##
+## You should have received a copy of the GNU General Public License
+## along with ViaMyBox in /home/pi/COPIYNG file.
+## If not, see <https://www.gnu.org/licenses/>.
+##  
+
 VIADIR="/home/pi/viamybox"
 a1='/home/pi/viamybox/scripts/via-mybox-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
 echo "no function library $a1" 1>&2 ; exit 1 ; fi
@@ -21,6 +22,7 @@ chown pi:pi -R  $VIADIR/*
 
 #mjpg-streamer
 cd $VIADIR/conffiles/mjpg-streamer/mjpg-streamer-experimental
+make
 make install
 cp $VIADIR/scripts/mjpg-streamerd.sh /etc/init.d/
 update-rc.d -f mjpg-streamerd.sh defaults
