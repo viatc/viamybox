@@ -1,0 +1,8 @@
+[Desktop Entry]
+Comment=accsess to MotionEye
+Terminal=false
+Name=MotionEye
+Exec=chromium-browser http://localhost:8124 %U
+Type=Application
+Categories=ViaMyBox;
+Icon=/usr/share/pixmaps/motioneye.png

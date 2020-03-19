@@ -1,0 +1,16 @@
+[Unit]
+Description=Cast youtube
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /home/pi/viamybox/scripts/gotubecast-srv.sh
+Restart=on-abort
+User=pi
+Group=pi
+
+[Install]
+WantedBy=multi-user.target
+
+

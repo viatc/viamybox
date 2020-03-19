@@ -1,0 +1,8 @@
+[Desktop Entry]
+Comment=access to Home Assistant
+Terminal=false
+Name=Home Assistant
+Exec=chromium-browser http://localhost:8123 %U
+Type=Application
+Categories=ViaMyBox;
+Icon=/usr/share/pixmaps/home-assistant.png

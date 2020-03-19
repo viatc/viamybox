@@ -18,6 +18,7 @@ streamer1.0-tools gstreamer1.0-plugins-* x264 gstreamer1.0-omx gstreamer1.0-alsa
 nginx apache2-utils php7.3-fpm davfs2 -y
 
 #kodi kodi-pvr-iptvsimple
+sudo apt-get install kodi kodi-pvr-iptvsimple -y
 
 #python install
 sudo python -m pip install --upgrade pip

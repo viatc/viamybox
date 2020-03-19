@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=ViaMyBox console settings
+Comment=ViaMyBox console settings
+Exec=lxterminal  --geometry=100x30 -e 'sudo /home/pi/viamybox/scripts/via-setup.sh'
+Icon=/usr/share/pixmaps/settings-camera.xpm
+Terminal=false
+Type=Application
+Categories=ViaMyBox;
+StartupNotify=true
+

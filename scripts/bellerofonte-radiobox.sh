@@ -18,13 +18,16 @@ echo "This stuff turns your Raspberry Pi into internet-radio box. It wraps MPD a
 echo "Waiting... will be installed bellerofonte/radiobox!"
 
 #curl -sL https://deb.nodesource.com/setup_11.x | bash -
-apt-get install npm mpd mpc nodejs
+
+#apt-get install npm 
+apt-get install mpd mpc nodejs
 usermod -a -G pi mpd
 cd /home/pi/
 git clone https://github.com/bellerofonte/radiobox.git
 mv  radiobox bellerofonte-radiobox
 chown pi:pi -R $BELLEROFONTEDIR
 cd $BELLEROFONTEDIR
+#sudo -u pi bash -c 'npm install -g npm'
 sudo -u pi bash -c 'npm install'
 sudo -u pi bash -c 'npm run prod'
 
@@ -46,16 +49,21 @@ read n
 }
 
 function uninstallFunc {
-cd $BELLEROFONTEDIR
-npm prune --production
-cd /home/pi
-rm -r $BELLEROFONTEDIR
-echo "------------------------------------------------------------------------------------------------------"
-echo -e "ATENTION!!!... Manually remove packages: npm npc nodejs , if you are not using them in other projects"
-echo "Press enter to continue..."
-echo "------------------------------------------------------------------------------------------------------"
-read n
-mpc stop
+EchoLine="Wold you like to uninstall Bellerofonte Radio?"
+SubmitYN result
+if [[ $result = 'Y' ]];then
+	cd $BELLEROFONTEDIR
+	npm prune --production
+	cd /home/pi
+	rm -r $BELLEROFONTEDIR
+	echo "------------------------------------------------------------------------------------------------------"
+	echo -e "ATENTION!!!... Manually remove packages: npm npc nodejs , if you are not using them in other projects"
+	echo "Press enter to continue..."
+	echo "------------------------------------------------------------------------------------------------------"
+	#apt remove --purge nodejs npm
+	read n
+	mpc stop
+fi
 }
 
 function installedmenu {
@@ -63,12 +71,13 @@ function installedmenu {
 while [ $i = 1 ]
 do
 clear
-PS3="-----------------------------------------------------------------------------------------------
-This stuff turns your Raspberry Pi into internet-radio box. It wraps MPD and provides
-Web-UI for controlling it's playback and volume.
-When radio started in menu, connect in browser with this line http://<paste your ip>:8143
------------------------------------------------------------------------------------------------
-Choose paragraph of Bellerofonte Radio settings menu : "
+roof="-----------------------------------------------------------------------------------------------\n
+This stuff turns your Raspberry Pi into internet-radio box. It wraps MPD and provides\n
+Web-UI for controlling it's playback and volume.\n
+When radio started in menu, connect in browser with this line http://<paste your ip>:8143\n
+\n-----------------------------------------------------------------------------------------------"
+echo -e $roof
+PS3="Choose paragraph of Bellerofonte Radio settings menu : "
 select bellMenu in "$str1" \
 "Quit"
  do
@@ -90,12 +99,13 @@ function uninstalledmenu {
 while [ $i = 1 ]
 do
 clear
-PS3="-----------------------------------------------------------------------------------------------
-This stuff turns your Raspberry Pi into internet-radio box. It wraps MPD and provides
-Web-UI for controlling it's playback and volume.
+roof="-----------------------------------------------------------------------------------------------\n
+This stuff turns your Raspberry Pi into internet-radio box. It wraps MPD and provides\n
+Web-UI for controlling it's playback and volume.\n
 When radio started in menu, connect in browser with this line http://<paste your ip>:8143
------------------------------------------------------------------------------------------------
-Choose paragraph of Bellerofonte Radio settings menu : "
+\n-----------------------------------------------------------------------------------------------"
+echo -e $roof
+PS3="Choose paragraph of Bellerofonte Radio settings menu : "
 select Menu in "$str1" "$str2" "Quit"
  do
  case $Menu in

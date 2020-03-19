@@ -1,5 +1,11 @@
-
----------------v 0.7.1-----------
+---------------v 0.72-----------
+added in via-setup.sh gotubecast streaming youtube project https://github.com/CBiX/gotubecast
+added in via-setup.sh mpsyoutube terminal based program to search, stream and download music.https://github.com/mps-youtube/mps-youtube
+added in via-setup.sh kiosk mode
+modified front panel roof in via-setup.sh
+modified functions in via-mybox-func.sh. Lines in functions will be added after they are checked for their presence in the file
+added viamybox menu in LXDE desktop 
+---------------v 0.71-----------
 added bellerofonte radio in via-setup.sh
 added bellerofonte radio in HA
 
@@ -27,7 +33,7 @@ disk usage on Home Assistant
 rpi power status on Home Assistant
 
 ---------------v 0.6-------------
-Added docker image home assisatnt.
+Added docker image home assisant.
 Added docker image motioneye.
 Added hc-sr501 and dht11 sensor controls.
 Added the ability to record timelapse video on the motion sensor hc-sr501.

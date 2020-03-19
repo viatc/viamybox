@@ -39,7 +39,6 @@ rm /etc/nginx/sites-enabled/viamybox.local
 
 #delete strings to sudoers file
 str="#Via-settings
-export "str"
 www-data ALL=(ALL) NOPASSWD: /usr/bin/python, /home/pi/viamybox/www/scripts/mov.py, \\
 /home/pi/viamybox/www/scripts/switchMovSensorRec.sh, /home/pi/viamybox/www/scripts/mov.sh, \\
 /home/pi/viamybox/www/scripts/via_rec_audio_gstrm.sh, /home/pi/viamybox/www/scripts/via_rec_video_gstrm.sh, \\
@@ -50,13 +49,29 @@ www-data ALL=(ALL) NOPASSWD: /usr/bin/python, /home/pi/viamybox/www/scripts/mov.
 /home/pi/viamybox/scripts/mkvid-mov.sh, /home/pi/viamybox/www/scripts/via_rec_video_ffmpeg.sh, \\
 /usr/bin/docker start motioneye, /usr/bin/docker stop motioneye, \\
 /home/pi/viamybox/www/scripts/timelapse_start.sh, /home/pi/viamybox/www/scripts/timelapse_stop.sh"
+#export "str"
 file="/etc/sudoers"
 deleteStr $file
 
 cd /home/pi
 rm -r /home/pi/viamybox
 rm viamybox.zip
+#remove viamybox menu
+rm -f  /usr/share/pixmaps/settings-camera.xpm
+rm -f  /usr/share/pixmaps/via-mybox32.png
+rm -f  /usr/share/pixmaps/motioneye.png
+rm -f  /usr/share/pixmaps/home-assistant.png
+rm -f  /usr/share/applications/via-camera-initial.desktop
+rm -f  /usr/share/applications/motioneye.desktop
+rm -f  /usr/share/applications/home-assistant.desktop
+rm -f  /usr/share/desktop-directories/ViaMyBox.directory
+rm -f  /usr/share/extra-xdg-menus/ViaMyBox.menu
+rm -f  /usr/share/applications/chromium-camera-start.desktop
+rm -f /usr/share/extra-xdg-menus/ViaMyBox.menu /etc/xdg/menus/applications-merged/ViaMyBox.menu
+
 echo "Successfull"
+
+
 
 
 

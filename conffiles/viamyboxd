@@ -262,7 +262,6 @@ SubstParamInFile '/home/pi/viamybox/www/style.css' 'background-image:' 'rec-red-
 SubstParamInFile '/home/pi/viamybox/www/style.css' 'background-image:' 'rec-red-av.gif' 'rec-av.png'
 chown www-data:www-data /home/pi/viamybox/www/style.css
 
-
 while true
   do
 	#if pushed in kodi menu - LXDE 

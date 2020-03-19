@@ -14,6 +14,13 @@ a1='/home/pi/viamybox/scripts/via-mybox-func.sh' ; source "$a1" ; if [ $? -ne 0 
 echo "no function library $a1" 1>&2 ; exit 1 ; fi
 
 set -e
+roofFirst="-------------------------ViaMyBox - Many Ideas one Implementation------------------------------\n
+Whelcome to ViaMyBox console utility. This stuff allows you to \n
+quickly install and manage our functionality or remove those.\n
+ © ViaMyBox Technological Studio\n
+ info@viamybox.com
+\n-----------------------------------------------------------------------------------------------"
+
 
 ME=`basename $0`
 function print_help() {
@@ -205,8 +212,10 @@ i=1
 while [ $i = 1 ]
 do
 clear
+echo -e $roofFirst
 PS3="Choose paragraph of music settings menu : "
 select musicMenu in "Bellerofonte-radiobox" \
+"Youtube player mps-youtube" \
 "Quit"
  do
  case $musicMenu in
@@ -218,6 +227,67 @@ select musicMenu in "Bellerofonte-radiobox" \
 			clear
 			break
 		}
+	;;
+	"Youtube player mps-youtube")
+	{
+		a1='/home/pi/viamybox/scripts/mps-youtube.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
+		echo "О$ нет библиотеки функций $a1" 1>&2 ; exit 1 ; fi
+		mps-youtube-func
+		clear
+		break
+	}
+	;;
+	"Quit") clear;i=0;break;
+	;;
+    *) echo "Invalid parameter";
+#            echo "For help, run $ ME -h";
+    exit 1
+    ;;
+ esac
+ done
+ done
+}
+
+function hometheatre ()
+{
+i=1
+while [ $i = 1 ]
+do
+clear
+echo -e $roofFirst
+PS3="Choose paragraph of Home Theatre settings menu : "
+select hometheatreMenu in "Kodi" \
+"Kiosk mode" \
+"Cast Youtube CBiX/gotubecast" \
+"Quit"
+ do
+ case $hometheatreMenu in
+	"Kodi") 
+		{
+			a1='/home/pi/viamybox/scripts/home-theatre-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
+			echo "О$ нет библиотеки функций $a1" 1>&2 ; exit 1 ; fi
+			kodifunc
+			clear
+			break
+		}
+	;;
+	"Kiosk mode") 
+	{
+		a1='/home/pi/viamybox/scripts/home-theatre-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
+		echo "О$ нет библиотеки функций $a1" 1>&2 ; exit 1 ; fi
+		kioskfunc
+		clear
+		break
+	}
+	;;
+	"Cast Youtube CBiX/gotubecast")
+	{
+		a1='/home/pi/viamybox/scripts/cast-cbix-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
+		echo "О$ нет библиотеки функций $a1" 1>&2 ; exit 1 ; fi
+		cast-cbix-func
+		#clear
+		break
+	}
 	;;
 	"Quit") clear;i=0;break;
 	;;
@@ -239,6 +309,7 @@ i=1
 while [ $i = 1 ]
 do
 clear
+echo -e $roofFirst
 PS3="Choose paragraph of timelapsed settings menu : "
 select timeElapsedMenu in "$str1" \
 "$str2" \
@@ -448,6 +519,7 @@ i=1
 while [ $i = 1 ]
 do
 clear
+echo -e $roofFirst
 PS3="Select the menu option for recording video and audio:"
 select timeElapsedMenu in "Camera selection" \
 "Record file rotation time in seconds" \
@@ -480,9 +552,11 @@ strmg1="Switch to Russian language"
 while [ 1 = 1 ]
 do
 clear
+echo -e $roofFirst
 PS3="Choose paragraph of settings menu ViaMyBox: "
 select firstMenu in "Internet of things (IoT)" \
 "MotionEye" \
+"Home Theatre" \
 "Music" \
 "Settings for recording compressed (time elapsed) video mjpgstreamer" \
 "Settings for recording video and audio gstreamer" \
@@ -509,6 +583,8 @@ select firstMenu in "Internet of things (IoT)" \
 		clear
 		break
 		}
+	;;
+	"Home Theatre") hometheatre;clear;break
 	;;
 	"Music")  music;clear;break
 	;;

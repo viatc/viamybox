@@ -58,6 +58,7 @@ function installedmenu {
 while [ $i = 1 ]
 do
 clear
+echo -e $roofFirst
 PS3="Choose paragraph of motionEye settings menu : "
 select timeElapsedMenu in "$str1" \
 "Quit"
@@ -80,6 +81,7 @@ function uninstalledmenu {
 while [ $i = 1 ]
 do
 clear
+echo -e $roofFirst
 PS3="Choose paragraph of motionEye settings menu : "
 select Menu in "$str1" "$str2" "$str3" "Quit"
  do

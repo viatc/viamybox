@@ -62,18 +62,48 @@ sed "0,/$FIND/s/$PARAM1/$PARAM2/" $FILE > $FILE.new
 mv -f $FILE.new $FILE
 }
 
-# Adding the string '$AddString' = $3 in the file FILE = $1 before the line containing $String = $2
+# Adding the string  '$AddString' = $3 (or strings in one viariable $3)in the file FILE = $1 before the line containing $String = $2
+# if string not found in file it will be added
+
 AddStrBeforeInFile ()
 {
 FILE="$1"
 String="$2"
 AddString="$3"
 #sudo cp $FILE $FILE.$PrintTime.viabackup
-echo "Adding '$AddString' in the file $1 in front of the line containing '$String'"
-sed "/$2/i$AddString" $FILE > $FILE.new
-mv -f $FILE.new $FILE
+echo "$AddString" | while read LINE 
+do
+	CheckStrInFile "$LINE" "$FILE" result
+	if [[ $result = 'N' ]]; then
+		echo "Adding '$AddString' in the file $1 in front of the line containing '$String'"
+		sed "/$2/i$LINE" $FILE > $FILE.new
+		mv -f $FILE.new $FILE
+	fi
+done
 }
 
+# Adding the string  '$AddString' = $3 (or strings in one viariable $3)in the file FILE = $1 after the line containing $String = $2
+# if string not found in file it will be added
+# if $3 contains many strings it add it recursively from last to first
+AddStrAfterStrInFile ()
+{
+FILE="$1"
+String="$2"
+AddString="$3"
+#LINE="$AddString"
+#sudo cp $FILE $FILE.$PrintTime.viabackup
+echo "$AddString" | while read LINE 
+do
+	CheckStrInFile "$LINE" "$FILE" result
+	if [[ $result = 'N' ]]; then
+		echo "Adding '$LINE' in the file $1 after of the line containing '$String'"
+		sed "/$String/a$LINE" $FILE > $FILE.new
+		mv -f $FILE.new $FILE
+	fi
+done
+
+#sed "/"$str"/a$strsite" $FILE > $FILE.new
+}
 
 AddStrAfterInFile ()
 {
@@ -81,8 +111,10 @@ FILE=$1
 #sudo cp $FILE $FILE.$PrintTime.viabackup
 echo "Addition in file $1 line '$AddString'"
 #echo "#ViaSettings" >> $FILE
-echo "$AddString" >> $FILE
-
+	CheckStrInFile "$AddString" "$FILE" result
+	if [[ $result = 'N' ]]; then
+		echo "$AddString" >> $FILE
+	fi
 #sed -e "/a\$AddString" $FILE > $FILE.new
 #mv -f $FILE.new $FILE
 }
