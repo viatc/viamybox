@@ -173,9 +173,9 @@ function mps-uninstall {
 
 function mps-install {
  apt-get install mpv
- runuser -l pi -c "pip install --user mps-youtube"
- runuser -l pi -c "pip install --user youtube-dl"
- runuser -l pi -c "pip install --user youtube-dl --upgrade"
+ runuser -l pi -c "pip3 install --user mps-youtube"
+ runuser -l pi -c "pip3 install --user youtube-dl"
+ runuser -l pi -c "pip3 install --user youtube-dl --upgrade"
  #cd /home/pi
  # sudo -u pi bash -c 'git clone https://github.com/mps-youtube/mps-youtube.git'
  # cd mps-youtube
