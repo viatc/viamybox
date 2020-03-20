@@ -20,3 +20,4 @@ cp /home/pi/viamybox/conffiles/pixel-menu/ViaMyBox.menu /usr/share/extra-xdg-men
 cp /home/pi/viamybox/conffiles/pixel-menu/chromium-camera-start.desktop /usr/share/applications/
 ln -s /usr/share/extra-xdg-menus/ViaMyBox.menu /etc/xdg/menus/applications-merged/ViaMyBox.menu
 
+apt-get install python-dbus

@@ -171,8 +171,8 @@ runuser -l pi -c "eval $CMD"
 cp /home/pi/viamybox/conffiles/gotubecast.service /lib/systemd/system/
 cp /home/pi/projects/bin/gotubecast /usr/bin/
 #-----------install youtube-dl
-runuser -l pi -c "pip3 install --user youtube-dl"
-runuser -l pi -c "pip3 install --user youtube-dl --upgrade"
+runuser -l pi -c "pip install --user youtube-dl"
+runuser -l pi -c "pip install --user youtube-dl --upgrade"
 #systemctl enable gotubecast.service
 
 
