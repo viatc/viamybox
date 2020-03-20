@@ -123,9 +123,9 @@ select castMenu in "$str1" \
 "Quit"
  do
  case $castMenu in
-	"$str1") $strFunc1; clear;i2=0;cast-cbix-func;break
+	"$str1") $strFunc1; clear;cast-cbix-func;break
 	;;
-	"Quit") clear;break;
+	"Quit") clear;i2=0;break;
 	;;
     *) echo "Invalid parameter";
 #            echo "For help, run $ ME -h";
