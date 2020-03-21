@@ -30,18 +30,21 @@ if [ -e $VIADIR/conffiles/homeassistant/backup.tar ]; then
 	cp $VIADIR/conffiles/homeassistant/backup.tar /usr/share/hassio/backup/
 fi 
 echo "Home Assistant installed successfully"
+echo "Press any key";read a
 }
 
 function uninstallfunc {
 EchoLine="Would you like to remove any docker images and containers Home Assistant?"
 export EchoLine
 SubmitYN result
-if [[ $result = 'N' ]]; then break; fi 
+if [[ $result = 'Y' ]]; then 
 echo "Waiting... will be removed hassio docker images and containers!"
 systemctl stop hassio-supervisor.service
 #systemctl stop hassio-apparmor.service
 if [[ $(docker ps |grep  hassio_dns) ]]
 	then docker container stop  hassio_dns;fi
+if [[ $(docker ps |grep  hassio_audio) ]]
+	then docker container stop  hassio_audio;fi
 if [[ $(docker ps |grep homeassistant) ]]
 	then docker container stop homeassistant;fi
 if [[ $(docker ps |grep addon_core_configurator) ]]
@@ -56,6 +59,7 @@ if [[ $(docker ps -a|grep addon_core_configurator) ]]
 rm -rf /usr/sbin/hassio-supervisor
 rm -rf /usr/sbin/hassio-apparmor
 docker images -a | grep "homeassistant" | awk '{print $3}' | xargs docker rmi -f
+fi 
 
 #docker volume rm $(docker volume ls -qf dangling=true)
 
@@ -176,6 +180,8 @@ if [[ $(docker ps |grep addon_core_configurator) ]]
 	then docker container stop addon_core_configurator;fi
 if [[ $(docker ps |grep  hassio_dns) ]]
 	then docker container stop  hassio_dns;fi
+if [[ $(docker ps |grep  hassio_audio) ]]
+	then docker container stop  hassio_audio;fi
 }
 
 function iotfunc
