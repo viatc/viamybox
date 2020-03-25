@@ -141,7 +141,7 @@ select mpsMenu in "$str1" "$str2" "$str3" "$str4" \
  case $mpsMenu in
 	"$str1") $strFunc1; clear;mps-youtube-func;break
 	;;
-	"$str2") rm -f ~/.config/mps-youtube/cache_py*;sudo -u pi bash -c 'mpsyt'; clear;mps-youtube-func;break
+	"$str2") rm -f /home/pi/.config/mps-youtube/cache_py*;sudo -u pi bash -c 'mpsyt'; clear;mps-youtube-func;break
 	;;
 	"$str3") $strFunc3; clear;mps-youtube-func;break
 	;;
