@@ -4,6 +4,9 @@ if [ -d /home/pi/viamybox/.git ] ; then
 	cd /home/pi/viamybox
 	git pull origin master
 fi
+
+apt-get install python-dbus
+
 #create viamybox menu in PIXEL
 mkdir -p /usr/share/extra-xdg-menus
 mkdir -p /etc/xdg/menus/applications-merged
@@ -20,4 +23,11 @@ cp /home/pi/viamybox/conffiles/pixel-menu/ViaMyBox.menu /usr/share/extra-xdg-men
 cp /home/pi/viamybox/conffiles/pixel-menu/chromium-camera-start.desktop /usr/share/applications/
 ln -s /usr/share/extra-xdg-menus/ViaMyBox.menu /etc/xdg/menus/applications-merged/ViaMyBox.menu
 
-apt-get install python-dbus
+#omxiv for raspicast
+apt-get install libjpeg8-dev libpng12-dev
+cd /home/pi
+sudo -u pi bash -c 'git clone https://github.com/HaarigerHarald/omxiv'
+cd omxiv
+sudo -u pi bash -c 'make ilclient'
+sudo -u pi bash -c 'make -j4'
+make install
