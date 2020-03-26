@@ -19,7 +19,7 @@ SubmitYN result
 if [[ $result = 'N' ]]; then break; fi
 curl -sL https://raw.githubusercontent.com/home-assistant/hassio-installer/master/hassio_install.sh | bash -s -- -m raspberrypi3
 #read -n 1 -s -r -p "Press any key to continue"
-echo -e "ATENTION!!!...If the configuration has not been deleted user for Home Assistant is : pi \n Password is 123#Qwer! MUST BE CHANGED \n In browser connect with this line http://<ip>:8123\n"
+echo -e "ATENTION!!!...If the configuration has not been deleted user for Home Assistant is : pi \n Password is raspberry MUST BE CHANGED \n In browser connect with this line http://<ip>:8123\n"
 if [ ! -d /usr/share/hassio/homeassistant/camera ]; then mkdir -p /usr/share/hassio/homeassistant/camera; fi
 if [ ! -d /usr/share/hassio/homeassistant/scripts ]; then mkdir -p /usr/share/hassio/homeassistant/scripts; fi
 # if [ -e $VIADIR/conffiles/homeassistant/takeSnapshotWebcam.sh ]; then
@@ -29,7 +29,8 @@ if [ -e $VIADIR/conffiles/homeassistant/backup.tar ]; then
 	mkdir -p /usr/share/hassio/backup
 	cp $VIADIR/conffiles/homeassistant/backup.tar /usr/share/hassio/backup/
 fi 
-echo "Home Assistant installed successfully"
+echo -e "Home Assistant installed successfully.\n
+Preparing Home Assistant(web interface can take up to 20 minutes)"
 echo "Press any key";read a
 }
 
@@ -52,7 +53,7 @@ if [[ $(docker ps |grep addon_core_configurator) ]]
 systemctl disable hassio-supervisor.service
 #systemctl disable hassio-apparmor.service
 echo "Removed docker containers:"
-docker container rm homeassistant hassio_supervisor hassio_dns 2>/dev/null
+docker container rm homeassistant hassio_supervisor hassio_dns hassio_audio 2>/dev/null
 if [[ $(docker ps -a|grep addon_core_configurator) ]]
 	then docker container rm addon_core_configurator;fi
 
