@@ -83,6 +83,7 @@ www-data ALL=(ALL) NOPASSWD: /usr/bin/python, /home/pi/viamybox/www/scripts/mov.
 file="/etc/sudoers"
 AddStrAfterInFile $file
 
+#-------------------------------version viamybox 0-72---------------------------------
 #create viamybox menu in PIXEL
 mkdir -p /usr/share/extra-xdg-menus
 mkdir -p /etc/xdg/menus/applications-merged
@@ -98,6 +99,15 @@ cp /home/pi/viamybox/conffiles/pixel-menu/ViaMyBox.directory /usr/share/desktop-
 cp /home/pi/viamybox/conffiles/pixel-menu/ViaMyBox.menu /usr/share/extra-xdg-menus/
 cp /home/pi/viamybox/conffiles/pixel-menu/chromium-camera-start.desktop /usr/share/applications/
 ln -s /usr/share/extra-xdg-menus/ViaMyBox.menu /etc/xdg/menus/applications-merged/ViaMyBox.menu
+
+#omxiv for raspicast
+apt-get install libjpeg8-dev libpng12-dev
+cd /home/pi
+sudo -u pi bash -c 'git clone https://github.com/HaarigerHarald/omxiv'
+cd omxiv
+sudo -u pi bash -c 'make ilclient'
+sudo -u pi bash -c 'make -j4'
+make install
 
 echo "Installation Successfull"
 
