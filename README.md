@@ -138,20 +138,32 @@ If yandex disk is connected:
 You can use WinSCP to dowload your media in Windows.
 
 ## Many thanks!
-MotionEye docker image:
-https://hub.docker.com/r/ccrisan/motioneye
+Bellerofonte Radiobox
+https://github.com/bellerofonte/radiobox
 
-Home Assistant based on docker image:
-https://github.com/home-assistant/hassio-installer:
+Gstreamer video audio registration
+https://gstreamer.freedesktop.org/
 
-Raspberry Pi Power Supply Checker:
-https://github.com/custom-components/sensor.rpi_power
+Gotubecast Youtube media access service
+https://github.com/CBiX/gotubecast
+
+Kodi Home theatre
+https://kodi.tv/
 
 Mjpg-streamer:
 https://github.com/jacksonliam/mjpg-streamer
 
-Bellerofonte Radiobox
-https://github.com/bellerofonte/radiobox
+MotionEye docker image:
+https://hub.docker.com/r/ccrisan/motioneye
 
+Mps-youtube - youtube, last.fm playing and searching media engine
+https://github.com/mps-youtube/mps-youtube
 
-© 2019 GitHub, Inc.
+Home Assistant based on docker image
+https://github.com/home-assistant/hassio-installer
+
+Raspberry Pi Power Supply Checker
+https://github.com/custom-components/sensor.rpi_power
+
+© 2020 ViaMyBox Technological Studio
+© 2020 GitHub, Inc.
