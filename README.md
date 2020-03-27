@@ -166,4 +166,5 @@ Raspberry Pi Power Supply Checker
 https://github.com/custom-components/sensor.rpi_power
 
 © 2020 ViaMyBox Technological Studio
+
 © 2020 GitHub, Inc.
