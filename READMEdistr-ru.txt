@@ -89,7 +89,8 @@ sudo ./00install.sh
 sudo ./01via-setup-lamp.sh
 
 -----------После инсталляции---------------
-
+Увеличте размер файловой системы:
+sudo raspi-config -> Advanced options -> Expand Filesystem
 Развертывание  удаление и управление docker образом Home Assistant осуществляется через 1 пункт меню :
 sudo via-setup.sh 
 Далее, подключитесь к Home Assistant http://<ip>:8123 и установите базу:
