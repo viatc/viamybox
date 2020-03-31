@@ -176,14 +176,17 @@ docker start homeassistant
 }
 function stopha {
 service hassio-supervisor stop
-if [[ $(docker ps |grep homeassistant) ]]
-	then docker container stop homeassistant;fi
+ if [[ $(docker ps |grep homeassistant) ]]
+	then docker stop $(sudo docker ps -a | grep homeassistant | awk '{print $1}');fi
+	# then docker container stop homeassistant;fi
 if [[ $(docker ps |grep addon_core_configurator) ]]
 	then docker container stop addon_core_configurator;fi
-if [[ $(docker ps |grep  hassio_dns) ]]
-	then docker container stop  hassio_dns;fi
-if [[ $(docker ps |grep  hassio_audio) ]]
-	then docker container stop  hassio_audio;fi
+# if [[ $(docker ps |grep  hassio_dns) ]]
+	# then docker container stop  hassio_dns;fi
+# if [[ $(docker ps |grep  hassio_audio) ]]
+	# then docker container stop  hassio_audio;fi
+if [[ $(docker ps |grep  hassio) ]]
+	then docker stop $(sudo docker ps -a | grep *hassio | awk '{print $1}');fi
 }
 
 function iotfunc
