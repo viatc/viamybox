@@ -17,7 +17,7 @@ EchoLine="Would you like to install any docker images and containers Home Assist
 export EchoLine
 SubmitYN result
 if [[ $result = 'N' ]]; then break; fi
-curl -sL https://raw.githubusercontent.com/home-assistant/hassio-installer/master/hassio_install.sh | bash -s -- -m raspberrypi3
+curl -sL https://raw.githubusercontent.com/home-assistant/supervised-installer/master/installer.sh |bash -s -- -m raspberrypi3
 #read -n 1 -s -r -p "Press any key to continue"
 echo -e "ATENTION!!!...If the configuration has not been deleted user for Home Assistant is : pi \n Password is raspberry MUST BE CHANGED \n In browser connect with this line http://<ip>:8123\n"
 if [ ! -d /usr/share/hassio/homeassistant/camera ]; then mkdir -p /usr/share/hassio/homeassistant/camera; fi
