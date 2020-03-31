@@ -146,7 +146,8 @@ function uninstalledmenu {
 while [ $i = 1 ]
 do
 clear
-echo -e $roofFirst
+function-roof-menu "$firstMenuStr"
+
 PS3="Choose paragraph of Home Assistant settings menu : "
 select Menu in "$str1" "$str2" "$str3" "Quit"
  do

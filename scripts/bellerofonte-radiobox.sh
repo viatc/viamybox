@@ -14,7 +14,7 @@ VIADIR="/home/pi/viamybox"
 BELLEROFONTEDIR="/home/pi/bellerofonte-radiobox"
 
 function installFunc {
-echo "This stuff turns your Raspberry Pi into internet-radio box. It wraps MPD and provides Web-UI for controlling it's playback and volume."
+echo "This program turns your Raspberry Pi into internet-radio box. It wraps MPD and provides Web-UI for controlling it's playback and volume."
 echo "Waiting... will be installed bellerofonte/radiobox!"
 
 #curl -sL https://deb.nodesource.com/setup_11.x | bash -
@@ -71,12 +71,10 @@ function installedmenu {
 while [ $i = 1 ]
 do
 clear
-roof="-----------------------------------------------------------------------------------------------\n
-This stuff turns your Raspberry Pi into internet-radio box. It wraps MPD and provides\n
+roof="This stuff turns your Raspberry Pi into internet-radio box. It wraps MPD and provides
 Web-UI for controlling it's playback and volume.\n
-When radio started in menu, connect in browser with this line http://<paste your ip>:8143\n
-\n-----------------------------------------------------------------------------------------------"
-echo -e $roof
+When radio started in menu, connect in browser with this line http://<paste your ip>:8143"
+function-roof-menu "$roof"
 PS3="Choose paragraph of Bellerofonte Radio settings menu : "
 select bellMenu in "$str1" \
 "Quit"
@@ -99,12 +97,10 @@ function uninstalledmenu {
 while [ $i = 1 ]
 do
 clear
-roof="-----------------------------------------------------------------------------------------------\n
-This stuff turns your Raspberry Pi into internet-radio box. It wraps MPD and provides\n
-Web-UI for controlling it's playback and volume.\n
-When radio started in menu, connect in browser with this line http://<paste your ip>:8143
-\n-----------------------------------------------------------------------------------------------"
-echo -e $roof
+roof="This stuff turns your Raspberry Pi into internet-radio box. It wraps MPD and provides`
+`Web-UI for controlling it's playback and volume.\n
+When radio started in menu, connect in browser with this line http://<paste your ip>:8143"
+function-roof-menu "$roof"
 PS3="Choose paragraph of Bellerofonte Radio settings menu : "
 select Menu in "$str1" "$str2" "Quit"
  do

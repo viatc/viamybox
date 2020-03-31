@@ -36,13 +36,12 @@ i3=1
 while [ $i3 = 1 ]
 do
 clear
-echo "-----------------------------------------------------------------------------------------------"
-roof="This project is based on mps, a terminal based program to search, stream and \n
-download music. This implementation uses YouTube as a source of content and \n
-can play and download video as well as audio.  \n
-https://github.com/mps-youtube/mps-youtube \n
------------------------------------------------------------------------------------------------"
-echo -e $roof
+
+roof="This project is based on mps, a terminal based program to search, stream and `
+`download music. This implementation uses YouTube as a source of content and `
+`can play and download video as well as audio.  \n
+https://github.com/mps-youtube/mps-youtube "
+function-roof-menu "$roof"
 PS3="
 Choose paragraph of MPS-Youtube configs menu : "
 select mpsConfig in "$str1" "$str2" "Quit"
@@ -95,13 +94,11 @@ i2=1
 while [ $i2 = 1 ]
 do
 clear
-roof="-----------------------------------------------------------------------------------------------\n
-This project is based on mps, a terminal based program to search, stream and \n
-download music. This implementation uses YouTube as a source of content and \n
-can play and download video as well as audio.  \n
-https://github.com/mps-youtube/mps-youtube \n
------------------------------------------------------------------------------------------------"
-echo -e $roof
+roof="This project is based on mps, a terminal based program to search, stream and `
+`download music. This implementation uses YouTube as a source of content and `
+`can play and download video as well as audio.  \n
+https://github.com/mps-youtube/mps-youtube "
+function-roof-menu "$roof"
 PS3="
 Choose paragraph of MPS-Youtube settings menu : "
 select mpsMenu in "$str1" \
@@ -126,13 +123,11 @@ i2=1
 while [ $i2 = 1 ]
 do
 clear
-roof="-----------------------------------------------------------------------------------------------\n
-This project is based on mps, a terminal based program to search, stream and \n
-download music. This implementation uses YouTube as a source of content and \n
-can play and download video as well as audio.  \n
-https://github.com/mps-youtube/mps-youtube \n
------------------------------------------------------------------------------------------------"
-echo -e $roof
+roof="This project is based on mps, a terminal based program to search, stream and `
+`download music. This implementation uses YouTube as a source of content and `
+`can play and download video as well as audio.  \n
+https://github.com/mps-youtube/mps-youtube "
+function-roof-menu "$roof"
 PS3="
 Choose paragraph of MPS-Youtube settings menu : "
 select mpsMenu in "$str1" "$str2" "$str3" "$str4" \
@@ -185,25 +180,22 @@ function mps-install {
 }
 
 function mps-api {
-roof="-------------------------------------------------------------------------------------------\n
-YouTube Data API will be used in this project \n
-\n
-			Do the following on google developer pages: \n
-	Logged into google account \n
-	Visited https://console.developers.google.com/apis/ \n
-	Clicked on \"ENABLE APIS AND SERVICES\" \n
-	Searched for \"YouTube Data API v3\" \n
-	Generated a new key (may require creating a new project) \n
-\n
- If you enabled this API recently, wait a few minutes for the action \n 
- to propagate to our systems and retry.\n
-----------------------------------------------------\n
-We have an api key generated for testing for you:\n
-AIzaSyBggONEC6omj5JfDGLyEV-x2nJY3X60GJs\n
+clear
+roof="YouTube Data API will be used in this project 
+			Do the following on google developer pages: 
+	Login into google account 
+	Visit https://console.developers.google.com/apis/ 
+	Click on \"ENABLE APIS AND SERVICES\" 
+	Search for \"YouTube Data API v3\" 
+	Generate a new key (may require creating a new project) 
 
-But it can be restricted by the number of times of use, so form your key better\n
---------------------------------------------------------------------------------------------"
-echo -e $roof
+ If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+----------------------------------------------------
+We have an api key generated for testing for you:
+AIzaSyBggONEC6omj5JfDGLyEV-x2nJY3X60GJs
+
+But it can be restricted by the number of times of use, so form your key better"
+function-roof-menu "$roof"
 echo "Paste API here:";read api
 if [ $api ]; then 
 runuser -l pi -c "mpsyt set api_key "$api""

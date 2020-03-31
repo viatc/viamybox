@@ -95,12 +95,11 @@ i2=1
 while [ $i2 = 1 ]
 do
 clear
-roof="----------------------------------------------------------------------------------------------\n
-This is autoload settings for Home Theatre Kodi in your Raspberry Pi \n
-$settings\n
-$settings2\n
------------------------------------------------------------------------------------------------"
-echo -e $roof
+roof="This is autoload settings for Home Theatre Kodi in your Raspberry Pi. \n`
+`
+$settings
+$settings2"
+function-roof-menu "$roof"
 PS3="
 Choose paragraph of Kodi settings menu : "
 select bellMenu in "$str1" \
@@ -125,13 +124,11 @@ i1=1
 while [ $i1 = 1 ]
 do
 clear
-roof="----------------------------------------------------------------------------------------------\n
-Web browser Chromium will be started in “kiosk” mode, that is to say to \n
-launch in full screen, without any window border, toolbar or notifications\n
-$settings\n
-$settings2\n
------------------------------------------------------------------------------------------------"
-echo -e $roof
+roof="Web browser Chromium will be started in “kiosk” mode, that is to say`
+` to launch in full screen, without any window border, toolbar or notifications\n
+$settings
+$settings2"
+function-roof-menu "$roof"
 PS3="
 Choose paragraph of Kiosk settings menu : "
 select kioskMenu in "$str1" \
@@ -197,13 +194,14 @@ i2=1
 while [ $i2 = 1 ]
 do
 clear
-roof="-----------------------------------------------------------------------------------------------\n
-Selected sites for kiosk mode: \n"
+yes "-" | head -n$((($(tput cols) -$numCharHeading)/ 2 +$mod)) | tr -d '\n'
+printf " ViaMyBox - Many Ideas one Implementation "
+yes "-" | head -n$((($(tput cols) -$numCharHeading)/ 2 )) | tr -d '\n'
+roof="\nSelected sites for kiosk mode: \n"
 echo -e $roof
 sed -n '/#kiosk sites/,/#/ p' $VIADIR/conffiles/via.conf |grep -v "#"
 echo -e "\n Caution!!! many sites significantly increase the CPU load."
-roofend="-----------------------------------------------------------------------------------------------"
-echo $roofend
+yes "-" | head -n$(tput cols) | tr -d '\n'
 PS3="Determine (add/remove) which sites to open in kiosk mode : "
 select kioskMenu in "YouTube" "Facebook" "Twitter" "Instagram" "Telegram" "SoundCloud" "Yandex Music" \
 "Reddit" "Twitch" "Spotify" "Google Music" "Deezer" "Netflix" "Live365" "Allmusic" "Iheart" "Tiktok" \

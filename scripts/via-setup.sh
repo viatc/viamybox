@@ -14,13 +14,32 @@ a1='/home/pi/viamybox/scripts/via-mybox-func.sh' ; source "$a1" ; if [ $? -ne 0 
 echo "no function library $a1" 1>&2 ; exit 1 ; fi
 
 set -e
-roofFirst="-------------------------ViaMyBox - Many Ideas one Implementation------------------------------\n
-Whelcome to ViaMyBox console utility. This stuff allows you to \n
-quickly install and manage our functionality or remove those.\n
- © ViaMyBox Technological Studio\n
- info@viamybox.com
-\n-----------------------------------------------------------------------------------------------"
 
+Heading=" ViaMyBox - Many Ideas one Implementation "
+numCharHeading=${#Heading}
+firstMenuStr="Welcome to ViaMyBox console utility. This software allows`
+` you to quickly install and manage our functionalitys or remove those.
+    © ViaMyBox Technological Studio
+      info@viamybox.com"
+
+function function-roof-menu
+{
+betweenStr="$1"
+lenghtStr=${#betweenStr}
+numCharsInStr=$(($(tput cols)-6))
+startendStr=$((($(tput cols) -$numCharHeading)/ 2 ))
+mod=$((($(tput cols) -$numCharHeading)% 2 ))
+
+yes "-" | head -n$((($(tput cols) -$numCharHeading)/ 2 +$mod)) | tr -d '\n'
+printf " ViaMyBox - Many Ideas one Implementation "
+yes "-" | head -n$((($(tput cols) -$numCharHeading)/ 2 )) | tr -d '\n'
+
+strAfter=$(echo -e "\n$betweenStr"|fold -w $(($(tput cols)-6)))
+E=$(echo "$strAfter"|sed 's/^/   /')
+echo -e "$E"
+
+yes "-" | head -n$(tput cols) | tr -d '\n'
+}
 
 ME=`basename $0`
 function print_help() {
@@ -212,7 +231,7 @@ i=1
 while [ $i = 1 ]
 do
 clear
-echo -e $roofFirst
+function-roof-menu "$firstMenuStr"
 PS3="Choose paragraph of music settings menu : "
 select musicMenu in "Bellerofonte-radiobox" \
 "Youtube player mps-youtube" \
@@ -254,7 +273,7 @@ i=1
 while [ $i = 1 ]
 do
 clear
-echo -e $roofFirst
+function-roof-menu "$firstMenuStr"
 PS3="Choose paragraph of Home Theatre settings menu : "
 select hometheatreMenu in "Kodi" \
 "Kiosk mode" \
@@ -310,6 +329,7 @@ while [ $i = 1 ]
 do
 clear
 echo -e $roofFirst
+function-roof-menu "$firstMenuStr"
 PS3="Choose paragraph of timelapsed settings menu : "
 select timeElapsedMenu in "$str1" \
 "$str2" \
@@ -519,7 +539,7 @@ i=1
 while [ $i = 1 ]
 do
 clear
-echo -e $roofFirst
+function-roof-menu "$firstMenuStr"
 PS3="Select the menu option for recording video and audio:"
 select timeElapsedMenu in "Camera selection" \
 "Record file rotation time in seconds" \
@@ -552,7 +572,7 @@ strmg1="Switch to Russian language"
 while [ 1 = 1 ]
 do
 clear
-echo -e $roofFirst
+function-roof-menu "$firstMenuStr"
 PS3="Choose paragraph of settings menu ViaMyBox: "
 select firstMenu in "Internet of things (IoT)" \
 "MotionEye" \

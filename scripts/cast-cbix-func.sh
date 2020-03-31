@@ -64,20 +64,29 @@ i2=1
 while [ $i2 = 1 ]
 do
 clear
-roof="-----------------------------------------------------------------------------------------------\n
-Gotubecast is a small Go program which you can use to make your own YouTube TV player. \n
- It connects to the YouTube Leanback API and generates a text stream providing pairing codes,\n
- video IDs, play/pause/seek/volume change commands etc. \n
- For example, use it on a Raspberry Pi in combination with youtube-dl and  omxplayer for \n
- a DIY Chromecast clone or make a YouTube TV extension for your favorite media center software.\n
+lenghtStr=${#betweenStr}
+numCharsInStr=$(($(tput cols)-6))
+startendStr=$((($(tput cols) -$numCharHeading)/ 2 ))
+mod=$((($(tput cols) -$numCharHeading)% 2 ))
+yes "-" | head -n$((($(tput cols) -$numCharHeading)/ 2 +$mod)) | tr -d '\n'
+printf " ViaMyBox - Many Ideas one Implementation "
+yes "-" | head -n$((($(tput cols) -$numCharHeading)/ 2 )) | tr -d '\n'
+roof="Gotubecast is a small Go program which you can use to make your own YouTube TV player. `
+` It connects to the YouTube Leanback API and generates a text stream providing pairing codes,`
+` video IDs, play/pause/seek/volume change commands etc. `
+` For example, use it on a Raspberry Pi in combination with youtube-dl and  omxplayer for `
+` a DIY Chromecast clone or make a YouTube TV extension for your favorite media center software.\n
 https://github.com/CBiX/gotubecast\n
- !!! After you have generated Screen ID, enter pairing code in your youtube\n 
- application (Settings -> Connect on TV ) on your phone or other device from where\n 
- you cost youtube, to determine your streaming raspberry pi\n
- $strPairCode\n
- $(echo "$strScreenID")
-\n-----------------------------------------------------------------------------------------------"
-echo -e $roof
+ !!! After you have generated Screen ID, enter pairing code in your youtube`
+` application (Settings -> Connect on TV ) on your phone or other device from where`
+` you cost youtube, to determine your streaming raspberry pi\n
+ $strPairCode
+ $(echo "$strScreenID")"
+strAfter=$(echo -e "\n$roof"|fold -w $(($(tput cols)-6)))
+E=$(echo "$strAfter"|sed 's/^/   /')
+echo -e "$E"
+yes "-" | head -n$(tput cols) | tr -d '\n'
+# function-roof-menu "$firstMenuStr"
 PS3="
 Choose paragraph of CBiX/Gotubecast settings menu : "
 select castMenu in "$str1" "$str2" "$str3" "Generate Screen ID" \
@@ -108,15 +117,13 @@ i2=1
 while [ $i2 = 1 ]
 do
 clear
-roof="-----------------------------------------------------------------------------------------------\n
-Gotubecast is a small Go program which you can use to make your own YouTube TV player. \n
- It connects to the YouTube Leanback API and generates a text stream providing pairing codes,\n
- video IDs, play/pause/seek/volume change commands etc. \n
- For example, use it on a Raspberry Pi in combination with youtube-dl and  omxplayer for \n
- a DIY Chromecast clone or make a YouTube TV extension for your favorite media center software.\n
-https://github.com/CBiX/gotubecast\n
------------------------------------------------------------------------------------------------"
-echo -e $roof
+roof="Gotubecast is a small Go program which you can use to make your own YouTube TV player.`
+` It connects to the YouTube Leanback API and generates a text stream providing pairing codes,`
+` video IDs, play/pause/seek/volume change commands etc.\n
+ For example, use it on a Raspberry Pi in combination with youtube-dl and  omxplayer for `
+` a DIY Chromecast clone or make a YouTube TV extension for your favorite media center software.\n
+https://github.com/CBiX/gotubecast\n"
+function-roof-menu "$roof"
 PS3="
 Choose paragraph of CBiX/Gotubecast settings menu : "
 select castMenu in "$str1" \
@@ -235,19 +242,17 @@ i3=1
 while [ $i3 = 1 ]
 do
 clear
-roof="-----------------------------------------------------------------------------------------------\n
-Generate a Screen ID for your TV to which your raspberry pi is connected and this\n
- will allow you to automatically connect to your TV via youtube your phone or \n
-other device from which you stream youtube via raspberry.
-\n-----------------------------------------------------------------------------------------------"
-echo -e $roof
+roof="Generate a Screen ID for your TV to which your raspberry pi is connected and this`
+` will allow you to automatically connect to your TV via youtube your phone or `
+`other device from which you stream youtube via raspberry."
+function-roof-menu "$roof"
 PS3="
 Choose Generate Screen Id menu : "
 select castMenu in "Generate Screen ID" \
 "Quit"
  do
  case $castMenu in
-	"Generate Screen ID") generate-screen-id-func;clear;i3=0;cast-cbix-func;break
+	"Generate Screen ID") generate-screen-id-func;clear;i3=0;break;#cast-cbix-func;break
 	;;
 	"Quit") clear;i3=0;break;
 	;;
