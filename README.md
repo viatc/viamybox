@@ -66,8 +66,8 @@ If the port 80 for the web server is allocated, change the port in the file /hom
 before installation.
 
 ### Installation project ViaMyBox
-the project should be in the folder /home/pi:
 CLONE REPOSITORY
+the project should be in the folder /home/pi:
 ```bash
 cd /home/pi
 git clone https://github.com/viatc/viamybox.git
@@ -77,6 +77,7 @@ OR
 cd /home/pi
 unzip viamybox-master.zip -d /home/pi/
 mv -r viamybox-master viamybox
+```
 make the scripts executable:
 ```bash
 cd viamybox/scripts/prepostinstall/
