@@ -64,14 +64,19 @@ Mjpg-streamer будет проинсталлирован скриптом ~/via
 
 -------Инсталляция проекта ViaMyBox
 УСТАНОВКА ИЗ РЕПОЗИТОРИЯ
+
 cd /home/pi
 git clone https://github.com/viatc/viamybox.git
+
 ИЛИ
+
 cd /home/pi
 Проект должен быть в папке /home/pi:
 unzip viamybox-master.zip -d /home/pi 
 mv -r /home/pi/viamybox-master /home/pi/viamybox
+
 ДАЛЕЕ
+
 cd viamybox/scripts/prepostinstall/
 Делаем скрипты исполняемыми:
 chmod +x ./*.sh
