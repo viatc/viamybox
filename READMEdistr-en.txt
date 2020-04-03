@@ -63,7 +63,15 @@ If the port 80 for the web server is allocated, change the port in the file /hom
 before installation.
 
 -------Installation project ViaMyBox
-
+CLONE REPOSITORY
+cd /home/pi
+git clone https://github.com/viatc/viamybox.git
+```
+OR
+cd /home/pi
+unzip viamybox-master.zip -d /home/pi/
+mv -r viamybox-master viamybox
+AFTER THAT
 cd /home/pi
 the project should be in the folder /home/pi:
 unzip viamybox.zip -d /home/pi
