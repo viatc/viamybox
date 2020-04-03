@@ -67,7 +67,7 @@ before installation.
 
 ### Installation project ViaMyBox
 CLONE REPOSITORY
-the project should be in the folder /home/pi:
+  the project should be in the folder /home/pi:
 ```bash
 cd /home/pi
 git clone https://github.com/viatc/viamybox.git
@@ -84,7 +84,7 @@ cd viamybox/scripts/prepostinstall/
 chmod +x ./*.sh
 ```
 AFTER THAT
-installation of the necessary packages:
+  installation of the necessary packages:
 ```bash
 sudo ./00install.sh
 ```
