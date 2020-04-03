@@ -73,7 +73,7 @@ git clone https://github.com/viatc/viamybox.git
 cd /home/pi
 Проект должен быть в папке /home/pi:
 unzip viamybox-master.zip -d /home/pi 
-mv -r /home/pi/viamybox-master /home/pi/viamybox
+mv -r viamybox-master viamybox
 
 ДАЛЕЕ
 
