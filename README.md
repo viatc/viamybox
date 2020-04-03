@@ -67,17 +67,18 @@ before installation.
 
 ### Installation project ViaMyBox
 the project should be in the folder /home/pi:
+CLONE REPOSITORY
 ```bash
 cd /home/pi
 git clone https://github.com/viatc/viamybox.git
 ```
-or
+OR
 ```bash
 cd /home/pi
 unzip viamybox-master.zip -d /home/pi/
-mv viamybox-master viamybox
+mv -r viamybox-master viamybox
 ```
-
+AFTER THAT
 make the scripts executable:
 ```bash
 cd viamybox/scripts/prepostinstall/
