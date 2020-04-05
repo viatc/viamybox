@@ -155,7 +155,7 @@ select mpsMenu in "$str1" "$str2" "$str3" "$str4" \
 
 function mps-uninstall {
  runuser -l pi -c "pip3 uninstall mps-youtube"
- rm -rf /usr/local/bin/mpsyt /home/pi/.local/bin/mpsyt
+ rm -rf /usr/local/bin/mpsyt /home/pi/.local/bin/mpsyt /usr/bin/mpsyt
  rm -rf /home/pi/mps-youtube
  rm -rf /home/pi/.config/mps-youtube
  runuser -l pi -c "pip3 uninstall youtube-dl"
@@ -167,7 +167,7 @@ function mps-uninstall {
 }
 
 function mps-install {
- apt-get install mpv
+ apt-get install mpv python3-pip
  runuser -l pi -c "pip3 install --user mps-youtube"
  runuser -l pi -c "pip3 install --user youtube-dl"
  runuser -l pi -c "pip3 install --user youtube-dl --upgrade"
@@ -176,6 +176,7 @@ function mps-install {
  # cd mps-youtube
  #python3 setup.py install
  #sudo -u pi bash -c "mpsyt set show_video true"
+ cp /home/pi/.local/bin/mpsyt /usr/bin
  echo "Press any key";read a
 }
 

@@ -146,7 +146,7 @@ select castMenu in "$str1" \
 
 function install-gotubecast
 {
-sudo apt-get install bc omxplayer
+sudo apt-get install bc omxplayer git python-pip
 cd /home/pi
 #--------install golang
 if [ ! -d /usr/local/go ];then
@@ -182,7 +182,7 @@ runuser -l pi -c "pip install --user youtube-dl"
 runuser -l pi -c "pip install --user youtube-dl --upgrade"
 #systemctl enable gotubecast.service
 
-
+cp /home/pi/.local/bin/youtube-dl /usr/bin/
 echo "Press Enter key";read a
 }
 

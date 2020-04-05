@@ -20,7 +20,7 @@ echo "Waiting... will be installed bellerofonte/radiobox!"
 #curl -sL https://deb.nodesource.com/setup_11.x | bash -
 
 #apt-get install npm 
-apt-get install mpd mpc nodejs
+apt-get install mpd mpc nodejs git npm
 usermod -a -G pi mpd
 cd /home/pi/
 git clone https://github.com/bellerofonte/radiobox.git
@@ -40,7 +40,7 @@ chown pi:pi $FILE
 
 #read -n 1 -s -r -p "Press any key to continue"
 echo -e "ATENTION!!!... Bellerofonte Radio ready to go.. Please start radio in menu and connect in browser with this line http://<ip>:8143\n"
-echo "Press enter to continue..."
+echo "You may need to reboot! Press enter to continue..."
 read n
 # EchoLine="Need to reboot.. reboot now?"
 # export EchoLine
