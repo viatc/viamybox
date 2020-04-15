@@ -1,0 +1,297 @@
+#!/bin/bash
+	## Copyright (C) 2017-2019 ViaMyBox viatc.msk@gmail.com
+	## This file is a part of ViaMyBox free software: you can redistribute it and/or modify
+    ## it under the terms of the GNU General Public License as published by
+    ## the Free Software Foundation, either version 3 of the License, or
+    ## any later version.
+	##
+	## You should have received a copy of the GNU General Public License
+    ## along with ViaMyBox in /home/pi/COPIYNG file.
+	## If not, see <https://www.gnu.org/licenses/>.
+	##  
+	
+VIADIR="/home/pi/viamybox"
+EXECFILE="/sbin/via-rec-av-c270"
+FILECONF="/home/pi/viamybox/conffiles/via.conf"
+StoreVideo="/home/pi/camera/video"
+StoreAudio="/home/pi/camera/audio"
+PARAM=" autoload"
+PARAM2="noautoload"
+
+
+function checkMutuallyRunningProc ()
+{
+ret=$(ps aux | grep via-rec-av  | wc -l)
+
+if [ "$ret" -gt 1 ];then
+	echo "Attention!!!  Recording Gstreamer A/V stream wil be deactivating. Mutually exclusive modes."
+	EchoLine="Confirm Deactivation?"
+	export EchoLine
+	SubmitYN result
+	if [[ $result = 'Y' ]];then
+		a1='/home/pi/viamybox/scripts/gstreamerav.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
+		echo "no function library $a1" 1>&2 ; exit 1 ;fi
+		stopGstrmAV
+		statusConfirm="Yes"
+		else statusConfirm="NO";return 0
+	fi
+fi
+
+ret=$(ps aux | grep via-rec-audio | wc -l)
+if [ "$ret" -gt 1 ];then
+	echo "Attention!!!  Recording Audio stream when will be deactivating. Mutually exclusive modes."
+	EchoLine="Confirm Deactivation?"
+	export EchoLine
+	SubmitYN result
+	if [[ $result = 'Y' ]];then
+		a1='/home/pi/viamybox/scripts/gstreamerav.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
+		echo "no function library $a1" 1>&2 ; exit 1 ;fi
+		stopGstrmA
+		statusConfirm="Yes"
+		else statusConfirm="NO";return 0
+	fi
+fi
+}
+
+function checkMutuallyProcessesA {
+
+VAR="GstreamerRecAV"
+statusConfirm="YES"
+CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result 
+if [ $result = 'Y' ] ;then 
+	echo "Attention!!!  Starting Audio/Video Recording with Gstreamer, when system start wil be deactivating. Mutually exclusive modes." 
+	EchoLine="Confirm Deactivation?"
+	export EchoLine
+	SubmitYN result
+		if [[ $result = 'Y' ]];then
+			FirstSubstInFile2 $FILECONF $VAR $PARAM2
+		else statusConfirm="NO";return 0
+		fi
+fi
+}
+
+
+function checkMutuallyProcessesAV {
+VAR="snapshotmjpg.sh"
+CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result 
+
+statusConfirm="YES"
+if [ $result = 'Y' ] ;then 
+	echo "Attention!!!  Starting snapshots recording when system start wil be deactivating. Mutually exclusive modes."
+	EchoLine="Confirm Deactivation?"
+	export EchoLine
+	SubmitYN result
+		if [[ $result = 'Y' ]];then
+			FirstSubstInFile2 $FILECONF $VAR $PARAM2
+		else statusConfirm="NO";return 0
+		fi
+	fi
+	
+VAR="mjpg-streamer-rec-video.sh"
+CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result 
+
+if [ $result = 'Y' ] ;then 
+	echo "Attention!!!  Starting video ffmpeg recording when system start wil be deactivating. Mutually exclusive modes." 
+	EchoLine="Confirm Deactivation?"
+	export EchoLine
+	SubmitYN result
+		if [ $result = 'Y' ];then
+			FirstSubstInFile2 $FILECONF $VAR $PARAM2
+		else statusConfirm="NO";return 0
+		fi
+	fi
+
+VAR="MJPGStreamer"
+CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result 
+
+if [ $result = 'Y' ] ;then 
+	echo "Attention!!!  Starting mjpg-streamer when system start wil be deactivating. Mutually exclusive modes." 
+	EchoLine="Confirm Deactivation?"
+	export EchoLine
+	SubmitYN result
+	if [[ $result = 'Y' ]];then
+		update-rc.d -f mjpg-streamerd.sh remove &
+		FirstSubstInFile2 $FILECONF $VAR $PARAM2
+	else statusConfirm="NO";return 0
+	fi
+fi
+
+}
+
+
+function stopGstrmAV {
+	SubstParamInFile '/home/pi/viamybox/www/style.css' 'background-image:' 'rec-red-av.gif' 'rec-av.png'
+	chown www-data:www-data /home/pi/viamybox/www/style.css
+	killall -s SIGINT $EXECFILE
+	chown pi:pi $StoreVideo/*
+}
+
+function startGstrmAV {
+checkMutuallyRunningProc
+if [[ $statusConfirm = 'Yes' ]];then
+	ret=$(ps aux | grep mjpg_streamer | wc -l)
+	if [ "$ret" -gt 1 ]
+		then
+		echo "mjpg starting" #output text
+		service mjpg-streamerd stop
+	fi
+
+	ret=$(ps aux | grep motioneye | wc -l)
+	if [ "$ret" -gt 1 ]
+	then {
+		docker stop motioneye
+	}
+	fi
+fi
+
+SubstParamInFile '/home/pi/viamybox/www/style.css' 'background-image:' 'rec-av.png' 'rec-red-av.gif'
+chown www-data:www-data /home/pi/viamybox/www/style.css
+$EXECFILE > /dev/null 2>&1 &
+
+}
+
+function startGstrmA {
+checkMutuallyRunningProc
+
+if [[ $statusConfirm = 'Yes' ]];then
+	ret=$(ps aux | grep via-rec-audio  | wc -l)
+	echo "$ret"
+	if [ "$ret" -eq 1 ]
+	then
+		SubstParamInFile '/home/pi/viamybox/www/style.css' 'background-image:' 'rec-a.png' 'rec-red-a.gif'
+		chown www-data:www-data /home/pi/viamybox/www/style.css
+	# exec /sbin/via-rec-audio /dev/null 2>&1 &
+	# (trap "" SIGINT; exec -a via-rec-audio /sbin/via-rec-audio & > /dev/null 2>&1)
+		/sbin/via-rec-audio > /dev/null 2>&1 &
+	fi
+fi
+}
+
+function stopGstrmA {
+ret=$(ps aux | grep via-rec-audio  | wc -l)
+echo "$ret"
+if [ "$ret" -gt 1 ]
+then {
+	SubstParamInFile '/home/pi/viamybox/www/style.css' 'background-image:' 'rec-red-a.gif' 'rec-a.png'
+	chown www-data:www-data /home/pi/viamybox/www/style.css
+	killall -s SIGINT via-rec-audio
+	chown pi:pi $StoreAudio/*
+}
+fi
+}
+
+function swichGstreamerRecAVAutoload
+{
+VAR="GstreamerRecAV"
+CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result
+
+if [ $result = 'Y' ] ;then 
+	PARAM2="noautoload"
+	FirstSubstInFile2 $FILECONF $VAR $PARAM2
+ else 
+	checkMutuallyProcessesAV
+
+	if [ $statusConfirm = "YES" ];then 
+		VAR="GstreamerRecAV"
+		FirstSubstInFile2 $FILECONF $VAR $PARAM
+		VAR="GstreamerRecAudio"
+		FirstSubstInFile2 $FILECONF $VAR $PARAM2
+	fi
+
+fi
+}
+
+function swichGstreamerRecAAutoload
+{
+VAR="GstreamerRecAudio"
+CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result
+
+if [ $result = 'Y' ] ;then 
+	FirstSubstInFile2 $FILECONF $VAR $PARAM2
+ else 
+		VAR="GstreamerRecAudio"
+		FirstSubstInFile2 $FILECONF $VAR $PARAM
+		VAR="GstreamerRecAV"
+		FirstSubstInFile2 $FILECONF $VAR $PARAM2
+	# fi
+fi
+}
+
+
+function gstreamfunc {
+
+proc=$(echo $EXECFILE|awk -F/ '{print $3}')
+ret=$(ps aux | grep $proc  | wc -l)
+echo "$ret"
+
+if [ "$ret" -eq 1 ]
+then 
+	str1="Start Recording Audio/Video"
+	strFunc1="startGstrmAV"
+else 
+	str1="Stop Recording Audio/Video"
+	strFunc1="stopGstrmAV"
+fi
+
+ret=$(ps aux | grep via-rec-audio  | wc -l)
+# echo "$ret"
+if [ "$ret" -gt 1 ]
+then 
+	str2="Stop Recording Audio"
+	strFunc2="stopGstrmA"
+else 
+	str2="Start Recording Audio"
+	strFunc2="startGstrmA"
+fi
+
+VAR="GstreamerRecAV"
+CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result 
+if [ $result = 'Y' ] ;then 
+	settingsRecAV="☑ Recording Gstreamer Audio/Video enabled at startup"
+	str3="Disable Recording Audio/Video at startup"
+ else 
+	settingsRecAV="☐ Recording Gstreamer Audio/Video enabled at startup"
+	str3="Enable Recording Audio/Video at startup"
+fi
+
+
+VAR="GstreamerRecAudio"
+CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result 
+if [ $result = 'Y' ] ;then 
+	settingsRecA="☑ Recording Gstreamer Audio enabled at startup"
+	str4="Disable Recording Sound at startup"
+ else 
+	settingsRecA="☐ Recording Gstreamer Audio enabled at startup"
+	str4="Enable Recording Sound at startup"
+fi
+
+}
+
+if [ -n $1  ]; then 
+
+a1='/home/pi/viamybox/scripts/via-mybox-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
+echo "no function library $a1" 1>&2 ; exit 1 ; fi
+
+case "$1" in
+  --help)
+	echo "Usage: $0 or $0 --recvideo" >&2
+	;;
+  --startGstrmAV|-sav)
+	startGstrmAV
+	;;
+  --startGstrmA|-sa)
+	startGstrmA
+	;;
+	*)
+	# echo "Usage: $0 [OPTIONS]
+	# OPTIONS
+	# -sav, --startGstrmAV 
+		# Start Gstreamer Recording Audio/Video form USB Camera 
+	# -sa, --startGstrmA 
+		# Start Gstreamer Recording Audio form USB Camera " >&2
+	;;
+esac
+
+fi
+
+

@@ -98,6 +98,54 @@ trap "{ rm -f "${DAEMON_DIR}/RecFfmpegMjpgStreamerAutoload.pid"; exit 255; }" TE
 )&
 }
 
+function GstreamerRecAV
+{
+(
+trap "{ rm -f "${DAEMON_DIR}/gstreamer-rec-av.pid"; exit 255; }" TERM INT EXIT
+		# Дополнительная проверка что бы убедиться что Потомок один
+		if [ ! -e "${DAEMON_DIR}/gstreamer-rec-av.pid" ];then
+			echo ${BASHPID} > "${DAEMON_DIR}/gstreamer-rec-av.pid"
+			do_log  "child GstreamerRecAV" "Job with pid  ${BASHPID}"
+			FILE="/home/pi/viamybox/conffiles/via.conf"
+			VAR="GstreamerRecAV"
+			PARAM=" autoload"
+			CheckParamInFile "$VAR" "$FILE" "$PARAM" result 
+			if [ $result = 'Y' ] ;then 
+			/home/pi/viamybox/scripts/gstreamerav.sh --startGstrmAV &
+			echo $! > "${DAEMON_DIR}/gstreamer-rec-av.pid"
+			fi
+		else
+			do_log  "child" "PID file gstreamer-rec-av.pid is exists"
+			exit 0
+		fi
+
+)&
+}
+
+function GstreamerRecA
+{
+(
+trap "{ rm -f "${DAEMON_DIR}/gstreamer-rec-a.pid"; exit 255; }" TERM INT EXIT
+		# Дополнительная проверка что бы убедиться что Потомок один
+		if [ ! -e "${DAEMON_DIR}/gstreamer-rec-a.pid" ];then
+			echo ${BASHPID} > "${DAEMON_DIR}/gstreamer-rec-a.pid"
+			do_log  "child GstreamerRecA" "Job with pid  ${BASHPID}"
+			FILE="/home/pi/viamybox/conffiles/via.conf"
+			VAR="GstreamerRecAudio"
+			PARAM=" autoload"
+			CheckParamInFile "$VAR" "$FILE" "$PARAM" result 
+			if [ $result = 'Y' ] ;then 
+			/home/pi/viamybox/scripts/gstreamerav.sh --startGstrmA &
+			echo $! > "${DAEMON_DIR}/gstreamer-rec-a.pid"
+			fi
+		else
+			do_log  "child" "PID file gstreamer-rec-a.pid is exists"
+			exit 0
+		fi
+
+)&
+}
+
 kill_child_processes() {
     isTopmost=$1
     curPid=$2
@@ -258,6 +306,8 @@ trap "{ rm -f ${JOB_LOCK_FILE}; exit 255; }" TERM INT EXIT
 
 RecSnapshotAutoload
 RecFfmpegMjpgStreamerAutoload
+GstreamerRecAV
+GstreamerRecA
 SubstParamInFile '/home/pi/viamybox/www/style.css' 'background-image:' 'rec-red-a.gif' 'rec-a.png'
 SubstParamInFile '/home/pi/viamybox/www/style.css' 'background-image:' 'rec-red-av.gif' 'rec-av.png'
 chown www-data:www-data /home/pi/viamybox/www/style.css

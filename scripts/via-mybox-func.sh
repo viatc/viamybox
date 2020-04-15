@@ -30,11 +30,11 @@ mv -f $FILE.new $FILE
 #Substitution of first parameter in file
 FirstSubstInFile ()
 {
-FILE=$1
-VARIABLE=$2
-PARAM=$3
-sed "0,/$VARIABLE/s/$VARIABLE.*/$VARIABLE$PARAM/" $FILE > $FILE.new
-mv -f $FILE.new $FILE
+# FILE=$1
+# VARIABLE=$2
+# PARAM=$3
+sed "0,/$2/s/$2.*/$2$3/" "$1" > "$1".new
+mv -f "$1".new "$1"
 }
 
 FirstSubstInFile2 ()
@@ -44,11 +44,11 @@ FirstSubstInFile2 ()
 # in double quotes)
 # ^ from the beginning of the line; [[:space:]]* any number of tabs or spaces;
 # cuts. * any number of characters
-FILE="$1"
-VARIABLE="$2"
-PARAM="$3"
-sed "s/^[[:space:]]*$VARIABLE.*/$VARIABLE\ $PARAM/" $FILE > $FILE.new
-mv -f $FILE.new $FILE
+# FILE="$1"
+# VARIABLE="$2"
+# PARAM="$3"
+sed "s/^[[:space:]]*$2.*/$2\ $3/" "$1" > "$1".new
+mv -f "$1".new "$1"
 }
 
 FirstSubstInFile3 ()
@@ -123,14 +123,17 @@ SubmitYN ()
 {
 myresult="NULL"
 while [ $myresult = "NULL" ] ;do
-echo -n "$EchoLine (y/n): "
+echo -n "$EchoLine ... Yes/No [Yes]: "
 myresult="NULL"
 read item
 case "$item" in
-    [yY][eE][sS]|[yY])
+    [yY][eE][sS]|[yY]"")
         local  myresult='Y'
         ;;
-    [Дд][Аа]|[Дд])result='Y'
+		"")
+        local  myresult='Y'
+        ;;
+    [Дд][Аа]|[Дд]"")
         local  myresult='Y'
         ;;
     [nN][oO]|[nN])
@@ -173,6 +176,7 @@ CheckParamInFile ()
 {
 myresult="NULL"
 #for item in "$str"; do
+
  if grep "$1" "$2" |grep -q "$3"
 	then
 #	return 0

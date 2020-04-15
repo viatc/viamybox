@@ -19,7 +19,7 @@
 #filename=$(date --rfc-3339=date)
 
 
-removedDays=365
+removedDays=100
 FILE="/home/pi/viamybox/conffiles/via.conf"
 VAR="saveDir"
 saveDir=$(grep $VAR $FILE|awk '{print $2}')
