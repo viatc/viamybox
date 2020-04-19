@@ -618,6 +618,7 @@ select firstMenu in "Internet of things (IoT)" \
 "Automatic launch of service inadyn (dynamic renewal ip for dyndns freedns.afraid.org)" \
 "Change password of web access" \
 "Change user password pi" \
+"Update ViaMyBox from GitHub" \
 "$strmg1" \
 "Quit"
  do
@@ -653,6 +654,19 @@ select firstMenu in "Internet of things (IoT)" \
 	"Change password of web access") changeWebPass;clear;break
 	;; 
 	"Change user password pi") changePass;clear;break
+	;;
+	"Update ViaMyBox from GitHub") {
+		cd /home/pi/viamybox/
+		git status
+		EchoLine="Wold you like to update ViaMyBox files from GitHub?"
+		export EchoLine
+		SubmitYN result
+		if [[ $result = 'Y' ]];then
+			su - pi -c "cd ~/viamybox;git pull origin"
+			read -n 1 -s -r -p "Press any key to continue"
+		fi
+		clear;break
+	}
 	;;
 	"$strmg1") {
 		a1='/home/pi/viamybox/scripts/change-language.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then

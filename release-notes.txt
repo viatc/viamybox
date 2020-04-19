@@ -1,5 +1,7 @@
 ---------------v 0.72-----------
-added gstreamer and mjpg streamer managment functions in via-setup 
+added in via-setup.sh update ViaMyBox from github
+added a mode to start the camera view using mjpg-streamer in the via-setup.sh timelapse settings menu
+added gstreamer managment functions in via-setup 
 added in via-setup.sh gotubecast streaming youtube project https://github.com/CBiX/gotubecast
 added in via-setup.sh mpsyoutube terminal based program to search, stream and download music.https://github.com/mps-youtube/mps-youtube
 added in via-setup.sh kiosk mode
