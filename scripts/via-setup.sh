@@ -663,6 +663,10 @@ select firstMenu in "Internet of things (IoT)" \
 		SubmitYN result
 		if [[ $result = 'Y' ]];then
 			su - pi -c "cd ~/viamybox;git pull origin"
+			if ! diff -q /home/pi/viamybox/conffiles/viamyboxd /etc/init.d/viamyboxd ; then
+				cp -f /home/pi/viamybox/conffiles/viamyboxd /etc/init.d
+				systemctl daemon-reload
+			fi
 			read -n 1 -s -r -p "Press any key to continue"
 		fi
 		clear;break
