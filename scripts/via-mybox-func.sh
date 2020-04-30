@@ -17,6 +17,57 @@
 
 PrintTime=$(perl -e "print time")
 
+#function wrap text
+function wrapText {
+str="/n$1"
+numCharsInStr=$(($(tput cols)-6))
+if [ $numCharsInStr -gt 90 ];then numCharsInStr=100;fi
+echo -e "$1" |sed -rne "
+:begin_loop
+/^.{40}!/ {b end_loop}
+/.{$numCharsInStr}/! {b end_loop}
+s/^(.{,$numCharsInStr})\s/\1\n/
+t end_loop
+:end_loop
+P
+D
+" |
+sed 's/^/   /'
+}
+
+#function wrap and spread text
+function wrapAndSpread {
+str="/n$1"
+numCharsInStr=$(($(tput cols)-6))
+if [ $numCharsInStr -gt 90 ];then numCharsInStr=100;fi
+echo -e "$1" |sed -rne "
+:begin_loop
+/^.{40}!/ {b end_loop}
+/.{$numCharsInStr}/! {b end_loop}
+s/^(.{,$numCharsInStr})\s/\1\n/
+t end_loop
+:end_loop
+P
+D
+" |
+sed -rne "
+:begin_loop
+/.{40}/! {b end_loop}
+/☐/ {b end_loop}
+/☑/ {b end_loop}
+	/.{$numCharsInStr}/ b end_loop
+	s/([^ ]) ([^ ])/\1  \2/
+	t begin_loop
+	s/([^ ])  ([^ ])/\1   \2/
+	t begin_loop
+	s/([^ ])   ([^ ])/\1    \2/
+	t begin_loop
+:end_loop
+s/^/   /p
+"
+}
+
+
 #Substitution of one parameter for another one in file
 SubstParamInFile ()
 {

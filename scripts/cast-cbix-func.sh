@@ -22,7 +22,7 @@ echo "no function library $a1" 1>&2 ; exit 1 ; fi
 
 function cast-cbix-func
 {
-if [ -e /home/pi/projects/bin/gotubecast ]; then
+if [ -e /home/pi/projects/bin/gotubecast -a -e /home/pi/.local/bin/youtube-dl ]; then
 str1="Uninstall CBiX/Gotubecast"
 strFunc1="uninstall-gotubecast"
 startmenu="gotubecast-menu-install"
@@ -82,9 +82,8 @@ https://github.com/CBiX/gotubecast\n
 ` you cost youtube, to determine your streaming raspberry pi\n
  $strPairCode
  $(echo "$strScreenID")"
-strAfter=$(echo -e "\n$roof"|fold -w $(($(tput cols)-6)))
-E=$(echo "$strAfter"|sed 's/^/   /')
-echo -e "$E"
+
+wrapText "$roof"
 yes "-" | head -n$(tput cols) | tr -d '\n'
 # function-roof-menu "$firstMenuStr"
 PS3="

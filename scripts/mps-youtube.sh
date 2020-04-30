@@ -71,7 +71,7 @@ select mpsConfig in "$str1" "$str2" "Quit"
 function mps-youtube-func
 {
 
-if [ -e /usr/local/bin/mpsyt -o -e  /home/pi/.local/bin/mpsyt ];then
+if [ -e  /home/pi/.local/bin/mpsyt -a -e /home/pi/.local/bin/youtube-dl ];then
 	str1="Uninstall mps-youtube"
 	strFunc1="mps-uninstall"
 	str2="Play mps-youtube"
@@ -196,7 +196,7 @@ We have an api key generated for testing for you:
 AIzaSyBggONEC6omj5JfDGLyEV-x2nJY3X60GJs
 
 But it can be restricted by the number of times of use, so form your key better"
-function-roof-menu "$roof"
+function-roof-menu "$roof" "--nospread"
 echo "Paste API here:";read api
 if [ $api ]; then 
 runuser -l pi -c "mpsyt set api_key "$api""

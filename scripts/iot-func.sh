@@ -186,7 +186,7 @@ if [[ $(docker ps |grep addon_core_configurator) ]]
 # if [[ $(docker ps |grep  hassio_audio) ]]
 	# then docker container stop  hassio_audio;fi
 if [[ $(docker ps |grep  hassio) ]]
-	then docker stop $(sudo docker ps -a | grep *hassio | awk '{print $1}');fi
+	then docker stop $(sudo docker ps -a | grep hassio | awk '{print $1}');fi
 }
 
 function iotfunc

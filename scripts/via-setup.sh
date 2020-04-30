@@ -17,10 +17,12 @@ set -e
 
 Heading=" ViaMyBox - Many Ideas one Implementation "
 numCharHeading=${#Heading}
-firstMenuStr="Welcome to ViaMyBox console utility. This software allows`
+firstMenuStr="
+Welcome to ViaMyBox console utility. This software allows`
 ` you to quickly install and manage our functionalitys or remove those.
     © ViaMyBox Technological Studio
-      info@viamybox.com"
+      info@viamybox.com
+"
 
 function function-roof-menu
 {
@@ -30,14 +32,16 @@ numCharsInStr=$(($(tput cols)-6))
 startendStr=$((($(tput cols) -$numCharHeading)/ 2 ))
 mod=$((($(tput cols) -$numCharHeading)% 2 ))
 
-yes "-" | head -n$((($(tput cols) -$numCharHeading)/ 2 +$mod)) | tr -d '\n'
-printf " ViaMyBox - Many Ideas one Implementation "
-yes "-" | head -n$((($(tput cols) -$numCharHeading)/ 2 )) | tr -d '\n'
-
-strAfter=$(echo -e "\n$betweenStr"|fold -w $(($(tput cols)-6)))
-E=$(echo "$strAfter"|sed 's/^/   /')
-echo -e "$E"
-
+if [ $numCharsInStr -gt 40 ];then 
+	yes "-" | head -n$((($(tput cols) -$numCharHeading)/ 2 +$mod)) | tr -d '\n'
+	printf " ViaMyBox - Many Ideas one Implementation "
+	yes "-" | head -n$((($(tput cols) -$numCharHeading)/ 2 )) | tr -d '\n'
+else
+wrapAndSpread " ViaMyBox - Many Ideas one Implementation "
+fi
+if [ "$2" = "--nospread" ];then wrapText "$betweenStr"
+	else wrapAndSpread "$betweenStr"
+fi
 yes "-" | head -n$(tput cols) | tr -d '\n'
 }
 
@@ -184,9 +188,9 @@ fi
 function autobootInadynService () {
 read -r -p "Start automatically web service mjpg_streamer at system launch? y/n :" response
 case $response in
-	[yY][eE][sS]|[yY]) update-rc.d inadyn enable
+	[yY][eE][sS]|[yY]) systemctl enable inadyn
 	;;
-	[nN][oO]|[nN]) update-rc.d inadyn disable
+	[nN][oO]|[nN]) systemctl disable inadyn
 	;;
 esac
 }
