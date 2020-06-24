@@ -1,3 +1,5 @@
+iot scripts and daemons for dht11 and hc-sr501 sensors were added for communication with a home assistant through mqtt
+api key mps-youtube regenerated and added in mps-youtube.sh
 ---------------v 0.72-----------
 added: wrap and spread text in roof via-setup.sh
 fixed: stopping hassio containers with error 

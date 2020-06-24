@@ -1,0 +1,10 @@
+[Unit]
+Description=PIR Mqtt Service
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/python3 /home/pi/viamybox/scripts/iot/mqtt-pir.py
+
+[Install]
+WantedBy=multi-user.target
