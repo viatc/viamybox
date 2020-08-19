@@ -1,3 +1,4 @@
+added mktt python client and daemon for iot relays KY-019,2PH63891A,2PH63083A,8RELAYBRD-5V to interact with Home Assistant
 iot scripts and daemons for dht11 and hc-sr501 sensors were added for communication with a home assistant through mqtt
 api key mps-youtube regenerated and added in mps-youtube.sh
 ---------------v 0.72-----------
