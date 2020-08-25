@@ -41,7 +41,7 @@ ViaMyBox distribution is assembled and tested based on 2019-09-26-raspbian-buste
 - inadyn service management
 - management of connection to a remote yandex disk based on webdav
 
-**Python client for for sensors and IOT devices**
+**Python client for for sensors and IOT devices**:
 The ability to connect temperature sensor DHT11HC-SR501 and motion sensor HC-SR501, relays (KY019,2PH63891A,2PH63083A,8RELAYBRD-5V) and similar to the Raspberry Pi and their remote control via Home Assistant or other mqtt broker. This is a python script that works as a Mosquito client. It is possible to connect it as a service. On the receiving side of Home Assistant mosquito broker. The relay has a "confirmed activation" mode, that is, the status of the relay operation is checked. After installing or cloning the project, change the mqtt and sensor settings in 
 the configuration file:
 ```nano ~/viamybox/conffiles/iot/mqtt-config.ini```
@@ -53,7 +53,7 @@ Start service or python script:
 ```sudo systemctl start <name service>
 python ~/viamybox/scripts/iot/<name>.py 
 ```
-On the Home Assistant side the sensor settings in the configuration.yaml for example
+On the Home Assistant side the sensor settings in the configuration.yaml for example:
 ```nano ~/viamybox/conffiles/homeassistant/configuration.yaml```
 
 **Change your password!
