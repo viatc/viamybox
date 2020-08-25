@@ -50,7 +50,7 @@ Full-screen browser window with your favorite media sites. We included about 2 d
 
 and more..
 
-**Python client for for sensors and IOT devices**:
+**Python client for sensors and IOT devices**:
 
 The ability to connect temperature-humidity sensor DHT11, motion sensor HC-SR501, relays (KY019,2PH63891A,2PH63083A,8RELAYBRD-5V) and similar to the Raspberry Pi and their remote control via Home Assistant or other mqtt broker. This is a python script that works as a Mosquito client. It is possible to connect it as a service. On the receiving side of Home Assistant mosquito broker. The relay has a "confirmed activation" mode, that is, the status of the relay operation is checked. After installing or cloning the project, change the mqtt and sensor settings in 
 the configuration file:
