@@ -42,7 +42,7 @@ Full-screen browser window with your favorite media sites. We included about 2 d
 **Web interface**:
 - management of video recording functions
 
-**Console utility via-setup.sh**:
+**Console utility via-setup.sh**:managing this project stuff above and more... 
 - management of video recording functions
 - managing docker images Home Assistant and MotionEye
 - inadyn service management
