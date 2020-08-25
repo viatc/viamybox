@@ -42,11 +42,12 @@ Full-screen browser window with your favorite media sites. We included about 2 d
 **Web interface**:
 - management of video recording functions
 
-**Console utility via-setup.sh**:managing this project stuff above and more... 
+**Console utility via-setup.sh**: managing this project stuff. 
 - management of video recording functions
 - managing docker images Home Assistant and MotionEye
 - inadyn service management
 - management of connection to a remote yandex disk based on webdav
+and more..
 
 **Python client for for sensors and IOT devices**:
 
