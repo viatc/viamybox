@@ -27,6 +27,13 @@ ViaMyBox distribution is assembled and tested based on 2019-09-26-raspbian-buste
 
 **Kodi Home Theater**
 
+**Kiosk mode**
+Full-screen browser window with your favorite media sites. We included about 2 dozen sites to quickly manage the kiosk from Youtube, Facebook, Instagram and Twitter to Spotify, Amazon, Google music.
+
+**Radio** quickly manage and install Bellerofonte radio from Home Assistant and console shell via via-setup.sh.
+
+**Cast youtube** with gotubecast and mps-youtube. Quickly manage and install from console shell.
+
 **MotionEye** web management based on the docker image https://hub.docker.com/r/ccrisan/motioneye:
 - web-based interface MotionEye
 - management through the console utility via-setup.sh docker container
