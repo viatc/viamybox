@@ -1,0 +1,238 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+#Via-settings
+
+sensor:
+  - platform: command_line
+    name: CPU Temperature
+    command: "cat /sys/class/thermal/thermal_zone0/temp"
+    # If errors occur, make sure configuration file is encoded as UTF-8
+    unit_of_measurement: "°C"
+    value_template: '{{ value | multiply(0.001) | round(1) }}'
+
+  - platform: command_line
+    name: Disk usage %
+    command: " df | grep 'overlay' | grep -o '[0-9]*%' | grep -o '[0-9]*'"
+    # If errors occur, make sure configuration file is encoded as UTF-8
+    unit_of_measurement: "%"
+    value_template: '{{ value | round(1) }}'
+    
+  - platform: command_line
+    name: Disk size Gb
+    command: " df -h| grep 'overlay' | awk '{print $2}'| grep -Eo '[0-9]|[0-9].[0-9]|[0-9][0-9].[0-9]'"
+    
+  - platform: command_line
+    name: Disk used Gb
+    command: " df -h| grep 'overlay' | awk '{print $3}'| grep -Eo '[0-9]|[0-9].[0-9]|[0-9][0-9].[0-9]'"
+    
+  - platform: rpi_power
+    text_state: true
+
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'date_time_iso'
+      - 'time_date'
+      - 'time_utc'
+      - 'beat'
+
+#When you have sensors connected with mqtt protocol, uncomment this code
+  # - platform: mqtt
+    # name: "Room1 Temperature"
+    # state_topic: "house1/room1/dht11-sensor1"
+    # unit_of_measurement: '°C'
+    # value_template: "{{ value_json.temperature }}"
+  # - platform: mqtt
+    # name: "Room1 Humidity"
+    # state_topic: "house1/room1/dht11-sensor1"
+    # unit_of_measurement: '%'
+    # value_template: "{{ value_json.humidity }}"
+    
+  # - platform: mqtt
+    # name: Room1 Motion Detector
+    # state_topic: "house1/room1/pir-sensor1"
+      
+sensor dht11:  
+  - platform: dht
+    sensor: DHT11
+    pin: 4
+    temperature_offset: 2.1
+    humidity_offset: -3.2
+    monitored_conditions:
+      - temperature
+      - humidity
+      
+      
+camera 1:
+  - platform: mjpeg
+    mjpeg_url: http://localhost:8080/?action=stream
+    name: Mgpg streamer camera  
+
+camera 2:    
+  - platform: mjpeg
+    mjpeg_url: http://localhost:8081
+    name: MotionEye camera
+
+      
+  
+switch:
+ -  platform: template
+    switches:
+     mgpg_streamer:
+        value_template: "{{ is_state('camera.mgpg_streamer', 'on') }}"
+        turn_on:
+          service: shell_command.start_mgpg_streamer
+          entity_id: switch.mjpgstreamer_open
+
+        turn_off:
+          service: shell_command.stop_mgpg_streamer
+          entity_id: switch.mjpgstreamer_stop
+
+ - platform: command_line
+   switches:
+      start_stop_camera_mjpg:
+        friendly_name: ' '
+        command_on: 'curl http://localhost/motioneye-stop.php && curl http://localhost/start_mjpgstrm.php'
+        command_off: 'curl http://localhost/stop_mjpgstrm.php'
+      start_stop_motion_rec_timelapse:
+        friendly_name: 'Record motion timelapse video'
+        command_on: 'curl http://localhost/start_mjpgstrm.php  && curl http://localhost//rec-motion-mjpg.php'
+        command_off: 'curl http://localhost/stop_mjpgstrm.php && curl http://localhost/rec-motion-mjpg-stop.php'
+      rec_av: 
+        friendly_name: 'Record audio/video from usb camera'
+        command_on: 'curl http://localhost/stop_mjpgstrm.php && curl http://localhost/rec-av-start.php'
+        command_off: 'curl http://localhost/rec-av-stop.php'
+      rec_a: 
+        friendly_name: 'Record audio from usb camera'
+        command_on: 'curl http://localhost/rec-a-start.php'
+        command_off: 'curl http://localhost/rec-a-stop.php'
+      start_stop_motioneye: 
+        friendly_name: ' '
+        command_on: 'curl http://localhost/stop_mjpgstrm.php && curl http://localhost/motioneye-start.php'
+        command_off: 'curl http://localhost/motioneye-stop.php'
+      start_stop_timelapse: 
+        friendly_name: 'Make snapshots from camera'
+        command_on: 'curl http://localhost/timelapse-start.php'
+        command_off: 'curl http://localhost/timelapse-stop.php'
+      start_stop_timelapse_andvideo: 
+        friendly_name: 'Make snapshots from camera and then video'
+        command_on: 'curl http://localhost/timelapse-andvideo-start.php'
+        command_off: 'curl http://localhost/timelapse-stop.php'
+      start_ffmpeg_video_rec:
+        friendly_name: 'Record ffmpeg video from camera'
+        command_on: 'curl http://localhost/rec-v-ffmpeg-start.php'
+        command_off: 'curl http://localhost/rec-v-ffmpeg-stop.php'
+        
+#When you have relay switches connected with mqtt protocol, uncomment this code.
+ # - platform: mqtt
+   # name: room1 relay1-ch1
+   # unique_id: room1_relay1_ch1
+   # state_topic: "home/room1/relay1-ch1"
+   # availability_topic: "home/room1/relay1-ch1/available"
+   # command_topic: "home/room1/relay1-ch1/set"
+   # payload_available: "ONLINE"
+   # payload_not_available: "OFFLINE"
+   # payload_on: "ON"
+   # payload_off: "OFF"
+   # state_on: "ON"
+   # state_off: "OFF"
+   # optimistic: false
+   # qos: 0
+   # retain: true
+   
+ # - platform: mqtt
+   # name: room1 relay1-ch2
+   # unique_id: room1_relay1_ch2
+   # state_topic: "home/room1/relay1-ch2"
+   # command_topic: "home/room1/relay1-ch2/set"
+   # availability_topic: "home/room1/relay1-ch2/available"
+   # payload_available: "ONLINE"
+   # payload_not_available: "OFFLINE"
+   # payload_on: "ON"
+   # payload_off: "OFF"
+   # state_on: "ON"
+   # state_off: "OFF"
+   # optimistic: false
+   # qos: 0
+   # retain: true
+
+
+binary_sensor:
+  - platform: rpi_gpio
+    #name: HC-SR501
+    ports:
+      7: Sensor HC-SR501
+    invert_logic: false
+
+
+alarm_control_panel:
+#  - type: alarm-panel
+#    name: Home Alarm
+#    entity: alarm_control_panel.alarm
+  - platform: manual
+    #name: Home Alarm
+    pending_time: 60
+    triggered:
+     pending_time: 0
+    code: 1234
+notify:
+  - name: ha_sendmail
+    platform: smtp
+    server: smtp.gmail.com
+    port: 587
+    timeout: 15
+    sender: user@gmail.com
+    encryption: starttls
+    username: user@gmail.com
+    password: passwd
+    recipient:
+      - user@gmail.com
+    sender_name: My Home Assistant
+
+shell_command:
+  take_snapshot_webcam: '/config/scripts/takeSnapshotWebcam.sh'
+  start_mgpg_streamer: 'curl http://localhost/start_mjpgstrm.php'
+  stop_mgpg_streamer: 'curl http://localhost/stop_mjpgstrm.php'
+  start_motion_rec: 'curl http://localhost/rec-motion-mjpg.php'
+  stop_motion_rec: 'curl http://localhost/rec-motion-mjpg-stop.php'
+  on_off_radio: 'curl http://localhost/on-off-radio.php'
+
+
+# sensor ds18b20:
+  # - platform: mqtt
+    # state_topic: "home/pi/t"
+    # name: "MQTT Sensor 1"
+    
+# Example configuration.yaml entry
+
+# switch:
+  # - platform: mqtt
+    # name: room1
+    # state_topic: "home/room1/relay1"
+    # command_topic: "home/room1/relay1/set"
+    # payload_on: "1"
+    # payload_off: "0"
+    # state_on: "ON"
+    # state_off: "OFF"
+    # qos: 0
+    # retain: true
+
+#Via-settings-end 
+
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
