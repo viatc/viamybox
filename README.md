@@ -47,6 +47,7 @@ Full-screen browser window with your favorite media sites. We included about 2 d
 - managing docker images Home Assistant and MotionEye
 - inadyn service management
 - management of connection to a remote yandex disk based on webdav
+
 and more..
 
 **Python client for for sensors and IOT devices**:
