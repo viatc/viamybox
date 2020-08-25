@@ -77,7 +77,9 @@ Use the viamybox recording features ONLY on secure networks!**
 
 **ViaMyBox site: https://viamybox.com**
 
-**ViaMyBox youtube: https://www.youtube.com/channel/UC5-s-Z5MGAbLUy7ESyk7cyg**
+**Facebook: https://www.facebook.com/groups/2017548171723927**
+
+**Youtube: https://www.youtube.com/channel/UC5-s-Z5MGAbLUy7ESyk7cyg**
 
 ## INSTALLATION
 
