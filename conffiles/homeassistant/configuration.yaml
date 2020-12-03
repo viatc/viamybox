@@ -49,20 +49,20 @@ sensor:
       - 'beat'
 
 #When you have sensors connected with mqtt protocol, uncomment this code
-  # - platform: mqtt
-    # name: "Room1 Temperature"
-    # state_topic: "house1/room1/dht11-sensor1"
-    # unit_of_measurement: '°C'
-    # value_template: "{{ value_json.temperature }}"
-  # - platform: mqtt
-    # name: "Room1 Humidity"
-    # state_topic: "house1/room1/dht11-sensor1"
-    # unit_of_measurement: '%'
-    # value_template: "{{ value_json.humidity }}"
+  - platform: mqtt
+    name: "Room1 Temperature"
+    state_topic: "house1/room1/dht11-sensor1"
+    unit_of_measurement: '°C'
+    value_template: "{{ value_json.temperature }}"
+  - platform: mqtt
+    name: "Room1 Humidity"
+    state_topic: "house1/room1/dht11-sensor1"
+    unit_of_measurement: '%'
+    value_template: "{{ value_json.humidity }}"
     
-  # - platform: mqtt
-    # name: Room1 Motion Detector
-    # state_topic: "house1/room1/pir-sensor1"
+  - platform: mqtt
+    name: Room1 Motion Detector
+    state_topic: "house1/room1/pir-sensor1"
       
 sensor dht11:  
   - platform: dht
@@ -136,37 +136,39 @@ switch:
         command_off: 'curl http://localhost/rec-v-ffmpeg-stop.php'
         
 #When you have relay switches connected with mqtt protocol, uncomment this code.
- # - platform: mqtt
-   # name: room1 relay1-ch1
-   # unique_id: room1_relay1_ch1
-   # state_topic: "home/room1/relay1-ch1"
-   # availability_topic: "home/room1/relay1-ch1/available"
-   # command_topic: "home/room1/relay1-ch1/set"
-   # payload_available: "ONLINE"
-   # payload_not_available: "OFFLINE"
-   # payload_on: "ON"
-   # payload_off: "OFF"
-   # state_on: "ON"
-   # state_off: "OFF"
-   # optimistic: false
-   # qos: 0
-   # retain: true
+ - platform: mqtt
+   name: room1 relay1-ch1
+   unique_id: room1_relay1_ch1
+   state_topic: "home/room1/relay1-ch1"
+   availability_topic: "home/room1/relay1-ch1/available"
+   command_topic: "home/room1/relay1-ch1/set"
+   payload_available: "ONLINE"
+   payload_not_available: "OFFLINE"
+   payload_on: "ON"
+   payload_off: "OFF"
+   state_on: "ON"
+   state_off: "OFF"
+   optimistic: false
+   qos: 0
+   retain: true
    
- # - platform: mqtt
-   # name: room1 relay1-ch2
-   # unique_id: room1_relay1_ch2
-   # state_topic: "home/room1/relay1-ch2"
-   # command_topic: "home/room1/relay1-ch2/set"
-   # availability_topic: "home/room1/relay1-ch2/available"
-   # payload_available: "ONLINE"
-   # payload_not_available: "OFFLINE"
-   # payload_on: "ON"
-   # payload_off: "OFF"
-   # state_on: "ON"
-   # state_off: "OFF"
-   # optimistic: false
-   # qos: 0
-   # retain: true
+ - platform: mqtt
+   name: room1 relay1-ch2
+   unique_id: room1_relay1_ch2
+   state_topic: "home/room1/relay1-ch2"
+   command_topic: "home/room1/relay1-ch2/set"
+   availability_topic: "home/room1/relay1-ch2/available"
+   payload_available: "ONLINE"
+   payload_not_available: "OFFLINE"
+   payload_on: "ON"
+   payload_off: "OFF"
+   state_on: "ON"
+   state_off: "OFF"
+   optimistic: false
+   qos: 0
+   retain: true
+   
+   
 
 
 binary_sensor:
@@ -183,9 +185,10 @@ alarm_control_panel:
 #    entity: alarm_control_panel.alarm
   - platform: manual
     #name: Home Alarm
-    pending_time: 60
-    triggered:
-     pending_time: 0
+    #pending_time: 60
+    arming_time: 60
+    delay_time: 60
+    #triggered:
     code: 1234
 notify:
   - name: ha_sendmail
