@@ -13,6 +13,41 @@
 VIADIR="/home/pi/viamybox"
 
 function installfunc {
+
+EchoLine="A \"Home Assistant\" instance will need a \"network manager\" \"awahi-daemon\" packages. `
+`And therefore, we need to delete your current network instance:\"openresolv dhcpcd5\".
+Warning !!! All network connections can be lost!!! 
+This script will be run in terminal, not in ssh session. You will need to manually reconfigure your network connection after installation.
+	Proceed?"
+
+if [ $(dpkg-query -W -f='${Status}' network-manager 2>/dev/null | grep -c "ok installed") -eq 0 ];then
+	export EchoLine
+	SubmitYN result
+	if [[ $result = 'N' ]]; then return 0;fi
+	apt-get install avahi-daemon network-manager network-manager-gnome
+	apt purge openresolv dhcpcd5
+
+	EchoLine="Please set network settings through the network-manager tool \"nmtui\" 
+	Proceed?"
+	export EchoLine
+	SubmitYN result
+	if [[ $result = 'Y' ]]; then nmtui;fi
+
+	EchoLine="Restart your system and run this installation of \"Home Assistant\" again. 
+	Reboot now?"
+	echo #EchoLine
+	SubmitYN result
+	if [[ $result = 'N' ]]; then return 0;fi
+	reboot now
+fi
+
+apt-get install apparmor-utils apt-transport-https ca-certificates curl dbus jq socat software-properties-common
+
+if [ $(dpkg-query -W -f='${Status}' docker-ce 2>/dev/null | grep -c "ok installed") -eq 0 ];then
+	curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh
+	usermod -aG docker pi
+fi
+
 EchoLine="Would you like to install any docker images and containers Home Assistant?"
 export EchoLine
 SubmitYN result
@@ -40,20 +75,24 @@ export EchoLine
 SubmitYN result
 if [[ $result = 'Y' ]]; then 
 echo "Waiting... will be removed hassio docker images and containers!"
-systemctl stop hassio-supervisor.service
+stopha
+# systemctl stop hassio-supervisor.service
 #systemctl stop hassio-apparmor.service
-if [[ $(docker ps |grep  hassio_dns) ]]
-	then docker container stop  hassio_dns;fi
-if [[ $(docker ps |grep  hassio_audio) ]]
-	then docker container stop  hassio_audio;fi
-if [[ $(docker ps |grep homeassistant) ]]
-	then docker container stop homeassistant;fi
-if [[ $(docker ps |grep addon_core_configurator) ]]
-	then docker container stop addon_core_configurator;fi
-systemctl disable hassio-supervisor.service
+# if [[ $(docker ps |grep  hassio_dns) ]]
+	# then docker container stop  hassio_dns;fi
+# if [[ $(docker ps |grep  hassio_audio) ]]
+	# then docker container stop  hassio_audio;fi
+# if [[ $(docker ps |grep homeassistant) ]]
+	# then docker container stop homeassistant;fi
+# if [[ $(docker ps |grep addon_core_configurator) ]]
+	# then docker container stop addon_core_configurator;fi
 #systemctl disable hassio-apparmor.service
+
+systemctl disable hassio-supervisor.service
 echo "Removed docker containers:"
-docker container rm homeassistant hassio_supervisor hassio_dns hassio_audio 2>/dev/null
+# docker container rm homeassistant
+docker container rm $(sudo docker ps -a | grep homeassistant | awk '{print $1}')
+docker container rm $(sudo docker ps -a | grep hassio | awk '{print $1}')
 if [[ $(docker ps -a|grep addon_core_configurator) ]]
 	then docker container rm addon_core_configurator;fi
 
@@ -76,6 +115,7 @@ function installedmenu {
 while [ $i = 1 ]
 do
 clear
+function-roof-menu "$firstMenuStr"
 PS3="Choose paragraph of IoT settings menu : "
 select menu in "$str1" \
 "Quit"
@@ -98,6 +138,7 @@ function uninstalledmenu {
 while [ $i = 1 ]
 do
 clear
+function-roof-menu "$firstMenuStr"
 PS3="Choose paragraph of IoT settings menu : "
 select Menu in "$str1" "$str2" "$str3" "Quit"
  do
@@ -120,55 +161,7 @@ select Menu in "$str1" "$str2" "$str3" "Quit"
 
 }
 
-function installedmenu {
-while [ $i = 1 ]
-do
-clear
-PS3="Choose paragraph of IoT settings menu : "
-select timeElapsedMenu in "$str1" \
-"Quit"
- do
- case $timeElapsedMenu in
-	"$str1") $strFunc; clear;iotfunc;break
-	;;
-	"Quit") clear;i=0;break;
-	;;
-    *) echo "Invalid parameter";
-#            echo "For help, run $ ME -h";
-    exit 1
-    ;;
- esac
- done
- done
-}
 
-function uninstalledmenu {
-while [ $i = 1 ]
-do
-clear
-function-roof-menu "$firstMenuStr"
-
-PS3="Choose paragraph of Home Assistant settings menu : "
-select Menu in "$str1" "$str2" "$str3" "Quit"
- do
- case $Menu in
-	"$str1") $strFunc; clear;iotfunc;break
-	;;
-	"$str2") echo "Waiting...";$command2; clear;iotfunc;break
-	;;
-	"$str3") echo "Waiting...";$command3; clear;iotfunc;break
-	;;
-	"Quit") clear;i=0;break;
-	;;
-    *) echo "Invalid parameter";
-#            echo "For help, run $ ME -h";
-    exit 1
-    ;;
- esac
- done
- done
-
-}
 
 function startha {
 service hassio-supervisor start
