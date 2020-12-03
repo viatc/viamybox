@@ -490,9 +490,7 @@ FirstSubstInFile2 "$FILE" "$VARIABLE" "$PARAM"
 FILE="/home/pi/viamybox/scripts/gstreamer-record/via-rec-av-c270.c"
 FirstSubstInFile2 "$FILE" "$VARIABLE" "$PARAM"
 cd /home/pi/viamybox/scripts/gstreamer-record/
-make
-cd /home/pi/viamybox/scripts/gstreamer-record/
-make install
+make && make install
 fi
 }
 
@@ -557,8 +555,10 @@ gstreamfunc
 
 roof="Gstreamer technology records synchronized video and audio stream from a usb camera.`
 `Or recording a simple audio signal.\n
+----------------------------------------------------
 $settingsRecAV
-$settingsRecA"
+$settingsRecA
+$strChoiceCard"
 
 i=1
 while [ $i = 1 ]
@@ -568,6 +568,7 @@ function-roof-menu "$roof"
 #function-roof-menu "$firstMenuStr"
 PS3="Select the menu option for recording video and audio: "
 select timeElapsedMenu in "Camera selection" \
+"Audio record source selection" \
 "Record file rotation time in seconds" \
 "$str1" \
 "$str2" \
@@ -578,6 +579,8 @@ select timeElapsedMenu in "Camera selection" \
  do
  case $timeElapsedMenu in
 	"Camera selection") changeCamera; clear;break
+	;;
+	"Audio record source selection") getGstreamerAudioSource; clear; i=0; gstreamerAV; break
 	;;
 	"Record file rotation time in seconds") rotationFileInSec;clear;break
 	;;

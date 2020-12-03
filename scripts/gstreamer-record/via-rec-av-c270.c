@@ -28,6 +28,7 @@
 //time in seconds of file switching duration
 #define FILE_DURATION 3600
 #define FRAMERATE "5/1"
+#define AUDIOSOURCE "plughw:1,0"
 
 //запись с переключением файлов
 
@@ -286,8 +287,7 @@ main (int argc, char **argv)
 	strcat(str,end);
 //	g_print("%s\n",str);
 
-	g_object_set( G_OBJECT(alsasrc), "device", "plughw:1,0", "do-timestamp", TRUE, "provide-clock", FALSE, /* "num-buffers" , 1000, "rate", 8000, "buffer-time",80000,*/ NULL);
-	
+	g_object_set( G_OBJECT(alsasrc), "device", AUDIOSOURCE, "do-timestamp", TRUE, "provide-clock", FALSE, /* "num-buffers" , 1000, "rate", 8000, "buffer-time",80000,*/ NULL);
 //	caps = gst_caps_from_string ("video/x-raw,format=YV12,width=640,height=480,framerate=25/1");
 	caps = gst_caps_from_string (str);
 	g_object_set (capsfilter, "caps", caps, NULL);

@@ -55,6 +55,7 @@ sed -rne "
 /.{40}/! {b end_loop}
 /☐/ {b end_loop}
 /☑/ {b end_loop}
+/_no_spread_/ {b end_loop}
 	/.{$numCharsInStr}/ b end_loop
 	s/([^ ]) ([^ ])/\1  \2/
 	t begin_loop
@@ -63,6 +64,7 @@ sed -rne "
 	s/([^ ])   ([^ ])/\1    \2/
 	t begin_loop
 :end_loop
+s/_no_spread_//
 s/^/   /p
 "
 }

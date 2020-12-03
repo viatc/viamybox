@@ -35,6 +35,9 @@ LOG="${DAEMON_DIR}/monitor_file_work.log"
 # В этот файл будут попадать ошибки при работе скрипта
 ERR_LOG="${DAEMON_DIR}/monitor_file_error.log"
 
+#viamybox conf file
+FILECONF="/home/pi/viamybox/conffiles/via.conf"
+
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 
 a1='/usr/bin/via-mybox-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
@@ -45,6 +48,48 @@ echo "$0 нет библиотеки функций $a2" 1>&2 ; exit 1 ; fi
 
 
 . /lib/lsb/init-functions
+
+#если в системе меняется номер выбранного для записи аудио устройства заменяем номер и в настройках viamybox
+function CheckStatusAudioCaptureCard
+{
+(
+trap "{ rm -f "${DAEMON_DIR}/CheckStatusAudioCaptureCard.pid"; exit 255; }" TERM INT EXIT
+		#Дополнительная проверка что бы убедиться что Потомок один
+		if [ ! -e "${DAEMON_DIR}/CheckStatusAudioCaptureCard.pid" ]
+		then
+			echo ${BASHPID} > "${DAEMON_DIR}/CheckStatusAudioCaptureCard.pid"
+			numViaCard=$(awk '/^audioCaptureDevice/ {print $2 }' $FILECONF)
+			nameViaCard=$(awk '/^audioCaptureDevice/ {print $3 }' $FILECONF)
+			numSystemCard=$(cat /proc/asound/cards|grep -F "$nameViaCard" |awk  '{print $1}')
+			strSystemCard=$(cat /proc/asound/cards|grep -F "$nameViaCard")
+			echo $numViaCard
+			echo $nameViaCard
+			echo $numSystemCard
+			echo $strSystemCard
+			if [ $numViaCard != $numSystemCard ] ;then
+				var="audioCaptureDevice"
+				sed "s/^[[:space:]]*$var.*/$var\ $strSystemCard/" "$FILECONF" > "$FILECONF".new
+				mv -f "$FILECONF".new "$FILECONF"
+				PARAM=$(echo "\"plughw:"$numSystemCard",0\"")
+				VARIABLE="#define AUDIOSOURCE"
+				FILE="/home/pi/viamybox/scripts/gstreamer-record/via-rec-av-c910-2.c"
+				FirstSubstInFile2 "$FILE" "$VARIABLE" "$PARAM"
+				FILE="/home/pi/viamybox/scripts/gstreamer-record/via-rec-av-c270.c"
+				FirstSubstInFile2 "$FILE" "$VARIABLE" "$PARAM"
+				FILE="/home/pi/viamybox/scripts/gstreamer-record/via-rec-audio.c"
+				FirstSubstInFile2 "$FILE" "$VARIABLE" "$PARAM"
+				cd /home/pi/viamybox/scripts/gstreamer-record/
+				make && make install
+				exec 1> >(logger -s -t $(basename $0)) 2>&1
+				echo "Number of sound card captured for output has been changed"
+			fi
+			do_log  "child CheckStatusAudioCaptureCard" "Job with pid  ${BASHPID}"
+		else
+			do_log  "child" "PID file CheckStatusAudioCaptureCard is exists"
+			exit 0
+		fi
+)&
+}
 
 
 function RecSnapshotAutoload
@@ -306,6 +351,7 @@ trap "{ rm -f ${JOB_LOCK_FILE}; exit 255; }" TERM INT EXIT
 
 RecSnapshotAutoload
 RecFfmpegMjpgStreamerAutoload
+CheckStatusAudioCaptureCard
 GstreamerRecAV
 GstreamerRecA
 SubstParamInFile '/home/pi/viamybox/www/style.css' 'background-image:' 'rec-red-a.gif' 'rec-a.png'

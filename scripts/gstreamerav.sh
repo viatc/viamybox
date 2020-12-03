@@ -18,6 +18,58 @@ StoreAudio="/home/pi/camera/audio"
 PARAM=" autoload"
 PARAM2="noautoload"
 
+#check choice of audio capture device
+function checkChoice()
+{
+result='NULL'
+#echo $numOfCards
+while [ $result='NULL' ]
+do
+read choiceOfCard
+case "$choiceOfCard" in
+    [0-$numOfCards]"")
+        return 0
+    ;;
+    *) echo "not guess... [0 - "$numOfCards"] :"
+	;;
+esac
+done
+}
+
+#set audio capture device in C
+function setChoice(){
+PARAM=$(echo "\"plughw:"$choiceOfCard",0\"")
+VARIABLE="#define AUDIOSOURCE"
+FILE="/home/pi/viamybox/scripts/gstreamer-record/via-rec-av-c910-2.c"
+FirstSubstInFile2 "$FILE" "$VARIABLE" "$PARAM"
+FILE="/home/pi/viamybox/scripts/gstreamer-record/via-rec-av-c270.c"
+FirstSubstInFile2 "$FILE" "$VARIABLE" "$PARAM"
+FILE="/home/pi/viamybox/scripts/gstreamer-record/via-rec-audio.c"
+FirstSubstInFile2 "$FILE" "$VARIABLE" "$PARAM"
+cd /home/pi/viamybox/scripts/gstreamer-record/
+make && make install
+
+}
+
+
+function getGstreamerAudioSource () {
+cat /proc/asound/cards|awk '/^.[0-9]/ {print $0 }'> /tmp/via-cards
+echo ""
+cat /tmp/via-cards
+numOfCards=$(cat /tmp/via-cards|wc -l)
+numOfCards=$(($numOfCards-1))
+echo -n "
+Please choose a number of sound capture device: [0 - "$numOfCards"] :"
+checkChoice
+#add to via.conf audio capture card
+numstrChoiceOfCard=$((choiceOfCard+1))
+strChoiceCard=$(sed "${numstrChoiceOfCard}q;d" /tmp/via-cards)
+VAR="audioCaptureDevice"
+FirstSubstInFile2 $FILECONF $VAR "$strChoiceCard"
+strChoiceCard="_no_spread_Captured audio card :"$strChoiceCard
+setChoice
+}
+
 
 function checkMutuallyRunningProc ()
 {
@@ -265,6 +317,9 @@ if [ $result = 'Y' ] ;then
 	str4="Enable Recording Sound at startup"
 fi
 
+#Read parameter audioCaptureDevice from via.conf
+strChoiceCard=$(awk '/^audioCaptureDevice/ {print $0 }' $FILECONF|sed "s/audioCaptureDevice//")
+strChoiceCard="_no_spread_Captured audio card :"$strChoiceCard
 }
 
 if [ -n $1  ]; then 

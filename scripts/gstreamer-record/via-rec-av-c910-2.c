@@ -31,6 +31,7 @@
 //#define HEIGHT 720
 #define FPS 5
 #define TARGET_BITRATE 400000
+#define AUDIOSOURCE "plughw:1,0"
 
 //для logitech c910 video/x-h264 5fps
 //чистый звук и картинка
@@ -278,7 +279,7 @@ main (int argc, char **argv)
  	GstCaps *caps;
 	
 
-	g_object_set( G_OBJECT(alsasrc), "device", "plughw:1,0", "do-timestamp", TRUE, "provide-clock", FALSE, /* "num-buffers" , 1000, "rate", 8000, "buffer-time",80000,*/ NULL);
+	g_object_set( G_OBJECT(alsasrc), "device", AUDIOSOURCE, "do-timestamp", TRUE, "provide-clock", FALSE, /* "num-buffers" , 1000, "rate", 8000, "buffer-time",80000,*/ NULL);
 	
 	g_object_set(G_OBJECT (capsfilter), "caps", gst_caps_new_simple("video/x-raw", 
 	"framerate", GST_TYPE_FRACTION, FPS, 1,
