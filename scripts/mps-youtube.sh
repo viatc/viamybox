@@ -193,7 +193,7 @@ roof="YouTube Data API will be used in this project
  If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
 ----------------------------------------------------
 We have an api key generated for testing for you:
-AIzaSyAcBgkGO7egR-d6RqhgaTlPd1otkNM1mc8
+AIzaSyBggONEC6omj5JfDGLyEV-x2nJY3X60GJs
 
 But it can be restricted by the number of times of use, so form your key better"
 function-roof-menu "$roof" "--nospread"
