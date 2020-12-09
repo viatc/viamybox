@@ -103,6 +103,7 @@ if [ "$ret" -gt 1 ];then
 		else statusConfirm="NO";return 0
 	fi
 fi
+statusConfirm="Yes"
 }
 
 function checkMutuallyProcessesA {
