@@ -669,6 +669,7 @@ select firstMenu in "Internet of things (IoT)" \
 		export EchoLine
 		SubmitYN result
 		if [[ $result = 'Y' ]];then
+			su - pi -c "cd ~/viamybox;git reset --hard"
 			su - pi -c "cd ~/viamybox;git pull origin"
 			if ! diff -q /home/pi/viamybox/conffiles/viamyboxd /etc/init.d/viamyboxd ; then
 				cp -f /home/pi/viamybox/conffiles/viamyboxd /etc/init.d

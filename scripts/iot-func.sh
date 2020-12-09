@@ -143,7 +143,7 @@ PS3="Choose paragraph of IoT settings menu : "
 select Menu in "$str1" "$str2" "$str3" "Quit"
  do
  case $Menu in
-	"$str1") $strFunc; clear;motioneyefunc;break
+	"$str1") $strFunc; clear;iotfunc;break
 	;;
 	"$str2") echo "Waiting...";$command2; clear;iotfunc;break
 	;;
