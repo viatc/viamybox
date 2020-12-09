@@ -1,4 +1,4 @@
----------------v 0.72-----------
+---------------v 0.73-----------
 Ready for Raspbian Buster 10 5.4.51-v7+ Mon Aug 10 BST 2020
 Database and Home Assistant core updated to 0.118.4
 Added the ability to change the capture of the alsa audio device in the gstreamer recording output stream.
