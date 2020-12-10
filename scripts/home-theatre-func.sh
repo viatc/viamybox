@@ -79,7 +79,8 @@ if [[ $result = 'N' ]]
 	AddStrBeforeInFile $AUTOSTARTFILE $StrBefore $AddString
 fi
 
-systemctl disable kiosk
+if [ -e /lib/systemd/system/kiosk.service ]; then systemctl disable kiosk;fi
+
 }
 
 function removeKodi
@@ -153,6 +154,7 @@ select kioskMenu in "$str1" \
 
 
 function addKiosk {
+if [ ! -e /lib/systemd/system/kiosk.service ]; then cp $VIADIR/conffiles/kiosk.service /lib/systemd/system/;fi
 systemctl enable kiosk
 removeKodi
 }
