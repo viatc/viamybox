@@ -182,6 +182,16 @@ if [[ $(docker ps |grep  hassio) ]]
 	then docker stop $(sudo docker ps -a | grep hassio | awk '{print $1}');fi
 }
 
+function startHAwhenBoots {
+systemctl enable hassio-supervisor.service
+docker update --restart=always  homeassistant
+}
+
+function noStartHAwhenBoots {
+systemctl disable hassio-supervisor.service
+docker update --restart=no  homeassistant
+}
+
 function iotfunc
 {
 i=1
@@ -197,9 +207,9 @@ if [[ $(docker ps -a|grep homeassistant) ]]; then
 	fi
 	if [[ $(systemctl list-unit-files --type=service|grep hassio-supervisor|awk '{print $2}') = 'disabled' ]]
 		then str3="Add Home Assistant to startup automatically"
-		command3="systemctl enable hassio-supervisor.service"
+		command3="startHAwhenBoots"
 		else str3="Remove Home Assistant to startup automatically"
-			command3="systemctl disable hassio-supervisor.service"
+			command3="noStartHAwhenBoots"
 	fi
 	uninstalledmenu
 	else 
