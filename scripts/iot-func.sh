@@ -173,6 +173,7 @@ docker start homeassistant
 }
 function stopha {
 service hassio-supervisor stop
+service hassio-apparmor stop
  if [[ $(docker ps |grep homeassistant) ]]
 	then docker stop $(sudo docker ps -a | grep homeassistant | awk '{print $1}');fi
 	# then docker container stop homeassistant;fi
@@ -188,11 +189,13 @@ if [[ $(docker ps |grep  hassio) ]]
 
 function startHAwhenBoots {
 systemctl enable hassio-supervisor.service
+systemctl enable hassio-apparmor.service
 docker update --restart=always  homeassistant
 }
 
 function noStartHAwhenBoots {
 systemctl disable hassio-supervisor.service
+systemctl disable hassio-apparmor.service
 docker update --restart=no  homeassistant
 }
 
