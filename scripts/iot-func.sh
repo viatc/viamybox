@@ -169,6 +169,7 @@ select Menu in "$str1" "$str2" "$str3" "Quit"
 
 function startha {
 service hassio-supervisor start
+service hassio-apparmor start
 docker start homeassistant
 }
 function stopha {
