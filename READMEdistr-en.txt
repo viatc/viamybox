@@ -107,6 +107,8 @@ sudo ./01via-setup-lamp.sh
 ----------- After installation ---------------
 Increase file system size:
 sudo raspi-config -> Advanced options -> Expand Filesystem
+Update ViaMyBox:
+sudo via-setup.sh 
 Deployment removal and management of docker containers of Home Assistant is carried out through 1 menu item:
 sudo via-setup.sh
 Next, connect to the Home Assistant http://<ip>:8123 and install the database:

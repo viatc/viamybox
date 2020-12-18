@@ -154,11 +154,16 @@ select mpsMenu in "$str1" "$str2" "$str3" "$str4" \
 }
 
 function mps-uninstall {
+ EchoLine="Would you like to remove mps-youtube?"
+ echo #EchoLine
+ SubmitYN result
+ if [[ $result = 'N' ]]; then return 0;fi
  runuser -l pi -c "pip3 uninstall mps-youtube"
  rm -rf /usr/local/bin/mpsyt /home/pi/.local/bin/mpsyt /usr/bin/mpsyt
  rm -rf /home/pi/mps-youtube
  rm -rf /home/pi/.config/mps-youtube
  runuser -l pi -c "pip3 uninstall youtube-dl"
+ runuser -l pi -c "pip3 uninstall mps-youtube"
  echo "--------------------------------------------------------"
  echo "Please remove manually, if you don't use it other place:"
  echo "sudo apt-get uninstall mpv"
@@ -193,12 +198,13 @@ roof="YouTube Data API will be used in this project
  If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
 ----------------------------------------------------
 We have an api key generated for testing for you:
-AIzaSyBggONEC6omj5JfDGLyEV-x2nJY3X60GJs
+AIzaSyBoUQXL5TsGxQOYGIC2DHCVA34Q8papf-0
 
 But it can be restricted by the number of times of use, so form your key better"
 function-roof-menu "$roof" "--nospread"
 echo "Paste API here:";read api
 if [ $api ]; then 
+rm -f /home/pi/.config/mps-youtube/cache_py*
 runuser -l pi -c "mpsyt set api_key "$api""
 else echo "The string is empty! Press any key";read a
 fi
