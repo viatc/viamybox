@@ -11,6 +11,8 @@
 	##  
 #recording video in mkv via gstreamer via-rec-audio.c
 
+VIADIR="/home/pi/viamybox"
+FILECONF="/home/pi/viamybox/conffiles/via.conf"
 StoreAudio="/home/pi/camera/audio"
 # wait_param=$(echo "scale=4;0.04" | bc)
 # logfile="/home/pi/viamybox/www/scripts/test.log"
@@ -41,6 +43,14 @@ sudo mv -f $FILE.new $FILE
 	# docker stop motioneye
 # }
 # fi
+function checkSoundUsbCameraIsBusy {
+numCaptureDevice=$(grep "audioCaptureDevice" $FILECONF |awk '{print $2}')
+arecord --device plughw:"$numCaptureDevice",0 -s 1 /dev/null 
+if [ $? -eq 1 ]; then 
+	echo "USB camera sound IS BUSY. Reload usb devices..."
+	$VIADIR/scripts/resetusb
+fi
+}
 
 ret=$(ps aux | grep via-rec-audio  | wc -l)
 echo "$ret"
@@ -48,6 +58,7 @@ if [ "$ret" -eq 1 ]
 then {
 	SubstParamInFile '/home/pi/viamybox/www/style.css' 'background-image:' 'rec-a.png' 'rec-red-a.gif'
 	chown www-data:www-data /home/pi/viamybox/www/style.css
+	checkSoundUsbCameraIsBusy
 	/sbin/via-rec-audio
 }
 fi

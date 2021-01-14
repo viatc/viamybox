@@ -12,8 +12,7 @@
 
 a1='/home/pi/viamybox/scripts/via-mybox-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
 echo "no function library $a1" 1>&2 ; exit 1 ; fi
-
-set -e
+# set -e
 
 Heading=" ViaMyBox - Many Ideas one Implementation "
 numCharHeading=${#Heading}

@@ -12,6 +12,8 @@
 # export GST_DEBUG_FILE="/home/pi/viamybox/www/scripts/gst-av.log"
 # export GST_DEBUG=*:3
 
+VIADIR="/home/pi/viamybox"
+FILECONF="/home/pi/viamybox/conffiles/via.conf"
 StoreAudio="/home/pi/camera/video"
 EXECFILE="/sbin/via-rec-av-c270"
 # via_rec_av_exec="via-rec-av-c270"
@@ -29,9 +31,19 @@ sudo sed "/$2/s/$3/$4/g" $FILE > $FILE.new
 sudo mv -f $FILE.new $FILE
 }
 
+function checkSoundUsbCameraIsBusy {
+numCaptureDevice=$(grep "audioCaptureDevice" $FILECONF |awk '{print $2}')
+arecord --device plughw:"$numCaptureDevice",0 -s 1 /dev/null 
+if [ $? -eq 1 ]; then 
+	echo "USB camera sound IS BUSY. Reload usb devices..."
+	$VIADIR/scripts/resetusb
+fi
+}
+
 startRecAV(){
 	SubstParamInFile '/home/pi/viamybox/www/style.css' 'background-image:' 'rec-av.png' 'rec-red-av.gif'
 	chown www-data:www-data /home/pi/viamybox/www/style.css
+	checkSoundUsbCameraIsBusy
 	$EXECFILE
 }
 

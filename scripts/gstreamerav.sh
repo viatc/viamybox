@@ -124,6 +124,15 @@ fi
 }
 
 
+function checkSoundUsbCameraIsBusy {
+numCaptureDevice=$(grep "audioCaptureDevice" $FILECONF |awk '{print $2}')
+arecord --device plughw:"$numCaptureDevice",0 -s 1 /dev/null 
+if [ $? -eq 1 ]; then 
+	echo "USB camera sound IS BUSY. Reload usb devices..."
+	$VIADIR/scripts/resetusb
+fi
+}
+
 function checkMutuallyProcessesAV {
 VAR="snapshotmjpg.sh"
 CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result 
@@ -181,6 +190,7 @@ function stopGstrmAV {
 
 function startGstrmAV {
 checkMutuallyRunningProc
+checkSoundUsbCameraIsBusy
 if [[ $statusConfirm = 'Yes' ]];then
 	ret=$(ps aux | grep mjpg_streamer | wc -l)
 	if [ "$ret" -gt 1 ]
@@ -205,6 +215,7 @@ $EXECFILE > /dev/null 2>&1 &
 
 function startGstrmA {
 checkMutuallyRunningProc
+checkSoundUsbCameraIsBusy
 
 if [[ $statusConfirm = 'Yes' ]];then
 	ret=$(ps aux | grep via-rec-audio  | wc -l)
