@@ -1,14 +1,14 @@
 #!/bin/bash
-	## Copyright (C) 2017-2019 ViaMyBox viatc.msk@gmail.com
-	## This file is a part of ViaMyBox free software: you can redistribute it and/or modify
-    ## it under the terms of the GNU General Public License as published by
-    ## the Free Software Foundation, either version 3 of the License, or
-    ## any later version.
-	##
-	## You should have received a copy of the GNU General Public License
-    ## along with ViaMyBox in /home/pi/COPIYNG file.
-	## If not, see <https://www.gnu.org/licenses/>.
-	##  
+## Copyright (C) 2017-2019 ViaMyBox viatc.msk@gmail.com
+## This file is a part of ViaMyBox free software: you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation, either version 3 of the License, or
+## any later version.
+##
+## You should have received a copy of the GNU General Public License
+## along with ViaMyBox in /home/pi/COPIYNG file.
+## If not, see <https://www.gnu.org/licenses/>.
+##
 
 #uninstallation viamybox
 echo "removing viamybox..."
@@ -39,19 +39,22 @@ rm /etc/nginx/sites-enabled/viamybox.local
 
 #delete strings to sudoers file
 str="#Via-settings
-www-data ALL=(ALL) NOPASSWD: /usr/bin/python, /home/pi/viamybox/www/scripts/mov.py, \\
-/home/pi/viamybox/www/scripts/switchMovSensorRec.sh, /home/pi/viamybox/www/scripts/mov.sh, \\
-/home/pi/viamybox/www/scripts/via_rec_audio_gstrm.sh, /home/pi/viamybox/www/scripts/via_rec_video_gstrm.sh, \\
-/home/pi/viamybox/www/scripts/stopMovSensorRec.sh, /home/pi/viamybox/www/scripts/start_mjpgstrm.sh, \\
-/home/pi/viamybox/www/scripts/stop_mjpgstrm.sh, /home/pi/viamybox/www/scripts/via_rec_av_stop.sh, \\
-/home/pi/viamybox/www/scripts/via_rec_av_start.sh, /home/pi/viamybox/www/scripts/via_rec_audio_start.sh, \\
-/home/pi/viamybox/www/scripts/via_rec_audio_stop.sh, /home/pi/viamybox/www/scripts/start_stop_mjpgstrm.sh, \\
-/home/pi/viamybox/scripts/mkvid-mov.sh, /home/pi/viamybox/www/scripts/via_rec_video_ffmpeg.sh, \\
-/usr/bin/docker start motioneye, /usr/bin/docker stop motioneye, \\
+www-data ALL=(ALL) NOPASSWD:/usr/bin/python, /home/pi/viamybox/www/scripts/mov.py,
+/home/pi/viamybox/www/scripts/switchMovSensorRec.sh, /home/pi/viamybox/www/scripts/mov.sh,
+/home/pi/viamybox/www/scripts/via_rec_audio_gstrm.sh, /home/pi/viamybox/www/scripts/via_rec_video_gstrm.sh,
+/home/pi/viamybox/www/scripts/stopMovSensorRec.sh, /home/pi/viamybox/www/scripts/start_mjpgstrm.sh,
+/home/pi/viamybox/www/scripts/stop_mjpgstrm.sh, /home/pi/viamybox/www/scripts/via_rec_av_stop.sh,
+/home/pi/viamybox/www/scripts/via_rec_av_start.sh, /home/pi/viamybox/www/scripts/via_rec_audio_start.sh,
+/home/pi/viamybox/www/scripts/via_rec_audio_stop.sh, /home/pi/viamybox/www/scripts/start_stop_mjpgstrm.sh,
+/home/pi/viamybox/www/scripts/on_off_radio.sh,
+/home/pi/viamybox/scripts/mkvid-mov.sh, /home/pi/viamybox/www/scripts/via_rec_video_ffmpeg.sh,
+/usr/bin/docker start motioneye, /usr/bin/docker stop motioneye,
 /home/pi/viamybox/www/scripts/timelapse_start.sh, /home/pi/viamybox/www/scripts/timelapse_stop.sh"
-#export "str"
+
 file="/etc/sudoers"
-deleteStr $file
+file2="/etc/sudoers.viamybox.bak"
+cp $file $file2
+grep -v "$str" $file > temp && mv temp $file
 
 cd /home/pi
 rm -r /home/pi/viamybox
@@ -70,8 +73,3 @@ rm -f  /usr/share/applications/chromium-camera-start.desktop
 rm -f /usr/share/extra-xdg-menus/ViaMyBox.menu /etc/xdg/menus/applications-merged/ViaMyBox.menu
 
 echo "Successfull"
-
-
-
-
-
