@@ -189,6 +189,12 @@ https://github.com/jacksonliam/mjpg-streamer
 
 MotionEye docker image:
 https://hub.docker.com/r/ccrisan/motioneye
+  
+Mopidy:
+https://mopidy.com/
+  
+Mopidy TuneIn:
+https://github.com/kingosticks/mopidy-tunein
 
 Mps-youtube - youtube, last.fm playing and searching media engine
 https://github.com/mps-youtube/mps-youtube
@@ -199,6 +205,6 @@ https://github.com/home-assistant/hassio-installer
 Raspberry Pi Power Supply Checker
 https://github.com/custom-components/sensor.rpi_power
 
-© 2020 ViaMyBox Technological Studio
+© 2021 ViaMyBox Technological Studio
 
-© 2020 GitHub, Inc.
+© 2021 GitHub, Inc.
