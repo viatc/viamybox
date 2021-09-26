@@ -30,7 +30,7 @@ ViaMyBox distribution is assembled and tested based on 2019-09-26-raspbian-buste
 **Kiosk mode**
 Full-screen browser window with your favorite media sites. We included about 2 dozen sites to quickly manage the kiosk from Youtube, Facebook, Instagram and Twitter to Spotify, Amazon, Google music.
 
-**Radio** quickly manage and install Bellerofonte radio from Home Assistant and console shell via via-setup.sh.
+**Radio** quickly manage and install Mopidy TuneIn radio and Bellerofonte radio from Home Assistant and console shell via via-setup.sh.
 
 **Cast youtube** with gotubecast and mps-youtube. Quickly manage and install from console shell.
 
