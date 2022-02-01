@@ -1,4 +1,7 @@
-Added function to automatically reboot USB devices when USB sound camera is busy when you start audio/video recording in gstreaner.   
+added on off radio scripts in web direvotry www/scripts/off_radio.sh  www/scripts/on_radio.sh 
+added unified control to via-mybox services scripts/control-services.sh
+added function php kontrol kodi start-stop service
+added function to automatically reboot USB devices when USB sound camera is busy when you start audio/video recording in gstreaner.   
 ---------------v 0.73-----------
 Ready for Raspbian Buster 10 december 2020
 Database and Home Assistant core updated to 0.118.4
