@@ -8,7 +8,7 @@
 	## You should have received a copy of the GNU General Public License
     ## along with ViaMyBox in /home/pi/COPIYNG file.
 	## If not, see <https://www.gnu.org/licenses/>.
-	##  
+	##
 
 a1='/home/pi/viamybox/scripts/via-mybox-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
 echo "no function library $a1" 1>&2 ; exit 1 ; fi
@@ -31,7 +31,7 @@ numCharsInStr=$(($(tput cols)-6))
 startendStr=$((($(tput cols) -$numCharHeading)/ 2 ))
 mod=$((($(tput cols) -$numCharHeading)% 2 ))
 
-if [ $numCharsInStr -gt 40 ];then 
+if [ $numCharsInStr -gt 40 ];then
 	yes "-" | head -n$((($(tput cols) -$numCharHeading)/ 2 +$mod)) | tr -d '\n'
 	printf " ViaMyBox - Many Ideas one Implementation "
 	yes "-" | head -n$((($(tput cols) -$numCharHeading)/ 2 )) | tr -d '\n'
@@ -108,7 +108,7 @@ CheckStrInFile "$str" "$FILE" result
     export AddString
 	AddStrAfterInFile $FILE
 	fi
-	
+
 	AddString='sudo mount -t davfs https://webdav.yandex.ru /home/pi/yandex.disk/ -o uid=pi,gid=pi'
 	FILE='/home/pi/.profile'
 	CheckStrInFile "$AddString" "$FILE" result
@@ -239,10 +239,11 @@ function-roof-menu "$firstMenuStr"
 PS3="Choose paragraph of music settings menu : "
 select musicMenu in "Bellerofonte-radiobox" \
 "Youtube player mps-youtube" \
+"Mopidy TuneIn Radio" \
 "Quit"
  do
  case $musicMenu in
-	"Bellerofonte-radiobox") 
+	"Bellerofonte-radiobox")
 		{
 			a1='/home/pi/viamybox/scripts/bellerofonte-radiobox.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
 			echo "О$ нет библиотеки функций $a1" 1>&2 ; exit 1 ; fi
@@ -260,6 +261,15 @@ select musicMenu in "Bellerofonte-radiobox" \
 		break
 	}
 	;;
+  "Mopidy TuneIn Radio")
+  {
+    a1='/home/pi/viamybox/scripts/mopidy-tunein.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
+    echo "О$ нет библиотеки функций $a1" 1>&2 ; exit 1 ; fi
+    mopidy-func
+    clear
+    break
+  }
+  ;;
 	"Quit") clear;i=0;break;
 	;;
     *) echo "Invalid parameter";
@@ -285,7 +295,7 @@ select hometheatreMenu in "Kodi" \
 "Quit"
  do
  case $hometheatreMenu in
-	"Kodi") 
+	"Kodi")
 		{
 			a1='/home/pi/viamybox/scripts/home-theatre-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
 			echo "О$ нет библиотеки функций $a1" 1>&2 ; exit 1 ; fi
@@ -294,7 +304,7 @@ select hometheatreMenu in "Kodi" \
 			break
 		}
 	;;
-	"Kiosk mode") 
+	"Kiosk mode")
 	{
 		a1='/home/pi/viamybox/scripts/home-theatre-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
 		echo "О$ нет библиотеки функций $a1" 1>&2 ; exit 1 ; fi
@@ -393,32 +403,32 @@ echo " Choose a camera :
 read copydata
 
 case "$copydata" in
-1) 
+1)
 	EchoLine="Save data?"
 	export EchoLine
 	SubmitYN result
-	if [[ $result = 'Y' ]];then 
+	if [[ $result = 'Y' ]];then
 	FILE="/home/pi/viamybox/www/scripts/via_rec_av_start.sh"
 	MYVAR="EXECFILE="
 	PARAM="\"\/sbin\/via-rec-av-c270\""
 	FirstSubstInFile $FILE $MYVAR $PARAM
 	chmod +x $FILE
 	chown www-data:www-data $FILE
-	
+
 	FILE="/home/pi/viamybox/www/scripts/via_rec_av_stop.sh"
 	MYVAR="EXECFILE="
 	PARAM="\"\/sbin\/via-rec-av-c270\""
 	FirstSubstInFile $FILE $MYVAR $PARAM
 	chmod +x $FILE
 	chown www-data:www-data $FILE
-	
+
 	FILE="/home/pi/viamybox/www/scripts/via_rec_video_gstrm.sh"
 	MYVAR="EXECFILE="
 	PARAM="\"\/sbin\/via-rec-av-c270\""
 	FirstSubstInFile $FILE $MYVAR $PARAM
 	chmod +x $FILE
 	chown www-data:www-data $FILE
-	
+
 	FILE="/home/pi/viamybox/scripts/gstreamer-record/Makefile"
 	STR="FILE="
 	STREND="via-rec-av-c270"
@@ -431,7 +441,7 @@ case "$copydata" in
 	fi
 ;;
 
-2) 
+2)
 	EchoLine="Save data?"
 	export EchoLine
 	SubmitYN result
@@ -442,14 +452,14 @@ case "$copydata" in
 	FirstSubstInFile $FILE $MYVAR $PARAM
 	chmod +x $FILE
 	chown www-data:www-data $FILE
-	
+
 	FILE="/home/pi/viamybox/www/scripts/via_rec_av_start.sh"
 	MYVAR="EXECFILE="
 	PARAM="\"\/sbin\/via-rec-av-c910-2\""
 	FirstSubstInFile $FILE $MYVAR $PARAM
 	chmod +x $FILE
 	chown www-data:www-data $FILE
-	
+
 	FILE="/home/pi/viamybox/www/scripts/via_rec_video_gstrm.sh"
 	MYVAR="EXECFILE="
 	PARAM="\"\/sbin\/via-rec-av-c910-2\""
@@ -457,7 +467,7 @@ case "$copydata" in
 	chmod +x $FILE
 	chown www-data:www-data $FILE
 
-	
+
 	FILE="/home/pi/viamybox/scripts/gstreamer-record/Makefile"
 	STR="FILE="
 	STREND="via-rec-av-c910-2"
@@ -515,11 +525,11 @@ fi
 	# 2)
 	# PARAM1="960"
 	# PARAM2="720"
-	# ;;	
+	# ;;
 	# 3)
 	# PARAM1="1280"
 	# PARAM2="960"
-	# ;;	
+	# ;;
 	# 4)
 	# PARAM1="1920"
 	# PARAM2="1080"
@@ -534,7 +544,7 @@ fi
     # ;;
 # esac
 # fi
-	
+
 # VARIABLE1="#define WIDTH"
 # VARIABLE2="#define HEIGHT"
 # FILE="/home/pi/viamybox/scripts/gstreamer-record/via-rec-av-c910-2.c"
@@ -544,7 +554,7 @@ fi
 # make
 # cd /home/pi/viamybox/scripts/gstreamer-record/
 # make install
-	
+
 # }
 
 function gstreamerAV {
@@ -605,7 +615,7 @@ select timeElapsedMenu in "Camera selection" \
 }
 
 
-function mainmenu { 
+function mainmenu {
 if [ $# = 0 ]; then print_help; fi
 
 strmg1="Switch to Russian language"
@@ -658,7 +668,7 @@ select firstMenu in "Internet of things (IoT)" \
 	"Automatic launch of service inadyn (dynamic renewal ip for dyndns freedns.afraid.org)") autobootInadynService;clear;break
 	;;
 	"Change password of web access") changeWebPass;clear;break
-	;; 
+	;;
 	"Change user password pi") changePass;clear;break
 	;;
 	"Update ViaMyBox from GitHub") {

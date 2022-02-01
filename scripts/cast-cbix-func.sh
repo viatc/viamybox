@@ -8,8 +8,8 @@
 	## You should have received a copy of the GNU General Public License
     ## along with ViaMyBox in /home/pi/COPIYNG file.
 	## If not, see <https://www.gnu.org/licenses/>.
-	##  
-	
+	##
+
 VIADIR="/home/pi/viamybox"
 AUTOSTARTFILE="/etc/xdg/lxsession/LXDE-pi/autostart"
 CONFFILE="/home/pi/viamybox/conffiles/via.conf"
@@ -37,15 +37,15 @@ ps=$(systemctl show -p SubState --value gotubecast)
 
 if [[ $ps = "running" ]];then
 	str2="Stopping gotubecast"
-	strFunc2="systemctl stop gotubecast.service" 
-	while [[ -z $PairCode ]];do 
+	strFunc2="systemctl stop gotubecast.service"
+	while [[ -z $PairCode ]];do
 		sleep 0.2;
 		PairCode=$(systemctl status gotubecast.service |grep "Your pairing code:" | tail -1|awk -F":" '{print $4,":",$5}')
 		strPairCode="------------------------------------------------\n"$PairCode""
 	done
 else
 	str2="Starting gotubecast"
-	strFunc2="systemctl start gotubecast.service" 
+	strFunc2="systemctl start gotubecast.service"
 	strPairCode="";PairCode=""
 fi
 
@@ -196,14 +196,14 @@ rm -rf /home/pi/projects/src/src/github.com/CBiX/gotubecast
 systemctl disable gotubecast.service
 rm -rf /lib/systemd/system/gotubecast.service
 
-AddString="export PATH=\$PATH:/usr/local/go/bin
+str="#Via-settings
+export PATH=\$PATH:/usr/local/go/bin
 export GOBIN=\"/home/pi/projects/bin\"
 export GOPATH=\"/home/pi/projects/src\"
 export GOROOT=\"/usr/local/go\""
-FILE="/home/pi/.profile"
-str="$AddString"
-deleteStr "$FILE"
-chown pi:pi $FILE
+file="/home/pi/.profile"
+grep -v "$str" $file > temp && mv temp $file
+chown pi:pi $file
 fi
 
 EchoLine="Wold you like to uninstall golang?"

@@ -182,6 +182,7 @@ function mps-install {
  #python3 setup.py install
  #sudo -u pi bash -c "mpsyt set show_video true"
  cp /home/pi/.local/bin/mpsyt /usr/bin
+ runuser -l pi -c "mpsyt set player vlc, set playerargs ,exit"
  echo "Press any key";read a
 }
 

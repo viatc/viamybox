@@ -30,7 +30,7 @@ ViaMyBox distribution is assembled and tested based on 2019-09-26-raspbian-buste
 **Kiosk mode**
 Full-screen browser window with your favorite media sites. We included about 2 dozen sites to quickly manage the kiosk from Youtube, Facebook, Instagram and Twitter to Spotify, Amazon, Google music.
 
-**Radio** quickly manage and install Bellerofonte radio from Home Assistant and console shell via via-setup.sh.
+**Radio** quickly manage and install Mopidy TuneIn radio and Bellerofonte radio from Home Assistant and console shell via via-setup.sh.
 
 **Cast youtube** with gotubecast and mps-youtube. Quickly manage and install from console shell.
 
@@ -189,6 +189,12 @@ https://github.com/jacksonliam/mjpg-streamer
 
 MotionEye docker image:
 https://hub.docker.com/r/ccrisan/motioneye
+  
+Mopidy:
+https://mopidy.com/
+  
+Mopidy TuneIn:
+https://github.com/kingosticks/mopidy-tunein
 
 Mps-youtube - youtube, last.fm playing and searching media engine
 https://github.com/mps-youtube/mps-youtube
@@ -199,6 +205,6 @@ https://github.com/home-assistant/hassio-installer
 Raspberry Pi Power Supply Checker
 https://github.com/custom-components/sensor.rpi_power
 
-© 2020 ViaMyBox Technological Studio
+© 2021 ViaMyBox Technological Studio
 
-© 2020 GitHub, Inc.
+© 2021 GitHub, Inc.
