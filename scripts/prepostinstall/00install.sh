@@ -31,7 +31,7 @@ sudo apt-get install libffi-dev libssl-dev jq -y
 sudo apt-get remove python-configparser -y
 sudo pip install docker-compose
 
-#version viamybox 0-72 install
-
+#version viamybox 0-73 install
+sudo apt-get install kodi-eventclients-kodi-send libusb-1.0-0-dev libusb-dev usbutils -y
 
 
