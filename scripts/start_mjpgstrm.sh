@@ -17,11 +17,11 @@ then {
 	docker stop motioneye
 }
 fi
-	
+
 	ret=$(ps aux | grep mjpg_streamer | wc -l)
 	if [ "$ret" -eq 1 ]
 then {
-	echo "mjpg starting" #output text
+	echo "mjpg starting... please wait" #output text
         sleep 1  #delay
 	service mjpg-streamerd stop && service mjpg-streamerd start && exit 0
 }

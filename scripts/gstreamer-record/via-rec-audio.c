@@ -22,7 +22,7 @@
 //#define RECORD_DIR "/home/www/scripts/"
 #define FILE_DURATION 3600
 #define FRAMERATE "25/1"
-#define AUDIOSOURCE "plughw:1,0"
+#define AUDIOSOURCE "plughw:2,0"
 
 //предыдущий рабочий via-rec-audio1.c
 

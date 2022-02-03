@@ -11,7 +11,7 @@
 	##  
 #recording video in mkv via gstreamer via-rec-video.c
 
-EXECFILE="/sbin/via-rec-av-c270"
+EXECFILE="/sbin/via-rec-av-c910-2"
 StoreVideo="/home/pi/camera/video"
 # wait_param=$(echo "scale=4;0.04" | bc)
 # logfile="/home/pi/viamybox/www/scripts/test.log"

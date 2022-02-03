@@ -1,32 +1,36 @@
-Added function to automatically reboot USB devices when USB sound camera is busy when you start audio/video recording in gstreaner.   
+Enable Kodi at startup trough console autologin 
+Added Kodi installation in console menu
+Added local installation metods in A/V registaration console menu
+New radio Mopidy TuneIn with autoplay and autoreboot in console menu
+Added function to automatically reboot USB devices when USB sound camera is busy when you start audio/video recording in gstreaner.
 ---------------v 0.73-----------
 Ready for Raspbian Buster 10 december 2020
 Database and Home Assistant core updated to 0.118.4
 Added the ability to change the capture of the alsa audio device in the gstreamer recording output stream.
-In the settings of the "Home assistant" docker installation menu, the installation rules were changed and the packages network-manager and apparmor  
+In the settings of the "Home assistant" docker installation menu, the installation rules were changed and the packages network-manager and apparmor
 were added as necessary installation packages.
 added mktt python client and daemon for iot relays KY-019,2PH63891A,2PH63083A,8RELAYBRD-5V to interact with Home Assistant.
 iot scripts and daemons for dht11 and hc-sr501 sensors were added for communication with a home assistant through mqtt.
 api key mps-youtube regenerated and added in mps-youtube.sh.
 ---------------v 0.72-----------
 added: wrap and spread text in roof via-setup.sh
-fixed: stopping hassio containers with error 
+fixed: stopping hassio containers with error
 fixed: error incorrect check installation mps-youtube and gotubecast
 added in via-setup.sh update function ViaMyBox from github
 added a mode to start the camera view using mjpg-streamer in the via-setup.sh timelapse settings menu
-added gstreamer managment functions in via-setup 
+added gstreamer managment functions in via-setup
 added in via-setup.sh gotubecast streaming youtube project https://github.com/CBiX/gotubecast
 added in via-setup.sh mpsyoutube terminal based program to search, stream and download music.https://github.com/mps-youtube/mps-youtube
 added in via-setup.sh kiosk mode
 modified front panel roof in via-setup.sh
 modified functions in via-mybox-func.sh. Lines in functions will be added after they are checked for their presence in the file
-added viamybox menu in LXDE desktop 
+added viamybox menu in LXDE desktop
 ---------------v 0.71-----------
 added bellerofonte radio in via-setup.sh
 added bellerofonte radio in HA
 
-fixed: exclusion of a few clicks in php files 
-fixed: gstreamer pad has no probe with id 
+fixed: exclusion of a few clicks in php files
+fixed: gstreamer pad has no probe with id
 ---------------v 0.7-------------
 assembled image based on 2019-09-26-raspbian-buster
 kodi distribution Leia 18

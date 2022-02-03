@@ -8,8 +8,8 @@
 	## You should have received a copy of the GNU General Public License
     ## along with ViaMyBox in /home/pi/COPIYNG file.
 	## If not, see <https://www.gnu.org/licenses/>.
-	##  
-	
+	##
+
 VIADIR="/home/pi/viamybox"
 AUTOSTARTFILE="/etc/xdg/lxsession/LXDE-pi/autostart"
 CONFFILE="/home/pi/viamybox/conffiles/via.conf"
@@ -21,7 +21,7 @@ function mps-config-func
 	str1="All Configuration mps-youtube"
 	show_video=$(runuser -l pi -c "mpsyt set,exit|grep show_video")
 	show_video=$(echo "$show_video"|awk '{print $3}')
-	if [ $show_video = False ]; then 
+	if [ $show_video = False ]; then
 	str2="Enable show video"
 	strFunc2="True"
 	else
@@ -183,18 +183,20 @@ function mps-install {
  #sudo -u pi bash -c "mpsyt set show_video true"
  cp /home/pi/.local/bin/mpsyt /usr/bin
  runuser -l pi -c "mpsyt set player vlc, set playerargs ,exit"
+ runuser -l pi -c 'pip uninstall -y pafy'
+ runuser -l pi -c 'pip install git+https://github.com/Cupcakus/pafy'
  echo "Press any key";read a
 }
 
 function mps-api {
 clear
-roof="YouTube Data API will be used in this project 
-			Do the following on google developer pages: 
-	Login into google account 
-	Visit https://console.developers.google.com/apis/ 
-	Click on \"ENABLE APIS AND SERVICES\" 
-	Search for \"YouTube Data API v3\" 
-	Generate a new key (may require creating a new project) 
+roof="YouTube Data API will be used in this project
+			Do the following on google developer pages:
+	Login into google account
+	Visit https://console.developers.google.com/apis/
+	Click on \"ENABLE APIS AND SERVICES\"
+	Search for \"YouTube Data API v3\"
+	Generate a new key (may require creating a new project)
 
  If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
 ----------------------------------------------------
@@ -204,7 +206,7 @@ AIzaSyBoUQXL5TsGxQOYGIC2DHCVA34Q8papf-0
 But it can be restricted by the number of times of use, so form your key better"
 function-roof-menu "$roof" "--nospread"
 echo "Paste API here:";read api
-if [ $api ]; then 
+if [ $api ]; then
 rm -f /home/pi/.config/mps-youtube/cache_py*
 runuser -l pi -c "mpsyt set api_key "$api""
 else echo "The string is empty! Press any key";read a

@@ -8,13 +8,13 @@
 	## You should have received a copy of the GNU General Public License
     ## along with ViaMyBox in /home/pi/COPIYNG file.
 	## If not, see <https://www.gnu.org/licenses/>.
-	##  
+	##
 
 #packets installation for viamybox
 
 sudo apt-get install fswebcam nmon build-essential libjpeg8-dev imagemagick libv4l-dev cmake git ffmpeg	\
 python-pip vlc fswebcam nmon libv4l-dev build-essential libjpeg8-dev libpng12-dev imagemagick libv4l-dev cmake git lockfile-progs \
-streamer1.0-tools gstreamer1.0-plugins-* x264 gstreamer1.0-omx gstreamer1.0-alsa libgstreamer1.0-* gstreamer1.0-pulseaudio \
+gstreamer1.0-tools gstreamer1.0-plugins-* x264 gstreamer1.0-omx gstreamer1.0-alsa libgstreamer1.0-* gstreamer1.0-pulseaudio \
 nginx apache2-utils php7.3-fpm davfs2 python-dbus -y
 
 #kodi kodi-pvr-iptvsimple
@@ -32,6 +32,3 @@ sudo apt-get remove python-configparser -y
 sudo pip install docker-compose
 
 #version viamybox 0-72 install
-
-
-
