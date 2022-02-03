@@ -1,7 +1,7 @@
 CC=gcc
 LIBS=`pkg-config gstreamer-1.0 --libs`
 CFLAGS=`pkg-config gstreamer-1.0 --cflags`
-FILE=via-rec-av-c270
+FILE=via-rec-av-c910-2
 FILE2=via-rec-audio
 
 all:

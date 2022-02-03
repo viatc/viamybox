@@ -1,14 +1,14 @@
 #!/bin/bash
-	## Copyright (C) 2017-2019 ViaMyBox viatc.msk@gmail.com
-	## This file is a part of ViaMyBox free software: you can redistribute it and/or modify
-    ## it under the terms of the GNU General Public License as published by
-    ## the Free Software Foundation, either version 3 of the License, or
-    ## any later version.
-	##
-	## You should have received a copy of the GNU General Public License
-    ## along with ViaMyBox in /home/pi/COPIYNG file.
-	## If not, see <https://www.gnu.org/licenses/>.
-	##
+## Copyright (C) 2017-2019 ViaMyBox viatc.msk@gmail.com
+## This file is a part of ViaMyBox free software: you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation, either version 3 of the License, or
+## any later version.
+#
+## You should have received a copy of the GNU General Public License
+## along with ViaMyBox in /home/pi/COPIYNG file.
+## If not, see <https://www.gnu.org/licenses/>.
+##
 
 a1='/home/pi/viamybox/scripts/via-mybox-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
 echo "no function library $a1" 1>&2 ; exit 1 ; fi
@@ -17,8 +17,7 @@ echo "no function library $a1" 1>&2 ; exit 1 ; fi
 Heading=" ViaMyBox - Many Ideas one Implementation "
 numCharHeading=${#Heading}
 firstMenuStr="
-Welcome to ViaMyBox console utility. This software allows`
-` you to quickly install and manage our functionalitys or remove those.
+Welcome to ViaMyBox console utility. This software allows you to quickly install and manage our functionalitys or remove those.
     © ViaMyBox Technological Studio
       info@viamybox.com
 "
@@ -333,69 +332,6 @@ select hometheatreMenu in "Kodi" \
  done
 }
 
-function timeElapsed ()
-{
-a1='/home/pi/viamybox/scripts/rec-mjpg-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
-echo "О$ нет библиотеки функций $a1" 1>&2 ; exit 1 ; fi
-recvideofunc
-
-roof="The mjpg streamer technology allows you to watch streaming video from the `
-`camera and record snapshots or take time-lapse videos and record videos with ffmpeg technology.\n
-$settings4
-$settings5
-$settings6
-$settings7"
-
-i=1
-while [ $i = 1 ]
-do
-clear
-function-roof-menu "$roof"
-
-PS3="Choose paragraph of timelapsed settings menu : "
-select timeElapsedMenu in "$str1" \
-"$str2" \
-"$str3" \
-"The place of recording data from the camera photo and timelapsed video" \
-"Initialization for yandex disk" \
-"Number of days of storage photos and videos recorded on the disk" \
-"$str4" \
-"$str5" \
-"$str6" \
-"$str7" \
-"Quit"
- do
- case $timeElapsedMenu in
-	"$str1") "$command1"; clear;recvideofunc;break
-	;;
-	"$str2") "$command2";clear;recvideofunc;break
-	;;
-	"$str3") "$command3";clear;recvideofunc;break
-	;;
-	"The place of recording data from the camera photo and timelapsed video") writeVideoDir;clear;break
-	;;
- 	"Initialization for yandex disk") writeYandexInit;clear;break
-	;;
-	"Number of days of storage photos and videos recorded on the disk") writeNumberOfHours;clear;break
-	;;
-	"$str4") swichRecSnapshotAutoload;clear;i=0;timeElapsed;break
-	 ;;
-	"$str5") swichStartFfmpegFromSnapshots;clear;i=0;timeElapsed;break
-	 ;;
-	"$str6") swichMJPGStreamerAutoload;clear;i=0;timeElapsed;break
-     ;;
-	"$str7") swichRecMJPGStreamerFFMPEG;clear;i=0;timeElapsed;break
-     ;;
-	"Quit") clear;i=0;break;
-	;;
-    *) echo "Invalid parameter";
-#            echo "For help, run $ ME -h";
-    exit 1
-    ;;
- esac
- done
- done
-}
 function changeCamera {
 echo " Choose a camera :
 1) Logitech c270
@@ -557,62 +493,7 @@ fi
 
 # }
 
-function gstreamerAV {
-a1='/home/pi/viamybox/scripts/gstreamerav.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
-echo "О$ нет библиотеки функций $a1" 1>&2 ; exit 1 ; fi
-gstreamfunc
 
-roof="Gstreamer technology records synchronized video and audio stream from a usb camera.`
-`Or recording a simple audio signal.\n
-----------------------------------------------------
-$settingsRecAV
-$settingsRecA
-$strChoiceCard"
-
-i=1
-while [ $i = 1 ]
-do
-clear
-function-roof-menu "$roof"
-#function-roof-menu "$firstMenuStr"
-PS3="Select the menu option for recording video and audio: "
-select timeElapsedMenu in "Camera selection" \
-"Audio record source selection" \
-"Record file rotation time in seconds" \
-"$str1" \
-"$str2" \
-"$str3" \
-"$str4" \
-"Quit"
-#"Recording Screen Resolution" \
- do
- case $timeElapsedMenu in
-	"Camera selection") changeCamera; clear;break
-	;;
-	"Audio record source selection") getGstreamerAudioSource; clear; i=0; gstreamerAV; break
-	;;
-	"Record file rotation time in seconds") rotationFileInSec;clear;break
-	;;
-	"$str1") "$strFunc1";gstreamfunc;clear;break
-	;;
-	"$str2") "$strFunc2";gstreamfunc;clear;break
-	;;
-	"$str3") swichGstreamerRecAVAutoload;clear;i=0;gstreamerAV;break
-	;;
-	"$str4") swichGstreamerRecAAutoload;clear;i=0;gstreamerAV;break
-	;;
- 	# "Recording Screen Resolution") sizeScreen;clear;break
-	# ;;
-	"Quit") clear;i=0;break;
-	;;
-    *) echo "Invalid parameter";
-#            echo "For help, run $ ME -h";
-    exit 1
-    ;;
- esac
- done
- done
-}
 
 
 function mainmenu {
@@ -628,8 +509,7 @@ select firstMenu in "Internet of things (IoT)" \
 "MotionEye" \
 "Home Theatre" \
 "Music" \
-"Settings for recording compressed (time elapsed) video mjpgstreamer" \
-"Settings for recording video and audio gstreamer" \
+"Audio/Video Registration" \
 "Initialization at web-site http://freedns.afraid.org for connecting service agent inadyn" \
 "Automatic launch of service inadyn (dynamic renewal ip for dyndns freedns.afraid.org)" \
 "Change password of web access" \
@@ -659,10 +539,14 @@ select firstMenu in "Internet of things (IoT)" \
 	;;
 	"Music")  music;clear;break
 	;;
-	"Settings for recording compressed (time elapsed) video mjpgstreamer") timeElapsed;clear;break
-	;;
-	"Settings for recording video and audio gstreamer") gstreamerAV;clear;break
-	;;
+  "Audio/Video Registration") {
+    a1='/home/pi/viamybox/scripts/av-registration.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
+		echo "О$ нет библиотеки функций $a1" 1>&2 ; exit 1 ; fi
+		AVFunction
+		clear
+		break
+    }
+  ;;
 	"Initialization at web-site http://freedns.afraid.org for connecting service agent inadyn") writeFreeDNS;clear;break
 	;;
 	"Automatic launch of service inadyn (dynamic renewal ip for dyndns freedns.afraid.org)") autobootInadynService;clear;break
@@ -706,5 +590,9 @@ select firstMenu in "Internet of things (IoT)" \
  done
 done
 }
+# "Settings for recording compressed (time elapsed) video mjpgstreamer") timeElapsed;clear;break
+# ;;
+# "Settings for recording video and audio gstreamer") gstreamerAV;clear;break
+# ;;
 
 mainmenu

@@ -477,3 +477,19 @@ function waitWhenPIDstop() {
         [[ $watchdog -eq 50 ]] && return
     done
 }
+
+function checkPackagesInstalled() {
+# apt list libgstreamer* --installed | grep -qE "(installed|upgradeable)"
+local packages=$1
+# Iterate the string variable using for loop
+for val in $packages; do
+	# echo $val
+	# apt -qq $val  2>/dev/null | grep -qE "(installed|upgradeable)" || echo "$val Not installed"
+	if [ $(dpkg-query -W -f='${Status}' $val 2>/dev/null | grep -c "ok installed") -eq 0 ];then
+			echo 'no'
+			# read aaa
+			return 1
+		fi
+	# dpkg-query -W -f='${Status}' gstreamer1.0-omx 2>/dev/null | grep -c "ok installed" || echo "$val Not installed"
+done
+}

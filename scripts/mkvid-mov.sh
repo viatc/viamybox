@@ -4,16 +4,16 @@
 ## it under the terms of the GNU General Public License as published by
 ## the Free Software Foundation, either version 3 of the License, or
 ## any later version.
-##																			
+##
 ## ViaMyBox software is distributed in the hope that it will be useful,
 ## but WITHOUT ANY WARRANTY; without even the implied warranty of
 ## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ## GNU General Public License for more details.
-##                                                                       
+##
 ## You should have received a copy of the GNU General Public License
 ## along with ViaMyBox in /home/pi/COPIYNG file.
 ## If not, see <https://www.gnu.org/licenses/>.
-##                                               
+##
 #make time elapsed video
 #remove video and audio according to NumberOfSavedHours
 #filename=$(date --rfc-3339=date)
@@ -26,10 +26,11 @@ saveDir=$(grep $VAR $FILE|awk '{print $2}')
 StoreFoto="$saveDir/foto"
 StoreVideo="$saveDir/video"
 StoreAudio="$saveDir/audio"
+VIADIR="/home/pi/viamybox"
 
 
-a1='/usr/bin/via-mybox-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
-echo "$0 нет библиотеки функций $a1" 1>&2 ; exit 1 ; fi
+a1='/home/pi/viamybox/scripts/via-mybox-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
+echo "О$ нет библиотеки функций $a1" 1>&2 ; exit 1 ; fi
 
 function setTimestampCreateAVI() {
 filename="snapshots-video_$(date '+%d-%m-%y_%HH-%MM')"
@@ -52,13 +53,13 @@ done
 FILE="/home/pi/viamybox/conffiles/via.conf"
 VAR="startFfmpegFromSnapshots"
 PARAM=" yes"
-CheckParamInFile "$VAR" "$FILE" "$PARAM" result 
-if [ $result = 'Y' ] ;then 
+CheckParamInFile "$VAR" "$FILE" "$PARAM" result
+if [ $result = 'Y' ] ;then
 cat $StoreFoto/$foldername/*.jpg | ffmpeg -f image2pipe -r 10 -vcodec mjpeg -i - -vcodec libx264 $StoreVideo/$filename.mp4 > /dev/null 2>&1
 fi
 }
 setTimestampCreateAVI
-if [ $(date '+%d-%m-%y_%HH') != $foldername ]; then 
+if [ $(date '+%d-%m-%y_%HH') != $foldername ]; then
   if [ $(ps aux | grep snapshotmjpg.sh  | wc -l) -lt 2 ]; then
     if [ $(ps aux | grep mov.py  | wc -l) -lt 2 ]; then setTimestampCreateAVI;fi
   fi
