@@ -31,7 +31,7 @@
 //#define HEIGHT 720
 #define FPS 5
 #define TARGET_BITRATE 400000
-#define AUDIOSOURCE "plughw:1,0"
+#define AUDIOSOURCE "plughw:2,0"
 
 //для logitech c910 video/x-h264 5fps
 //чистый звук и картинка

@@ -28,7 +28,7 @@
 //time in seconds of file switching duration
 #define FILE_DURATION 3600
 #define FRAMERATE "5/1"
-#define AUDIOSOURCE "plughw:1,0"
+#define AUDIOSOURCE "plughw:2,0"
 
 //запись с переключением файлов
 

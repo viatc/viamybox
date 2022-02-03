@@ -13,6 +13,14 @@ else {
 // if ($retval == 151) {
 	// print "Process via_rec_audio_start.sh is already running";
 // }
-
+// var_dump(http_response_code(157));
+// $a = http_response_code();
+// $b = http_response_code(202);
+// return $b;
+// $c = http_response_code();
+// http_response_code(202);
+// var_dump($b);
+// header('Status: 404', TRUE, 404);
+// exit (156);
 ?>
 
