@@ -8,8 +8,8 @@
 	## You should have received a copy of the GNU General Public License
     ## along with ViaMyBox in /home/pi/COPIYNG file.
 	## If not, see <https://www.gnu.org/licenses/>.
-	##  
-	
+	##
+
 VIADIR="/home/pi/viamybox"
 AUTOSTARTFILE="/etc/xdg/lxsession/LXDE-pi/autostart"
 CONFFILE="/home/pi/viamybox/conffiles/via.conf"
@@ -61,6 +61,26 @@ mpc stop
 
 function addKodi
 {
+	PS3="
+	Choose item how to enable Kodi : "
+	select enableKodiMenu in "Enable at startup through LXDE Desktop" \
+	"Enable at startup through Console autologin"
+	 do
+	 case $enableKodiMenu in
+	"Enable at startup through LXDE Desktop") enableKodiLXDE;clear;kodifunc;break
+		;;
+	"Enable at startup through Console autologin") enableKodiConsole;clear;kodifunc;break;
+		;;
+	 *) echo "Invalid parameter";
+	#            echo "For help, run $ ME -h";
+	    exit 1
+	 ;;
+	 esac
+	 done
+ }
+
+function enableKodiLXDE
+{
 AddString="#Via-settings"
 CheckStrInFile $AddString $AUTOSTARTFILE result
 if [[ $result = 'N' ]]
@@ -83,11 +103,23 @@ if [ -e /lib/systemd/system/kiosk.service ]; then systemctl disable kiosk;fi
 
 }
 
+function enableKodiConsole {
+	cp $VIADIR/conffiles/kodi.service /etc/systemd/system
+	systemctl daemon-reload
+	systemctl enable kodi.service
+}
+
 function removeKodi
 {
-file="via.test"
-str="@kodi"
-deleteStr $AUTOSTARTFILE
+# file="via.test"
+if [ -e /etc/systemd/system/kodi.service ]; then
+	systemctl disable kodi.service
+	rm /etc/systemd/system/kodi.service
+else
+	str="@kodi"
+	deleteStr $AUTOSTARTFILE
+fi
+
 }
 
 
@@ -163,6 +195,16 @@ function removeKiosk {
 systemctl disable kiosk
 }
 
+function installKodi {
+	EchoLine="
+	Would you like to install Home Theatre Kodi?"
+	export EchoLine
+	SubmitYN result
+	 if [[ $result = 'N' ]]; then return 0;fi
+	 	sudo apt-get install kodi kodi-pvr-iptvsimple -y
+	 read -n 1 -s -r -p "Press any key to continue"
+}
+
 
 function kodifunc
 {
@@ -171,21 +213,39 @@ AddString="@kodi"
 file="/etc/xdg/lxsession/LXDE-pi/autostart"
 CheckStrInFile $AddString $AUTOSTARTFILE result
 
-if [[ -e  /etc/systemd/system/graphical.target.wants/kiosk.service ]]; then 
+if [[ -e  /etc/systemd/system/graphical.target.wants/kiosk.service ]]; then
 	settings2="☑ Kiosk enabled at startup"
 else
 	settings2="☐ Kiosk enabled at startup"
 fi
 
-if [[ $result = 'N' ]]; then
-	str1="Run Kodi at startup "
-	settings="☐ Kodi enabled at startup"
-	strFunc="addKodi"
-else
+
+if [[ $result = 'Y' ]] || [[ -e /etc/systemd/system/kodi.service ]]; then
 	str1="Disable Kodi at startup "
 	strFunc="removeKodi"
 	settings="☑ Kodi enabled at startup"
+else
+	str1="Run Kodi at startup "
+	settings="☐ Kodi enabled at startup"
+	strFunc="addKodi"
 fi
+
+# if [ -e /etc/systemd/system/kodi.service ];then
+	# str1="Disable Kodi at startup "
+	# strFunc="removeKodi"
+	# settings="☑ Kodi enabled at startup"
+# else
+	# fi
+
+packages="kodi kodi-pvr-iptvsimple"
+checkPackagesInstalled "$packages"
+
+if [  $? = 1 ];then
+	str1="Install Kodi"
+	settings="☐ Kodi enabled at startup"
+	strFunc="installKodi"
+fi
+
 kodimenu
 
 }
@@ -344,7 +404,7 @@ CheckStrInFile $AddString $CONFFILE result
 if [[ $result = 'N' ]]
 	then
 	AddStrAfterStrInFile "$CONFFILE" "$AfterStr" "$AddString"
-else 
+else
 	if [[ $(sed -n '/#kiosk sites/,/#/ p' $VIADIR/conffiles/via.conf |grep -c -v "#") -eq 1 ]]; then
 	echo "As a minimum one site should be in the browser bar!!! Press any key";read
 	else
@@ -367,7 +427,7 @@ else
 	settings="☑ Kodi enabled at startup"
 fi
 
-if [[ -e  /etc/systemd/system/graphical.target.wants/kiosk.service ]]; then 
+if [[ -e  /etc/systemd/system/graphical.target.wants/kiosk.service ]]; then
 	settings2="☑ Kiosk enabled at startup"
 	str1="Disable Kiosk chromium mode at startup "
 	strFunc="removeKiosk"

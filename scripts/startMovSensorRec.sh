@@ -4,21 +4,22 @@
 ## it under the terms of the GNU General Public License as published by
 ## the Free Software Foundation, either version 3 of the License, or
 ## any later version.
-##																			
+##
 ## ViaMyBox software is distributed in the hope that it will be useful,
 ## but WITHOUT ANY WARRANTY; without even the implied warranty of
 ## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ## GNU General Public License for more details.
-##                                                                       
+##
 ## You should have received a copy of the GNU General Public License
 ## along with ViaMyBox in /home/pi/COPIYNG file.
 ## If not, see <https://www.gnu.org/licenses/>.
-##                                               
+##
 #make time elapsed video
 #filename=$(date --rfc-3339=date)
 
-a1='/usr/bin/via-mybox-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
-echo " no function library $a1" 1>&2 ; exit 1 ; fi
+
+a1='/home/pi/viamybox/scripts/via-mybox-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
+	echo "О$ нет библиотеки функций $a1" 1>&2 ; exit 1 ; fi
 file="/etc/crontab"
 croncmd="/home/pi/viamybox/scripts/mkvid-mov.sh"
 cronjob="59 *   * * *      $croncmd"
@@ -27,12 +28,12 @@ cronjob="59 *   * * *      $croncmd"
 function startMovSensorRec ()
 {
 ( crontab -l | grep -v -F "$croncmd" ; echo "$cronjob" ) | crontab -
-} 
+}
 
 function stopMovSensorRec ()
 {
 ( crontab -l | grep -v -F "$croncmd" ) | crontab -
-} 
+}
 
 
 case "$1" in
@@ -48,9 +49,9 @@ case "$1" in
   *)
 	echo "Usage: $0 [OPTIONS]
 	OPTIONS
-	-a, --addcronjob 
+	-a, --addcronjob
 		Add job to cron : $cronjob
-	-r, --rmcronjob 
+	-r, --rmcronjob
 		Remove job to cron : $cronjob" >&2
 	;;
 esac

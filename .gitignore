@@ -1,0 +1,6 @@
+temp/
+conffiles/271120via.conf
+conffiles/281120viamyboxd
+scripts/gstreamer-record/261120via-rec-av-c270.c
+scripts/gstreamer-record/avconv-video-sound-test.sh
+scripts/*test*.*
