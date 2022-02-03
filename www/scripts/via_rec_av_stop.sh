@@ -14,7 +14,7 @@
 
 StoreVideo="/home/pi/camera/video"
 # via_rec_av_exec="via-rec-av-c270"
-EXECFILE="/sbin/via-rec-av-c270"
+EXECFILE="/sbin/via-rec-av-c910-2"
 
 #recording video in mkv via gstreamer via-rec-audio.c
 # wait_param=$(echo "scale=4;0.04" | bc)

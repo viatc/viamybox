@@ -15,7 +15,7 @@
 VIADIR="/home/pi/viamybox"
 FILECONF="/home/pi/viamybox/conffiles/via.conf"
 StoreAudio="/home/pi/camera/video"
-EXECFILE="/sbin/via-rec-av-c270"
+EXECFILE="/sbin/via-rec-av-c910-2"
 # via_rec_av_exec="via-rec-av-c270"
 #recording video in mkv via gstreamer via-rec-audio.c
 # wait_param=$(echo "scale=4;0.04" | bc)
