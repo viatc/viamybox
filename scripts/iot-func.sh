@@ -14,39 +14,41 @@ VIADIR="/home/pi/viamybox"
 
 function installfunc {
 
-EchoLine="A \"Home Assistant\" instance will need a \"network manager\" \"awahi-daemon\" packages. `
-`And therefore, we need to delete your current network instance:\"openresolv dhcpcd5\".
-Warning !!! All network connections can be lost!!!
-This script will be run in terminal, not in ssh session. You will need to manually reconfigure your network connection after installation.
-	Proceed?"
-
-if [ $(dpkg-query -W -f='${Status}' network-manager 2>/dev/null | grep -c "ok installed") -eq 0 ];then
-	export EchoLine
-	SubmitYN result
-	if [[ $result = 'N' ]]; then return 0;fi
-	apt-get install avahi-daemon network-manager network-manager-gnome
-	apt purge openresolv dhcpcd5
-
-	EchoLine="Please set network settings through the network-manager tool \"nmtui\"
-	Proceed?"
-	export EchoLine
-	SubmitYN result
-	if [[ $result = 'Y' ]]; then nmtui;fi
-
-	EchoLine="Restart your system and run this installation of \"Home Assistant\" again.
-	Reboot now?"
-	echo #EchoLine
-	SubmitYN result
-	if [[ $result = 'N' ]]; then return 0;fi
-	reboot now
-fi
-
-apt-get install apparmor-utils apt-transport-https ca-certificates curl dbus jq socat software-properties-common
+# EchoLine="A \"Home Assistant\" instance will need a \"network manager\" \"awahi-daemon\" packages. `
+# `And therefore, we need to delete your current network instance:\"openresolv dhcpcd5\".
+# Warning !!! All network connections can be lost!!!
+# This script will be run in terminal, not in ssh session. You will need to manually reconfigure your network connection after installation.
+# 	Proceed?"
+#
+# if [ $(dpkg-query -W -f='${Status}' network-manager 2>/dev/null | grep -c "ok installed") -eq 0 ];then
+# 	export EchoLine
+# 	SubmitYN result
+# 	if [[ $result = 'N' ]]; then return 0;fi
+# 	apt-get install avahi-daemon network-manager network-manager-gnome
+# 	apt purge openresolv dhcpcd5
+#
+# 	EchoLine="Please set network settings through the network-manager tool \"nmtui\"
+# 	Proceed?"
+# 	export EchoLine
+# 	SubmitYN result
+# 	if [[ $result = 'Y' ]]; then nmtui;fi
+#
+# 	EchoLine="Restart your system and run this installation of \"Home Assistant\" again.
+# 	Reboot now?"
+# 	echo #EchoLine
+# 	SubmitYN result
+# 	if [[ $result = 'N' ]]; then return 0;fi
+# 	reboot now
+# fi
+#
+# apt-get install apparmor-utils apt-transport-https ca-certificates curl dbus jq socat software-properties-common
 
 if [ $(dpkg-query -W -f='${Status}' docker-ce 2>/dev/null | grep -c "ok installed") -eq 0 ];then
 	curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh
 	usermod -aG docker pi
 fi
+sleep 5
+# service docker start
 
 EchoLine="Would you like to install any docker images and containers Home Assistant?"
 export EchoLine
@@ -86,7 +88,7 @@ else
   --name homeassistant \
   --privileged \
   --restart=unless-stopped \
-  -e TZ=MY_TIME_ZONE \
+  -e TZ=$MY_TIME_ZONE \
   -v $PATH_TO_YOUR_CONFIG:/config \
   --network=host \
   ghcr.io/home-assistant/raspberrypi3-homeassistant:stable
