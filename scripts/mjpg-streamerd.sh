@@ -10,9 +10,12 @@
 # Description:       Streams /dev/video0 to http://IP/?action=stream
 ### END INIT INFO
 
+VIADIR="/home/pi/viamybox"
 DAEMON_DIR="/var/run/viamybox"
-MJPG_STREAMER_BIN="/usr/local/bin/mjpg_streamer"  # "$(dirname $0)/mjpg_streamer"
-MJPG_STREAMER_WWW="/usr/local/share/mjpg-streamer/www"
+MJPG_STREAMER_BIN="$VIADIR/conffiles/mjpg-streamer/mjpg-streamer-experimental/mjpg_streamer"  # "$(dirname $0)/mjpg_streamer"
+# MJPG_STREAMER_BIN="/usr/local/bin/mjpg_streamer"  # "$(dirname $0)/mjpg_streamer"
+MJPG_STREAMER_WWW="$VIADIR/conffiles/mjpg-streamer/mjpg-streamer-experimental/www/"
+# MJPG_STREAMER_WWW="/usr/local/share/mjpg-streamer/www"
 # MJPG_STREAMER_LOG_FILE="${0%.*}.log"  # "$(dirname $0)/mjpg-streamer.log"
 MJPG_STREAMER_LOG_FILE="mjpg-streamer.log"  #mjpg-streamer.log"
 RUNNING_CHECK_INTERVAL="2" # how often to check to make sure the server is running (in seconds)
@@ -161,7 +164,7 @@ case "$1" in
                 ;;
         *)
                 help
-                exit -1 
+                exit -1
                 ;;
 esac
 exit 0
