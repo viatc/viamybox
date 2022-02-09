@@ -25,16 +25,18 @@ function AVInstall ()
   EchoLine="
 Would you like to install ViaMyBox Audio/Video Registration package and:
 
-fswebcam build-essential libjpeg8-dev imagemagick libv4l-dev cmake ffmpeg
-libv4l-dev build-essential libjpeg8-dev libpng12-dev imagemagick libv4l-dev cmake git lockfile-progs \
-streamer1.0-tools gstreamer1.0-plugins-* x264 gstreamer1.0-omx gstreamer1.0-alsa libgstreamer1.0-* gstreamer1.0-pulseaudio?"
+php7.4-fpm fswebcam build-essential libjpeg9-dev  imagemagick libv4l-dev cmake ffmpeg
+libv4l-dev build-essential libpng-dev imagemagick libv4l-dev cmake git lockfile-progs apache2-utils\
+gstreamer1.0-tools gstreamer1.0-plugins-* x264 gstreamer1.0-omx gstreamer1.0-alsa libgstreamer1.0-* \
+apache2-utils gstreamer1.0-pulseaudio libjpeg-dev?"
   export EchoLine
   SubmitYN result
+  # apt-get install fswebcam build-essential libjpeg9-dev libjpeg62-turbo-dev libjpeg8-dev imagemagick libv4l-dev cmake ffmpeg	\
    if [[ $result = 'N' ]]; then return 0;fi
-  apt-get install fswebcam build-essential libjpeg8-dev imagemagick libv4l-dev cmake ffmpeg	\
-  libv4l-dev build-essential libjpeg8-dev libpng12-dev imagemagick libv4l-dev cmake git lockfile-progs \
-  streamer1.0-tools gstreamer1.0-plugins-* x264 gstreamer1.0-omx gstreamer1.0-alsa libgstreamer1.0-* gstreamer1.0-pulseaudio \
-  -y
+   apt-get install  php7.4-fpm fswebcam build-essential libjpeg9-dev  imagemagick libv4l-dev cmake ffmpeg	\
+   libv4l-dev build-essential libpng-dev imagemagick libv4l-dev cmake git lockfile-progs apache2-utils \
+   gstreamer1.0-tools gstreamer1.0-plugins-* x264 gstreamer1.0-omx gstreamer1.0-alsa libgstreamer1.0-* \
+   gstreamer1.0-pulseaudio -y
   #global
   ln -s $VIADIR/scripts/via-mybox-func.sh /usr/bin/
   ln -s $VIADIR/scripts/via-setup.sh /usr/bin/via-setup.sh
@@ -332,7 +334,11 @@ function installMJPGStreamer
 	SubmitYN result
 	if [[ $result = 'N' ]]; then return 0;fi
 	#mjpg-streamer
+  apt install cmake -y
 	cd $VIADIR/conffiles/mjpg-streamer/mjpg-streamer-experimental
+  if [ ! -d "$VIADIR/conffiles/mjpg-streamer/mjpg-streamer-experimental/_build" ];then
+    make distclean
+  fi
 	make
 	make install
 	cp $VIADIR/scripts/mjpg-streamerd.sh /etc/init.d/
@@ -432,25 +438,30 @@ function MJPGMenuInstall
 }
 
 function AVFunction(){
+  # packages="
+  # fswebcam build-essential libjpeg8-dev imagemagick libv4l-dev cmake ffmpeg	\
+  # libv4l-dev build-essential libjpeg8-dev libpng12-dev imagemagick libv4l-dev cmake git lockfile-progs \
+  # gstreamer1.0-tools x264 gstreamer1.0-omx gstreamer1.0-alsa gstreamer1.0-pulseaudio \
+  # gstreamer1.0-plugins-bad-dbg
+  # gstreamer1.0-plugins-bad-doc
+  # gstreamer1.0-plugins-bad
+  # gstreamer1.0-plugins-base-apps
+  # gstreamer1.0-plugins-base-dbg
+  # gstreamer1.0-plugins-base-doc
+  # gstreamer1.0-plugins-base
+  # gstreamer1.0-plugins-good-dbg
+  # gstreamer1.0-plugins-good-doc
+  # gstreamer1.0-plugins-good
+  # gstreamer1.0-plugins-rtp
+  # gstreamer1.0-plugins-ugly-dbg
+  # gstreamer1.0-plugins-ugly-doc
+  # gstreamer1.0-plugins-ugly
+  # libgstreamer1.0-0"
   packages="
-  fswebcam build-essential libjpeg8-dev imagemagick libv4l-dev cmake ffmpeg	\
-  libv4l-dev build-essential libjpeg8-dev libpng12-dev imagemagick libv4l-dev cmake git lockfile-progs \
-  gstreamer1.0-tools x264 gstreamer1.0-omx gstreamer1.0-alsa gstreamer1.0-pulseaudio \
-  gstreamer1.0-plugins-bad-dbg
-  gstreamer1.0-plugins-bad-doc
-  gstreamer1.0-plugins-bad
-  gstreamer1.0-plugins-base-apps
-  gstreamer1.0-plugins-base-dbg
-  gstreamer1.0-plugins-base-doc
-  gstreamer1.0-plugins-base
-  gstreamer1.0-plugins-good-dbg
-  gstreamer1.0-plugins-good-doc
-  gstreamer1.0-plugins-good
-  gstreamer1.0-plugins-rtp
-  gstreamer1.0-plugins-ugly-dbg
-  gstreamer1.0-plugins-ugly-doc
-  gstreamer1.0-plugins-ugly
-  libgstreamer1.0-0"
+   php7.4-fpm fswebcam build-essential libjpeg9-dev  imagemagick libv4l-dev cmake ffmpeg	\
+  libv4l-dev build-essential libpng-dev imagemagick libv4l-dev cmake git lockfile-progs apache2-utils \
+  gstreamer1.0-tools gstreamer1.0-plugins-* x264 gstreamer1.0-omx gstreamer1.0-alsa libgstreamer1.0-* \
+  gstreamer1.0-pulseaudio"
   checkPackagesInstalled "$packages"
   # if [  $? = 1 ];then
   # if [ ! -d "/home/pi/camera" ];then

@@ -15,7 +15,7 @@
 sudo apt-get install fswebcam nmon build-essential libjpeg8-dev imagemagick libv4l-dev cmake git ffmpeg	\
 python-pip vlc fswebcam nmon libv4l-dev build-essential libjpeg8-dev libpng12-dev imagemagick libv4l-dev cmake git lockfile-progs \
 gstreamer1.0-tools gstreamer1.0-plugins-* x264 gstreamer1.0-omx gstreamer1.0-alsa libgstreamer1.0-* gstreamer1.0-pulseaudio \
-nginx apache2-utils php7.3-fpm davfs2 python-dbus -y
+nginx apache2-utils php7.4-fpm davfs2 python-dbus -y
 
 #kodi kodi-pvr-iptvsimple
 sudo apt-get install kodi kodi-pvr-iptvsimple -y

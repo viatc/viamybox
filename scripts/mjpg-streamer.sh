@@ -3,7 +3,9 @@
 # Crontab: @reboot /home/pi/mjpg-streamer/mjpg-streamer.sh start
 # Crontab: @reboot /home/pi/mjpg-streamer/mjpg-streamer-experimental/mjpg-streamer.sh start
 
-MJPG_STREAMER_BIN="/usr/local/bin/mjpg_streamer"  # "$(dirname $0)/mjpg_streamer"
+MJPG_STREAMER_BIN="$VIADIR/conffiles/mjpg-streamer/mjpg-streamer-experimental/mjpg_streamer"  # "$(dirname $0)/mjpg_streamer"
+# MJPG_STREAMER_BIN="/usr/local/bin/mjpg_streamer"  # "$(dirname $0)/mjpg_streamer"
+# MJPG_STREAMER_WWW="$VIADIR/conffiles/mjpg-streamer/mjpg-streamer-experimental/www/"
 MJPG_STREAMER_WWW="/usr/local/share/mjpg-streamer/www"
 MJPG_STREAMER_LOG_FILE="${0%.*}.log"  # "$(dirname $0)/mjpg-streamer.log"
 RUNNING_CHECK_INTERVAL="2" # how often to check to make sure the server is running (in seconds)

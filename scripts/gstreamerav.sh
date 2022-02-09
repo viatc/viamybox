@@ -8,8 +8,8 @@
 	## You should have received a copy of the GNU General Public License
     ## along with ViaMyBox in /home/pi/COPIYNG file.
 	## If not, see <https://www.gnu.org/licenses/>.
-	##  
-	
+	##
+
 VIADIR="/home/pi/viamybox"
 EXECFILE="/sbin/via-rec-av-c270"
 FILECONF="/home/pi/viamybox/conffiles/via.conf"
@@ -110,9 +110,9 @@ function checkMutuallyProcessesA {
 
 VAR="GstreamerRecAV"
 statusConfirm="YES"
-CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result 
-if [ $result = 'Y' ] ;then 
-	echo "Attention!!!  Starting Audio/Video Recording with Gstreamer, when system start wil be deactivating. Mutually exclusive modes." 
+CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result
+if [ $result = 'Y' ] ;then
+	echo "Attention!!!  Starting Audio/Video Recording with Gstreamer, when system start wil be deactivating. Mutually exclusive modes."
 	EchoLine="Confirm Deactivation?"
 	export EchoLine
 	SubmitYN result
@@ -126,8 +126,8 @@ fi
 
 function checkSoundUsbCameraIsBusy {
 numCaptureDevice=$(grep "audioCaptureDevice" $FILECONF |awk '{print $2}')
-arecord --device plughw:"$numCaptureDevice",0 -s 1 /dev/null 
-if [ $? -eq 1 ]; then 
+arecord --device plughw:"$numCaptureDevice",0 -s 1 /dev/null
+if [ $? -eq 1 ]; then
 	echo "USB camera sound IS BUSY. Reload usb devices..."
 	$VIADIR/scripts/resetusb
 fi
@@ -135,10 +135,10 @@ fi
 
 function checkMutuallyProcessesAV {
 VAR="snapshotmjpg.sh"
-CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result 
+CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result
 
 statusConfirm="YES"
-if [ $result = 'Y' ] ;then 
+if [ $result = 'Y' ] ;then
 	echo "Attention!!!  Starting snapshots recording when system start wil be deactivating. Mutually exclusive modes."
 	EchoLine="Confirm Deactivation?"
 	export EchoLine
@@ -148,12 +148,12 @@ if [ $result = 'Y' ] ;then
 		else statusConfirm="NO";return 0
 		fi
 	fi
-	
-VAR="mjpg-streamer-rec-video.sh"
-CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result 
 
-if [ $result = 'Y' ] ;then 
-	echo "Attention!!!  Starting video ffmpeg recording when system start wil be deactivating. Mutually exclusive modes." 
+VAR="mjpg-streamer-rec-video.sh"
+CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result
+
+if [ $result = 'Y' ] ;then
+	echo "Attention!!!  Starting video ffmpeg recording when system start wil be deactivating. Mutually exclusive modes."
 	EchoLine="Confirm Deactivation?"
 	export EchoLine
 	SubmitYN result
@@ -164,10 +164,10 @@ if [ $result = 'Y' ] ;then
 	fi
 
 VAR="MJPGStreamer"
-CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result 
+CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result
 
-if [ $result = 'Y' ] ;then 
-	echo "Attention!!!  Starting mjpg-streamer when system start wil be deactivating. Mutually exclusive modes." 
+if [ $result = 'Y' ] ;then
+	echo "Attention!!!  Starting mjpg-streamer when system start wil be deactivating. Mutually exclusive modes."
 	EchoLine="Confirm Deactivation?"
 	export EchoLine
 	SubmitYN result
@@ -195,7 +195,7 @@ if [[ $statusConfirm = 'Yes' ]];then
 	ret=$(ps aux | grep mjpg_streamer | wc -l)
 	if [ "$ret" -gt 1 ]
 		then
-		echo "mjpg starting" #output text
+		echo "mjpg will be stopped..." #output text
 		service mjpg-streamerd stop
 	fi
 
@@ -249,13 +249,13 @@ function swichGstreamerRecAVAutoload
 VAR="GstreamerRecAV"
 CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result
 
-if [ $result = 'Y' ] ;then 
+if [ $result = 'Y' ] ;then
 	PARAM2="noautoload"
 	FirstSubstInFile2 $FILECONF $VAR $PARAM2
- else 
+ else
 	checkMutuallyProcessesAV
 
-	if [ $statusConfirm = "YES" ];then 
+	if [ $statusConfirm = "YES" ];then
 		VAR="GstreamerRecAV"
 		FirstSubstInFile2 $FILECONF $VAR $PARAM
 		VAR="GstreamerRecAudio"
@@ -270,9 +270,9 @@ function swichGstreamerRecAAutoload
 VAR="GstreamerRecAudio"
 CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result
 
-if [ $result = 'Y' ] ;then 
+if [ $result = 'Y' ] ;then
 	FirstSubstInFile2 $FILECONF $VAR $PARAM2
- else 
+ else
 		VAR="GstreamerRecAudio"
 		FirstSubstInFile2 $FILECONF $VAR $PARAM
 		VAR="GstreamerRecAV"
@@ -289,10 +289,10 @@ ret=$(ps aux | grep $proc  | wc -l)
 echo "$ret"
 
 if [ "$ret" -eq 1 ]
-then 
+then
 	str1="Start Recording Audio/Video"
 	strFunc1="startGstrmAV"
-else 
+else
 	str1="Stop Recording Audio/Video"
 	strFunc1="stopGstrmAV"
 fi
@@ -300,31 +300,31 @@ fi
 ret=$(ps aux | grep via-rec-audio  | wc -l)
 # echo "$ret"
 if [ "$ret" -gt 1 ]
-then 
+then
 	str2="Stop Recording Audio"
 	strFunc2="stopGstrmA"
-else 
+else
 	str2="Start Recording Audio"
 	strFunc2="startGstrmA"
 fi
 
 VAR="GstreamerRecAV"
-CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result 
-if [ $result = 'Y' ] ;then 
+CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result
+if [ $result = 'Y' ] ;then
 	settingsRecAV="☑ Recording Gstreamer Audio/Video enabled at startup"
 	str3="Disable Recording Audio/Video at startup"
- else 
+ else
 	settingsRecAV="☐ Recording Gstreamer Audio/Video enabled at startup"
 	str3="Enable Recording Audio/Video at startup"
 fi
 
 
 VAR="GstreamerRecAudio"
-CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result 
-if [ $result = 'Y' ] ;then 
+CheckParamInFile "$VAR" "$FILECONF" "$PARAM" result
+if [ $result = 'Y' ] ;then
 	settingsRecA="☑ Recording Gstreamer Audio enabled at startup"
 	str4="Disable Recording Sound at startup"
- else 
+ else
 	settingsRecA="☐ Recording Gstreamer Audio enabled at startup"
 	str4="Enable Recording Sound at startup"
 fi
@@ -334,7 +334,7 @@ strChoiceCard=$(awk '/^audioCaptureDevice/ {print $0 }' $FILECONF|sed "s/audioCa
 strChoiceCard="_no_spread_Captured audio card :"$strChoiceCard
 }
 
-if [ -n $1  ]; then 
+if [ -n $1  ]; then
 
 a1='/home/pi/viamybox/scripts/via-mybox-func.sh' ; source "$a1" ; if [ $? -ne 0 ] ; then
 echo "no function library $a1" 1>&2 ; exit 1 ; fi
@@ -352,13 +352,11 @@ case "$1" in
 	*)
 	# echo "Usage: $0 [OPTIONS]
 	# OPTIONS
-	# -sav, --startGstrmAV 
-		# Start Gstreamer Recording Audio/Video form USB Camera 
-	# -sa, --startGstrmA 
+	# -sav, --startGstrmAV
+		# Start Gstreamer Recording Audio/Video form USB Camera
+	# -sa, --startGstrmA
 		# Start Gstreamer Recording Audio form USB Camera " >&2
 	;;
 esac
 
 fi
-
-
