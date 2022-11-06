@@ -123,7 +123,7 @@ fi
 }
 
 
-function kodimenu {
+function kodiInstallMenu {
 i2=1
 while [ $i2 = 1 ]
 do
@@ -140,6 +140,37 @@ select bellMenu in "$str1" \
  do
  case $bellMenu in
 	"$str1") $strFunc; clear;kodifunc;break
+	;;
+	"Quit") clear;i2=0;break;
+	;;
+    *) echo "Invalid parameter";
+#            echo "For help, run $ ME -h";
+    exit 1
+    ;;
+ esac
+ done
+ done
+}
+
+function kodiUninstallMenu {
+i2=1
+while [ $i2 = 1 ]
+do
+clear
+roof="This is autoload settings for Home Theatre Kodi in your Raspberry Pi. \n`
+`
+$settings
+$settings2"
+function-roof-menu "$roof"
+PS3="
+Choose paragraph of Kodi settings menu : "
+select bellMenu in "$str1" "$str2" \
+"Quit"
+ do
+ case $bellMenu in
+	"$str1") $strFunc; clear;kodifunc;break
+	;;	
+	"$str2") $str2Func; clear;kodifunc;break
 	;;
 	"Quit") clear;i2=0;break;
 	;;
@@ -205,6 +236,17 @@ function installKodi {
 	 read -n 1 -s -r -p "Press any key to continue"
 }
 
+function uninstallKodi {
+	EchoLine="
+	Would you like to uninstall Home Theatre Kodi?"
+	export EchoLine
+	SubmitYN result
+	removeKodi
+	 if [[ $result = 'N' ]]; then return 0;fi
+	 	sudo apt-get purge kodi kodi-pvr-iptvsimple -y
+	 read -n 1 -s -r -p "Press any key to continue"
+}
+
 
 function kodifunc
 {
@@ -244,11 +286,16 @@ if [  $? = 1 ];then
 	str1="Install Kodi"
 	settings="☐ Kodi enabled at startup"
 	strFunc="installKodi"
+	kodiInstallMenu
+else
+	str2="Uninstall Kodi"
+	str2Func="uninstallKodi"
+	kodiUninstallMenu
 fi
 
-kodimenu
 
 }
+
 
 function opensitesmenu {
 i2=1
